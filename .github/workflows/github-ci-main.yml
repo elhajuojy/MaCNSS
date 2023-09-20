@@ -1,0 +1,31 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - main  # Replace with your default branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'  # Specify Java 17
+
+      - name: Build with Maven
+        run: mvn clean install  # Modify this command based on your project structure
+
+      - name: Run tests
+        run: mvn test  # Modify this command based on your testing framework
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-application
+          path: target/  # Modify this path to match your project's output
