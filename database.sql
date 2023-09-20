@@ -1,0 +1,8 @@
+-- patient
+-- dossier
+-- agent
+-- medicine
+-- reimbursement
+-- visit
+-- radio
+-- analysis
