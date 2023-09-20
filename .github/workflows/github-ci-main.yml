@@ -16,7 +16,15 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '17'  # Specify Java 17
+          java-version: 17
+          distribution: 'adopt'  # Specify the distribution (e.g., adopt, adopt-openj9, openjdk)
+          architecture: x64
+          check-latest: false
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          overwrite-settings: true
+          job-status: success
 
       - name: Build with Maven
         run: mvn clean install  # Modify this command based on your project structure
