@@ -14,7 +14,7 @@ public class Application {
             do {
                 //todo: add the other use cases
                 Print.log("=== OPERATION  ===");
-            }while (true);
+            }while (false);
         } catch(Exception e){
             Print.log(e.toString());
         }
