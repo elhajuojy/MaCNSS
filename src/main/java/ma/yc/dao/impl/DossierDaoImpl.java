@@ -8,6 +8,7 @@ public class DossierDaoImpl implements DossierDao {
 
     //Dossier uses the DossierEntity class which means
     // all subclass which inside the DossierEntity class
+    //todo : the DossierDaoImpl uses the DossierEntity class
     @Override
     public boolean enregistrerDossier() {
         return false;
@@ -30,11 +31,6 @@ public class DossierDaoImpl implements DossierDao {
 
     @Override
     public List<String> consulterDossiers() {
-        return null;
-    }
-
-    @Override
-    public List<String> consulterDossierMatricule() {
         return null;
     }
 

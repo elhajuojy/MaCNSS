@@ -1,5 +1,6 @@
 package ma.yc.service.impl;
 
+import ma.yc.Mapper.impl.UserMapper;
 import ma.yc.dao.AdministateurDao;
 import ma.yc.Mapper.Mapper;
 import ma.yc.dto.UserDto;
@@ -14,7 +15,7 @@ public class AdminServiceImpl implements AdminService {
     public AdminServiceImpl() {
         //:TODO injecter l'implémentation de AdministateurDao
         this.administateurDao = null ;
-        this.mapper = null;
+        this.mapper = new UserMapper();
     }
 
     @Override
@@ -22,6 +23,8 @@ public class AdminServiceImpl implements AdminService {
         //:TODO appeler la méthode authentifier de AdministateurDao
         //here you can map the userDto to the entity
         //then call the dao
+
+
         //  Administateur adminEntity = this.mapper.toEntity();
         // now we have the entity we can call the dao which will call the
         // database with the entity

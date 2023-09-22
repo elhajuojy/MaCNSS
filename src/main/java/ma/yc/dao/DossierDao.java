@@ -9,7 +9,6 @@ public interface DossierDao {
     float totalRemoursement();
     List<String> consulterDossier();
     List<String> consulterDossiers();
-    List<String> consulterDossierMatricule();
     boolean suiviEtatDossier(String statusDossier);
     boolean envoyeEmailChangemenetEtat(String statusDossier);
 

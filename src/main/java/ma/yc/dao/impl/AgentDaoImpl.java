@@ -22,6 +22,11 @@ public class AgentDaoImpl implements AgentDao {
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
     public boolean sendCodeVerificationEmail(String code) {
         return false;
     }
