@@ -5,6 +5,7 @@ public class Scanner {
     private float prix;
 
     private String description;
+    private Dossier dossier;
 
     public long getScannerId() {
         return scannerId;

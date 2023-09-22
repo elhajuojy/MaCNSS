@@ -7,6 +7,7 @@ public class Visite {
     private float prix;
     private stMedecin specialiteMedecin;
     private String description;
+    private Dossier dossier;
 
     public long getVisiteId() {
         return visiteId;

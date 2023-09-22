@@ -5,6 +5,7 @@ public class Radio {
     private float prix;
 
     private String description;
+    private Dossier dossier;
 
     public long getRadioId() {
         return radioId;

@@ -2,6 +2,8 @@ package ma.yc.model;
 
 import ma.yc.enums.statusDossier;
 
+import java.util.List;
+
 public class Dossier {
     private String numDossier;
     private statusDossier status;
@@ -9,12 +11,51 @@ public class Dossier {
     private Remboursement remboursement;
     private Fichier fichier;
 
-    private Medicament medicament;
-    private Analyse analyse;
-    private Scanner scanner;
-    private Radio radio;
-    private Visite visite;
+    private List<Medicament> medicaments;
+    private List<Analyse> analyses;
+    private List<Scanner> scanners;
+    private List<Radio> radios;
+    private List<Visite> visites;
 
+    public List<Medicament> getMedicaments() {
+        return medicaments;
+    }
+
+    public void setMedicaments(List<Medicament> medicaments) {
+        this.medicaments = medicaments;
+    }
+
+    public List<Analyse> getAnalyses() {
+        return analyses;
+    }
+
+    public void setAnalyses(List<Analyse> analyses) {
+        this.analyses = analyses;
+    }
+
+    public List<Scanner> getScanners() {
+        return scanners;
+    }
+
+    public void setScanners(List<Scanner> scanners) {
+        this.scanners = scanners;
+    }
+
+    public List<Radio> getRadios() {
+        return radios;
+    }
+
+    public void setRadios(List<Radio> radios) {
+        this.radios = radios;
+    }
+
+    public List<Visite> getVisites() {
+        return visites;
+    }
+
+    public void setVisites(List<Visite> visites) {
+        this.visites = visites;
+    }
 
     public Fichier getFichier() {
         return fichier;
@@ -24,45 +65,7 @@ public class Dossier {
         this.fichier = fichier;
     }
 
-    public Medicament getMedicament() {
-        return medicament;
-    }
 
-    public void setMedicament(Medicament medicament) {
-        this.medicament = medicament;
-    }
-
-    public Analyse getAnalyse() {
-        return analyse;
-    }
-
-    public void setAnalyse(Analyse analyse) {
-        this.analyse = analyse;
-    }
-
-    public Scanner getScanner() {
-        return scanner;
-    }
-
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
-    public Radio getRadio() {
-        return radio;
-    }
-
-    public void setRadio(Radio radio) {
-        this.radio = radio;
-    }
-
-    public Visite getVisite() {
-        return visite;
-    }
-
-    public void setVisite(Visite visite) {
-        this.visite = visite;
-    }
 
     public Remboursement getRemboursement() {
         return remboursement;

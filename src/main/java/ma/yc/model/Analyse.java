@@ -5,6 +5,7 @@ public class Analyse {
     private float prix;
 
     private String description;
+    private Dossier dossier;
 
     public long getAnalyseId() {
         return AnalyseId;

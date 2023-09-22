@@ -1,12 +1,23 @@
 package ma.yc.model;
 
+import java.util.List;
+
 public class Patient {
     private String matricule;
 
     private String nom;
+    private List<Dossier> dossiers;
 
     public String getMatricule() {
         return matricule;
+    }
+
+    public List<Dossier> getDossiers() {
+        return dossiers;
+    }
+
+    public void setDossiers(List<Dossier> dossiers) {
+        this.dossiers = dossiers;
     }
 
     public void setMatricule(String matricule) {

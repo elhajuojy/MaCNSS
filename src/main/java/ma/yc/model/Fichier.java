@@ -8,6 +8,8 @@ public class Fichier {
     private float totalFraisDossier;
     private String specialite;
 
+    private Dossier dossier;
+
 
     public long getNumeroFicher() {
         return numeroFicher;
