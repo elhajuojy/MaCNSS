@@ -1,10 +1,11 @@
 package ma.yc.dto;
 
-public class UserDto {
+public class AdminDto {
 
     public String email;
     public String password;
-    public UserDto(String email, String password) {
+
+    public AdminDto(String email, String password) {
         this.email = email;
         this.password = password;
     }

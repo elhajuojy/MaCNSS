@@ -1,6 +1,7 @@
 package ma.yc.database;
 
 import ma.yc.core.Print;
+import ma.yc.core.envLoader;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,10 +11,11 @@ public class DatabaseConnection {
 
     private static DatabaseConnection instance;
     private Connection connection;
-    private String url = "jdbc:mysql://localhost:3306/MACNSS";
-    private String username = "root";
-    private String password = "password";
-    private String driver = "com.mysql.cj.jdbc.Driver";
+    private final envLoader envLoader = new envLoader();
+    public String url = envLoader.get("URL");
+    private String username = envLoader.get("");
+    private String password = envLoader.get("");
+    private String driver = envLoader.get("DRIVER");
 
 
     private DatabaseConnection() throws SQLException {
