@@ -3,6 +3,9 @@ package ma.yc.GUI;
 import ma.yc.core.Print;
 import ma.yc.dto.UserDto;
 import ma.yc.service.AdminService;
+import ma.yc.service.AgentService;
+import ma.yc.service.impl.AdminServiceImpl;
+import ma.yc.service.impl.AgentServiceImpl;
 
 import java.util.Scanner;
 
@@ -10,9 +13,14 @@ public class MainAdministeurGUI implements DisplayGUI{
 
 
 
+    //need AgentService which is all agent function stored
+    // in like add agent delete agent and update agent we looked in
     AdminService adminService ;
+    AgentService agentService ;
     boolean isAuthentificated = false;
     public MainAdministeurGUI() {
+        this.agentService = new AgentServiceImpl();
+        this.adminService = new AdminServiceImpl();
     }
 
     public MainAdministeurGUI(AdminService adminService) {
@@ -75,9 +83,66 @@ public class MainAdministeurGUI implements DisplayGUI{
         //there's many options to do
         //Agents management
 
-        Print.log("=== OPERATION  ===");
+        Print.log("=== Gestion des comptes des agents CNSS   ===");
         //if the user want to exit the dashboard then he can do it
-         this.displayMainOptions(scanner);
+        Print.log("1- Add an agent ");
+        Print.log("2- Select All agents ");
+        Print.log("3- Delete an agent ");
+        Print.log("4- Update an agent ");
+        Print.log("5- Go back to the main menu ");
+
+        int choice = scanner.nextInt();
+        switch (choice){
+            case 1:
+                //add an agent
+                //ask about agent information
+                this.addAgent(scanner);
+                break;
+            case 2:
+                //select all agents
+                this.selectAllAgents(scanner);
+                break;
+            case 3:
+                //delete an agent
+                this.deleteAgent(scanner);
+                break;
+            case 4:
+                //update an agent
+                this.updateAgent(scanner);
+                break;
+
+            case 5:
+                //go back to the main menu
+                this.displayMainOptions(scanner);
+                break;
+            default:
+                Print.log("Invalid choice");
+                break;
+        }
+
+
+    }
+
+    private void updateAgent(Scanner scanner) {
+        //todo : ask about the agent information to update
+
+        //todo : setup the information in the agentDto
+
+        //todo : call the service to update the agent
+
+    }
+
+    private void deleteAgent(Scanner scanner) {
+        //ask about the agent email ;
+    }
+
+    private void selectAllAgents(Scanner scanner) {
+        //show all agents
+    }
+
+    private void addAgent(Scanner scanner) {
+        //ask about the agent information
+
     }
 
 }
