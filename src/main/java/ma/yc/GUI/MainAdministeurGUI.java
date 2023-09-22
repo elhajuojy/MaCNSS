@@ -1,6 +1,8 @@
 package ma.yc.GUI;
 
 import ma.yc.core.Print;
+import ma.yc.core.Util;
+import ma.yc.dto.AgentDto;
 import ma.yc.dto.UserDto;
 import ma.yc.service.AdminService;
 import ma.yc.service.AgentService;
@@ -23,9 +25,7 @@ public class MainAdministeurGUI implements DisplayGUI{
         this.adminService = new AdminServiceImpl();
     }
 
-    public MainAdministeurGUI(AdminService adminService) {
-        this.adminService = adminService;
-    }
+
 
     @Override
     public int displayMainOptions(Scanner scanner) {
@@ -42,32 +42,31 @@ public class MainAdministeurGUI implements DisplayGUI{
         int choice = scanner.nextInt();
         switch (choice){
             case 1:
-                //authentification
-                // ask the user about his information email and password
-                // then call the service to authentificate the user
-                String email = "";
-                String password = "";
+                //authentication: Admin need to be authenticated before he can do anything
+                String email;
+                String password ;
                 Print.log("Email : ");
-                email = scanner.next();
+                email  = Util.readString("Email",scanner);
                 Print.log("Password : ");
                 password = scanner.next();
                 UserDto userDto = new UserDto(email,password);
                 isAuthentificated = this.adminService.authentifier(userDto);
                 if (isAuthentificated){
-                    //if the authentification is successful then show the admin dashboard
+                    //if the authentication is successful then show the admin dashboard
                     this.AdminDashboard(scanner);
                 }
                 else{
-                    Print.log("Authentification failed");
+                    Print.log("Authentication failed");
                     this.displayMainOptions(scanner);
                 }
                 break;
             case 2:
                 //go back to the main menu
-
+                new MainGUI().displayMainOptions(scanner);
                 return 0;
             case 0:
                 //exit
+                Print.log("Bye Bye");
                 return -1;
             default:
                 Print.log("Invalid choice");
@@ -79,12 +78,9 @@ public class MainAdministeurGUI implements DisplayGUI{
     }
 
     public void AdminDashboard(Scanner scanner){
-        //show the admin dashboard
-        //there's many options to do
-        //Agents management
 
         Print.log("=== Gestion des comptes des agents CNSS   ===");
-        //if the user want to exit the dashboard then he can do it
+
         Print.log("1- Add an agent ");
         Print.log("2- Select All agents ");
         Print.log("3- Delete an agent ");
@@ -93,47 +89,35 @@ public class MainAdministeurGUI implements DisplayGUI{
 
         int choice = scanner.nextInt();
         switch (choice){
-            case 1:
-                //add an agent
-                //ask about agent information
-                this.addAgent(scanner);
-                break;
-            case 2:
-                //select all agents
+            case 1 ->this.addAgent(scanner);
+            case 2->
                 this.selectAllAgents(scanner);
-                break;
-            case 3:
-                //delete an agent
+            case 3 ->
                 this.deleteAgent(scanner);
-                break;
-            case 4:
-                //update an agent
+            case 4->
                 this.updateAgent(scanner);
-                break;
-
-            case 5:
-                //go back to the main menu
+            case 5->
                 this.displayMainOptions(scanner);
-                break;
-            default:
+            default ->
                 Print.log("Invalid choice");
-                break;
         }
 
 
     }
 
     private void updateAgent(Scanner scanner) {
-        //todo : ask about the agent information to update
-
-        //todo : setup the information in the agentDto
-
-        //todo : call the service to update the agent
+        Print.log("=== Update an agent ===");
+        UserDto userDto = new UserGUI().displayOptions("email");
+        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
+        this.agentService.updateAgent(agentDto);
 
     }
 
     private void deleteAgent(Scanner scanner) {
-        //ask about the agent email ;
+        Print.log("=== Delete an agent ===");
+        UserDto userDto = new UserGUI().displayOptions("email");
+        AgentDto agentDto = new AgentDto(userDto.email, null,null);
+        this.agentService.deleteAgent(agentDto);
     }
 
     private void selectAllAgents(Scanner scanner) {
@@ -141,8 +125,10 @@ public class MainAdministeurGUI implements DisplayGUI{
     }
 
     private void addAgent(Scanner scanner) {
-        //ask about the agent information
-
+        Print.log("=== Add an agent ===");
+        UserDto userDto = new UserGUI().displayOptions("email","password");
+        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
+        this.agentService.addAgent(agentDto);
     }
 
 }

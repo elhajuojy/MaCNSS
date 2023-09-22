@@ -1,5 +1,6 @@
 package ma.yc.database;
 
+import ma.yc.core.envLoader;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +18,8 @@ class DatabaseConnectionTest {
 
     @Test
     void getConnection() throws SQLException {
-//        DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
-        assertNotNull("this is not null");
+      envLoader envloader1 = new envLoader();
+      assertEquals("jdbc:mysql://localhost:3306/MACNSS",envloader1.get("URL"));
     }
 
     @Test

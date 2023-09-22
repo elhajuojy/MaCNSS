@@ -1,5 +1,8 @@
 package ma.yc.core;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class Util {
@@ -23,4 +26,6 @@ public class Util {
         System.out.print(key+" : ");
         return scanner.nextLine();
     }
+    
 }
+
