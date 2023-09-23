@@ -21,7 +21,7 @@ public class PatientDaoImpl implements PatientDao {
 
     @Override
     public boolean authentification(Patient p) {
-        String query = "SELECT * FROM PATIENT WHERE MATRICULE = ?";
+        String query = "SELECT * FROM patients WHERE matricule = ?";
         try{
             var statement = this.connection.prepareStatement(query);
             statement.setString(1,p.getMatricule());
