@@ -4,6 +4,7 @@ package ma.yc.GUI;
 import ma.yc.core.Print;
 import ma.yc.core.Util;
 import ma.yc.database.DatabaseConnection;
+import ma.yc.dto.AdminDto;
 import ma.yc.dto.AgentDto;
 import ma.yc.dto.UserDto;
 import ma.yc.service.AdminService;
@@ -32,7 +33,7 @@ public class MainAdministeurGUI implements DisplayGUI{
 
 
     @Override
-    public int displayMainOptions(Scanner scanner) throws SQLException {
+    public int displayMainOptions(Scanner scanner)  {
         //show the admin options
         // there's one option for now which is authentification before he can do anything
         // if the authentification is successful then he can do anything
@@ -54,8 +55,8 @@ public class MainAdministeurGUI implements DisplayGUI{
                 email  = Util.readString("Email",scanner);
                 Print.log("Password : ");
                 password = scanner.next();
-                UserDto userDto = new UserDto(email,password);
-                isAuthentificated = this.adminService.authentifier(userDto);
+                AdminDto adminDto = new AdminDto(email,password);
+                isAuthentificated = this.adminService.authentifier(adminDto);
                 if (isAuthentificated){
                     //if the authentication is successful then show the admin dashboard
                     this.AdminDashboard(scanner);
@@ -82,7 +83,7 @@ public class MainAdministeurGUI implements DisplayGUI{
         return 0;
     }
 
-    public void AdminDashboard(Scanner scanner) throws SQLException {
+    public void AdminDashboard(Scanner scanner)  {
 
         Print.log("=== Gestion des comptes des agents CNSS   ===");
 

@@ -1,7 +1,7 @@
 package ma.yc.service.impl;
 
 import ma.yc.Mapper.impl.AdminMapper;
-import ma.yc.Mapper.impl.UserMapper;
+//import ma.yc.Mapper.impl.UserMapper;
 import ma.yc.dao.AdministateurDao;
 import ma.yc.Mapper.Mapper;
 import ma.yc.dao.impl.AdminstateurDaoImpl;
@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean authentifier(UserDto userDto) {
+    public boolean authentifier(AdminDto adminDto) {
         //:TODO appeler la méthode authentifier de AdministateurDao
         //here you can map the userDto to the entity
         //then call the dao
@@ -32,7 +32,8 @@ public class AdminServiceImpl implements AdminService {
         //  Administateur adminEntity = this.mapper.toEntity();
         // now we have the entity we can call the dao which will call the
         // database with the entity
-        Administrateur AdminEntity = this.Adminmapper.toEntity();
+        Administrateur AdminEntity = this.Adminmapper.toEntity(adminDto);
+
         if (this.administateurDao.authentifier(AdminEntity))
             return true;
         else

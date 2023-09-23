@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class MainGUI  implements  DisplayGUI{
 
     @Override
-    public int displayMainOptions(Scanner scanner) throws SQLException {
+    public int displayMainOptions(Scanner scanner)  {
         Print.log("=== OPERATION  ===");
         Print.log("1 - are you an admin ? ");
         Print.log("2 - are you an agent ? ");

@@ -20,10 +20,10 @@ public class AdminstateurDaoImpl implements AdministateurDao {
             String query = "Select *FROM administrateurs WHERE email = ?";
             Connection databaseConnection = DatabaseConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = databaseConnection.prepareStatement(query);
-            preparedStatement.setString(1,email);
+            preparedStatement.setString(1,A.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                if(BCrypt.checkpw(password,resultSet.getString("password"))) {
+                if(BCrypt.checkpw(A.getPassword(),resultSet.getString("password"))) {
                     AuthState = true;
                 }
 

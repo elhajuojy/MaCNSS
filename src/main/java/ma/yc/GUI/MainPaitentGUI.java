@@ -15,7 +15,7 @@ public class MainPaitentGUI implements DisplayGUI{
 
 
     @Override
-    public int displayMainOptions(Scanner scanner) throws SQLException {
+    public int displayMainOptions(Scanner scanner)  {
 
         //Patient have two many actions to do
         //1 - consult his dossier by Matricule
