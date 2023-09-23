@@ -137,19 +137,36 @@ public class MainAgentGUI implements DisplayGUI {
             return;
         }
         //todo : if the matricule exist then add the dossier
+        DossierDto dossierDto = new DossierDto();
+        dossierDto.matricule = matricule ;
         Print.log("Entre le num dossier de votre dossier");
         Print.log("");
         String num_dossier = Util.readString("Num dossier",scanner);
         Print.log("Entre le status de votre dossier");
         statusDossier status = statusDossier.En_attend;
-        DossierDto dossierDto = new DossierDto();
+        dossierDto.status = status;
 
-//        private String numDossier;
-//        private statusDossier status;
-//        private float totalRemboursement;
-//        private Remboursement remboursement;
+        //todo: ask about ficher one ficher
+
+
+        //todo: ask about medicaments  list;
+
+        //todo: ask about analyses list;
+
+        //todo : ask about scanners list;
+
+        //todo : ask about radios list;
+
+        //todo : ask about visits list ;
+
+        //todo:save dossier
+        this.dossierService.enregistrerDossier(dossierDto);
+        //todo:call service to count amomunt .... totalRemboursement
+
+
+        //todo : show totalRemboursement
+
 //        private Fichier fichier;
-//
 //        private List<Medicament> medicaments;
 //        private List<Analyse> analyses;
 //        private List<ma.yc.model.Scanner> scanners;
@@ -157,7 +174,7 @@ public class MainAgentGUI implements DisplayGUI {
 //        private List<Visite> visites;
 
 
-        this.dossierService.enregistrerDossier(dossierDto);
+
 
     }
 
