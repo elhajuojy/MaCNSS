@@ -1,20 +1,32 @@
 package ma.yc;
 
+import ma.yc.GUI.*;
+import ma.yc.core.EmailProvider;
 import ma.yc.core.Print;
+import ma.yc.dao.AdministateurDao;
 import ma.yc.database.DatabaseConnection;
 
 import java.util.Scanner;
 
+
+
+
 public class Application {
+
+
     public static void main(String[] args)  {
 
-        try {
-            Print.log("Library Application ");
 
+        DisplayGUI displayGUI = new MainGUI();
+        Scanner scanner = new Scanner(System.in);
+        try {
+            Print.log("MACNSS Application ");
+
+            //while the user doesnt not want to exit the application do this loop
+            int choice = 0;
             do {
-                //todo: add the other use cases
-                Print.log("=== OPERATION  ===");
-            }while (false);
+                choice  = displayGUI.displayMainOptions(scanner);
+            }while (choice != 0);
         } catch(Exception e){
             Print.log(e.toString());
         }
