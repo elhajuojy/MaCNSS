@@ -4,6 +4,15 @@ public class Medicament {
     private long codeBarre;
     private int quantite;
     private float prix;
+    private Dossier dossier;
+
+    public Dossier getDossier() {
+        return dossier;
+    }
+
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
+    }
 
     public long getCodeBarre() {
         return codeBarre;
