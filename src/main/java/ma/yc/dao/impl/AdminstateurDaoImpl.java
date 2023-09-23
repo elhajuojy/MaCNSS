@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class AdminstateurDaoImpl implements AdministateurDao {
 
-    //todo: admintodo
+    //todo: admintodo authentication section
     @Override
     public boolean authentifier(String email, String password) {
         try{
