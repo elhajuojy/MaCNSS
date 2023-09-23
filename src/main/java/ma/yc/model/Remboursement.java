@@ -10,8 +10,8 @@ public class Remboursement {
     private float pbRadio;
     private float trScanner;
     private float pbScanner;
-    private float trVisiteSpicialiste;
-    private float pbVisiteSpicialiste;
+    private float trVisiteSpecialiste;
+    private float pbVisiteSpecialiste;
     private float trVisiteGeneratrice;
     private float pbVisiteGeneratrice;
 
@@ -52,12 +52,12 @@ public class Remboursement {
         return pbScanner;
     }
 
-    public float getTrVisiteSpicialiste() {
-        return trVisiteSpicialiste;
+    public float getTrVisiteSpecialiste() {
+        return trVisiteSpecialiste;
     }
 
-    public float getPbVisiteSpicialiste() {
-        return pbVisiteSpicialiste;
+    public float getPbVisiteSpecialiste() {
+        return pbVisiteSpecialiste;
     }
 
     public float getTrVisiteGeneratrice() {
