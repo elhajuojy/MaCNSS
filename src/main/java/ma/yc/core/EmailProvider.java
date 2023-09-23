@@ -1,7 +1,11 @@
+/*
 package ma.yc.core;
 
-import javax.mail.*;
-import javax.mail.internet.*;
+//import javax.mail.*;
+//import javax.mail.internet.*;
+import com.mysql.cj.Session;
+
+import java.net.Authenticator;
 import java.util.Properties;
 
 public class EmailProvider  {
@@ -56,3 +60,5 @@ public class EmailProvider  {
     }
 
 }
+*/
+

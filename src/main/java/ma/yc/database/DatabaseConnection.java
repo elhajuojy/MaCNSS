@@ -13,8 +13,8 @@ public class DatabaseConnection {
     private Connection connection;
     private final envLoader envLoader = new envLoader();
     public String url = envLoader.get("URL");
-    private String username = envLoader.get("");
-    private String password = envLoader.get("");
+    private String username = envLoader.get("USER");
+    private String password = envLoader.get("PASSWORD");
     private String driver = envLoader.get("DRIVER");
 
 

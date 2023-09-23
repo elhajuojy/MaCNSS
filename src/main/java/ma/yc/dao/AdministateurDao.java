@@ -1,5 +1,7 @@
 package ma.yc.dao;
 
+import ma.yc.model.Administrateur;
+
 public interface AdministateurDao {
-    public boolean authentifier(String email, String password);
+    public boolean authentifier(Administrateur);
 }

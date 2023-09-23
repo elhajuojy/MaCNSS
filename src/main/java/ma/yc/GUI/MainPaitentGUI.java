@@ -6,6 +6,7 @@ import ma.yc.core.Util;
 import ma.yc.dto.DossierDto;
 import ma.yc.service.PatientService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainPaitentGUI implements DisplayGUI{
@@ -14,7 +15,7 @@ public class MainPaitentGUI implements DisplayGUI{
 
 
     @Override
-    public int displayMainOptions(Scanner scanner) {
+    public int displayMainOptions(Scanner scanner) throws SQLException {
 
         //Patient have two many actions to do
         //1 - consult his dossier by Matricule

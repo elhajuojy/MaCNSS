@@ -3,7 +3,7 @@
 
 -- dossier
 CREATE  TABLE dossiers (numDossier VARCHAR(123) PRIMARY KEY NOT NULL , status CHAR(55), totalRemboursement FLOAT);
-
+-- need a primary key in the adminstrateur table;
 CREATE TABLE administrateurs (email CHAR (55), password CHAR(55));
 
 -- agent
