@@ -24,7 +24,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public boolean authentification(PatientDto patientDto) {
-        //todo:verify the patientDto is not null and the matricule is not null
+        //:verify the patientDto is not null and the matricule is not null
         if (patientDto == null || patientDto.matricule == null) {
             return false;
         }
