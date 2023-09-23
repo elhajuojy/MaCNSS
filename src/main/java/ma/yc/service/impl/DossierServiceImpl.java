@@ -37,11 +37,14 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public boolean suiviEtatDossier(String statusDossier) {
+
+        this.envoyeEmailChangemenetEtat("message");
         return false;
     }
 
     @Override
     public boolean envoyeEmailChangemenetEtat(String statusDossier) {
+        //todo:we need email to sent the changement etat
         return false;
     }
 }
