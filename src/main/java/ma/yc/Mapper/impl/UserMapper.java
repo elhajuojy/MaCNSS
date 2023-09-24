@@ -1,4 +1,4 @@
-package ma.yc.Mapper.impl;
+/*package ma.yc.Mapper.impl;
 import ma.yc.Mapper.Mapper;
 import ma.yc.dto.AgentDto;
 import ma.yc.model.Agent;
@@ -6,6 +6,7 @@ import ma.yc.model.Agent;
 import java.sql.PreparedStatement;
 
 public class UserMapper implements Mapper<AgentDto, Agent> {
+
 
 
     @Override
@@ -32,7 +33,9 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
     }
 
     @Override
+
     public PreparedStatement toPreparedStatement(Agent agent, PreparedStatement preparedStatement) {
+
         return null;
     }
 
@@ -51,3 +54,5 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
 //        return null;
 //    }
 }
+*/
+

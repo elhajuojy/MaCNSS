@@ -1,14 +1,19 @@
 package ma.yc.GUI;
 
+
 import ma.yc.core.Print;
 import ma.yc.core.Util;
+import ma.yc.database.DatabaseConnection;
+import ma.yc.dto.AdminDto;
 import ma.yc.dto.AgentDto;
 import ma.yc.dto.UserDto;
 import ma.yc.service.AdminService;
 import ma.yc.service.AgentService;
 import ma.yc.service.impl.AdminServiceImpl;
 import ma.yc.service.impl.AgentServiceImpl;
+import org.mindrot.jbcrypt.BCrypt;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainAdministeurGUI implements DisplayGUI{
@@ -30,7 +35,7 @@ public class MainAdministeurGUI implements DisplayGUI{
 
 
     @Override
-    public int displayMainOptions(Scanner scanner) {
+    public int displayMainOptions(Scanner scanner)  {
         //show the admin options
         // there's one option for now which is authentification before he can do anything
         // if the authentification is successful then he can do anything
@@ -44,6 +49,7 @@ public class MainAdministeurGUI implements DisplayGUI{
         int choice = scanner.nextInt();
         switch (choice){
             case 1:
+
                 //authentication: Admin need to be authenticated before he can do anything
                 String email;
                 String password ;
@@ -51,8 +57,8 @@ public class MainAdministeurGUI implements DisplayGUI{
                 email  = Util.readString("Email",scanner);
                 Print.log("Password : ");
                 password = scanner.next();
-                UserDto userDto = new UserDto(email,password);
-                isAuthentificated = this.adminService.authentifier(userDto);
+                AdminDto adminDto = new AdminDto(email,password);
+                isAuthentificated = this.adminService.authentifier(adminDto);
                 if (isAuthentificated){
                     //if the authentication is successful then show the admin dashboard
                     this.AdminDashboard(scanner);
@@ -82,7 +88,7 @@ public class MainAdministeurGUI implements DisplayGUI{
         return 0;
     }
 
-    public void AdminDashboard(Scanner scanner){
+    public void AdminDashboard(Scanner scanner)  {
 
         Print.log("=== Gestion des comptes des agents CNSS   ===");
 
