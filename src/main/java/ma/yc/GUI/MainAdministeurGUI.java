@@ -72,9 +72,6 @@ public class MainAdministeurGUI implements DisplayGUI{
                 //go back to the main menu
                 new MainGUI().displayMainOptions(scanner);
                 return 0;
-            case 3 :
-                this.addAgent(scanner);
-            break;
             case 0:
                 //exit
                 Print.log("Bye Bye");
@@ -91,7 +88,6 @@ public class MainAdministeurGUI implements DisplayGUI{
     public void AdminDashboard(Scanner scanner)  {
 
         Print.log("=== Gestion des comptes des agents CNSS   ===");
-
         Print.log("1- Add an agent ");
         Print.log("2- Select All agents ");
         Print.log("3- Delete an agent ");
@@ -119,6 +115,7 @@ public class MainAdministeurGUI implements DisplayGUI{
     private void updateAgent(Scanner scanner) {
         Print.log("=== Update an agent ===");
         UserDto userDto = new UserGUI().displayOptions("email");
+        //todo : call update agent srevice
 //        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
 //        this.agentService.updateAgent(agentDto);
 
@@ -127,12 +124,13 @@ public class MainAdministeurGUI implements DisplayGUI{
     private void deleteAgent(Scanner scanner) {
         Print.log("=== Delete an agent ===");
         UserDto userDto = new UserGUI().displayOptions("email");
+        //todo : delete agent
 //        AgentDto agentDto = new AgentDto(userDto.email, null,null);
 //        this.agentService.deleteAgent(agentDto);
     }
 
     private void selectAllAgents(Scanner scanner) {
-        //show all agents
+        //todo : show all agents
     }
 
     private void addAgent(Scanner scanner) {
@@ -140,7 +138,6 @@ public class MainAdministeurGUI implements DisplayGUI{
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("Authentification");
         String email = Util.readString("Email",scanner);
-
         String password = Util.readString("Password",scanner);
 
         agentDto.email = email;
@@ -151,8 +148,6 @@ public class MainAdministeurGUI implements DisplayGUI{
         }else {
             System.out.println("Ops");
         }
-//        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
-//        this.agentService.addAgent(agentDto);
     }
 
 }
