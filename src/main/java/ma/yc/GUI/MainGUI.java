@@ -11,7 +11,7 @@ public class MainGUI  implements  DisplayGUI{
         Print.log("=== OPERATION  ===");
         Print.log("1 - are you an admin ? ");
         Print.log("2 - are you an agent ? ");
-        Print.log("3 - are you a client ? ");
+        Print.log("3 - are you a patient ? ");
         Print.log("0 - Exit ");
         //get the choice from the user
         int choice = scanner.nextInt();

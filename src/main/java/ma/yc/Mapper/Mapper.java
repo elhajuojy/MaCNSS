@@ -2,14 +2,16 @@ package ma.yc.Mapper;
 
 import java.sql.PreparedStatement;
 
-public interface Mapper<T , E> {
+public interface Mapper<D,E> {
 
-    E toEntity(T t);
+    E toEntity();
 
-//    T toDto();
-//
-//    T toDto(T t);
-//
-//    PreparedStatement toPreparedStatement(T t, PreparedStatement preparedStatement);
+    E toEntity(D d);
+
+    D toDto();
+
+    D toDto(D t);
+
+    PreparedStatement toPreparedStatement(E e, PreparedStatement preparedStatement);
 
 }

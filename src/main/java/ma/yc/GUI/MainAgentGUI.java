@@ -121,15 +121,15 @@ public class MainAgentGUI implements DisplayGUI {
     }
 
     private void consultDossier( ) {
-        //todo : ask about the dossier id and show it
-        //todo : ask about dossier :code_bar
+        // : ask about the dossier id and show it
+        // : ask about dossier :code_bar
          Print.log("Entre le code bar de votre dossier");
          String code_bar = Util.readString("Code bar",scanner);
          this.dossierService.consulterDossier();
     }
 
     private void changeDossierStatus( ) {
-        //todo : ask about the dossier id and the new status and update it
+        // : ask about the dossier id and the new status and update it
         Print.log("Entre le num dossier de votre dossier");
         String code_bar = Util.readString("num_dossier",scanner);
         Print.log("Entre le nouveau status");
@@ -176,21 +176,12 @@ public class MainAgentGUI implements DisplayGUI {
 
         //todo : ask about visits list ;
 
-        //todo:save dossier
+        //:save dossier
         this.dossierService.enregistrerDossier(dossierDto);
         //todo:call service to count amomunt .... totalRemboursement
 
 
         //todo : show totalRemboursement
-
-//        private Fichier fichier;
-//        private List<Medicament> medicaments;
-//        private List<Analyse> analyses;
-//        private List<ma.yc.model.Scanner> scanners;
-//        private List<Radio> radios;
-//        private List<Visite> visites;
-
-
 
 
     }
