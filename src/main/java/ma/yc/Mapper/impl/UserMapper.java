@@ -1,33 +1,35 @@
 package ma.yc.Mapper.impl;
 import ma.yc.Mapper.Mapper;
+import ma.yc.dto.UserDto;
+import ma.yc.model.Utilisateur;
 
 import java.sql.PreparedStatement;
 
-public class UserMapper implements Mapper<String> {
+public class UserMapper implements Mapper<UserDto, Utilisateur> {
 
 
     @Override
-    public String toEntity() {
+    public Utilisateur toEntity() {
         return null;
     }
 
     @Override
-    public String toEntity(String s) {
+    public Utilisateur toEntity(UserDto userDto) {
         return null;
     }
 
     @Override
-    public String toDto() {
+    public UserDto toDto() {
         return null;
     }
 
     @Override
-    public String toDto(String s) {
+    public UserDto toDto(UserDto t) {
         return null;
     }
 
     @Override
-    public PreparedStatement toPreparedStatement(String s, PreparedStatement preparedStatement) {
+    public PreparedStatement toPreparedStatement(Utilisateur utilisateur, PreparedStatement preparedStatement) {
         return null;
     }
 }

@@ -12,9 +12,6 @@ import ma.yc.service.impl.AgentServiceImpl;
 import java.util.Scanner;
 
 public class MainAdministeurGUI implements DisplayGUI{
-
-
-
     //need AgentService which is all agent function stored
     // in like add agent delete agent and update agent we looked in
     AdminService adminService ;

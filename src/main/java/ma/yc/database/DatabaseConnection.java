@@ -12,9 +12,11 @@ public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
     private final envLoader envLoader = new envLoader();
+    //WORNING: this is not a good practice to put the password in the code
+    //TODO : THOSE INFORMATION MUST COME FROM .ENV FILE
     public String url = envLoader.get("URL");
-    private String username = envLoader.get("");
-    private String password = envLoader.get("");
+    private String username = envLoader.get("USERNAME");
+    private String password = envLoader.get("PASSWORD");
     private String driver = envLoader.get("DRIVER");
 
 

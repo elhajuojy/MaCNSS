@@ -10,12 +10,10 @@ public class AdminServiceImpl implements AdminService {
     //todo: todoservice
     private AdministateurDao administateurDao;
     //:TODO injecter l'implémentation de Mapper to use the Administateur entity
-    private Mapper<String> mapper;
-
     public AdminServiceImpl() {
         //:TODO injecter l'implémentation de AdministateurDao
         this.administateurDao = null ;
-        this.mapper = new UserMapper();
+
     }
 
     @Override
