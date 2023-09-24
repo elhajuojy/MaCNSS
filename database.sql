@@ -10,8 +10,7 @@ CREATE TABLE agents (email CHAR (55), password CHAR(55), codeVerification VARCHA
 CREATE TABLE analyse (analyseId BIGINT PRIMARY KEY,prix FLOAT,description VARCHAR(255),dossierNum VARCHAR(255),FOREIGN KEY (dossierNum)  REFERENCES dossiers(numDossier) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- dossier
-CREATE  TABLE dossiers (numDossier VARCHAR(123) PRIMARY KEY NOT NULL , status CHAR(55), totalRemboursement FLOAT);
-
+CREATE  TABLE dossiers (numDossier VARCHAR(123) PRIMARY KEY NOT NULL , status CHAR(55), totalRemboursement FLOAT, matricule VARCHAR(123), FOREIGN KEY(matricule) REFERENCES patients(matricule) ON DELETE CASCADE ON UPDATE CASCADE);
 -- fichier
 CREATE TABLE fichiers (numeroFichier BIGINT PRIMARY KEY, dateDepot DATE,TotalFraisDossier FLOAT, specialite VARCHAR(123),dossierNum VARCHAR(123),FOREIGN
     KEY(dossierNum) REFERENCES dossiers(numDossier) ON DELETE CASCADE ON UPDATE CASCADE);

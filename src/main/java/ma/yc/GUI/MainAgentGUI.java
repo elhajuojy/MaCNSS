@@ -24,6 +24,7 @@ public class MainAgentGUI implements DisplayGUI {
     public MainAgentGUI() {
         this.agentService = new AgentServiceImpl();
         this.dossierService = new DossierServiceImpl();
+        this.agentDto = new AgentDto();
     }
 
     @Override
@@ -37,9 +38,11 @@ public class MainAgentGUI implements DisplayGUI {
 
         agentDto.email = email;
         agentDto.password = password;
-        isAuthentificated = this.agentService.authentifier(agentDto);
+        isAuthentificated = this.agentService.addAgent(agentDto);
         if (isAuthentificated){
-            this.verifyCodeVerification();
+            System.out.println("Success");
+        }else {
+            System.out.println("Ops");
         }
         //todo : something went worng password or email are not correct .
 

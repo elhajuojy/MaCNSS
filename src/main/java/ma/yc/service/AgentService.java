@@ -5,7 +5,7 @@ import ma.yc.model.Agent;
 
 public interface AgentService {
 
-    AgentDto addAgent(AgentDto agentDto);
+    boolean addAgent(AgentDto agentDto);
     AgentDto updateAgent(AgentDto agentDto);
     boolean deleteAgent(AgentDto agentDto);
     AgentDto update(AgentDto agentDto);

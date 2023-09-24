@@ -108,16 +108,16 @@ public class MainAdministeurGUI implements DisplayGUI{
     private void updateAgent(Scanner scanner) {
         Print.log("=== Update an agent ===");
         UserDto userDto = new UserGUI().displayOptions("email");
-        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
-        this.agentService.updateAgent(agentDto);
+//        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
+//        this.agentService.updateAgent(agentDto);
 
     }
 
     private void deleteAgent(Scanner scanner) {
         Print.log("=== Delete an agent ===");
         UserDto userDto = new UserGUI().displayOptions("email");
-        AgentDto agentDto = new AgentDto(userDto.email, null,null);
-        this.agentService.deleteAgent(agentDto);
+//        AgentDto agentDto = new AgentDto(userDto.email, null,null);
+//        this.agentService.deleteAgent(agentDto);
     }
 
     private void selectAllAgents(Scanner scanner) {
@@ -127,8 +127,8 @@ public class MainAdministeurGUI implements DisplayGUI{
     private void addAgent(Scanner scanner) {
         Print.log("=== Add an agent ===");
         UserDto userDto = new UserGUI().displayOptions("email","password");
-        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
-        this.agentService.addAgent(agentDto);
+//        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
+//        this.agentService.addAgent(agentDto);
     }
 
 }

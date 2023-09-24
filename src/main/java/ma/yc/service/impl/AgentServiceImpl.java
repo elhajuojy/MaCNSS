@@ -1,24 +1,33 @@
 package ma.yc.service.impl;
 
 import com.sun.source.tree.ReturnTree;
+import ma.yc.Mapper.Mapper;
+import ma.yc.Mapper.impl.UserMapper;
 import ma.yc.dao.AgentDao;
 import ma.yc.dao.impl.AgentDaoImpl;
 import ma.yc.dto.AgentDto;
+import ma.yc.model.Agent;
 import ma.yc.service.AgentService;
 
 public class AgentServiceImpl implements AgentService {
 
     //todo:todoagent
     private AgentDao agentDao;
+    private Mapper<AgentDto,Agent> userMapper;
 
     public AgentServiceImpl() {
         this.agentDao = new AgentDaoImpl();
+        this.userMapper = new UserMapper();
     }
 
     @Override
-    public AgentDto addAgent(AgentDto agentDto) {
-        this.agentDao.addAgent();
-        return  null;
+    public boolean addAgent(AgentDto agentDto) {
+        Agent agent = userMapper.toEntity(agentDto);
+        boolean test = this.agentDao.addAgent(agent);
+        if (test){
+            return true;
+        }
+        return false;
     }
 
     @Override
