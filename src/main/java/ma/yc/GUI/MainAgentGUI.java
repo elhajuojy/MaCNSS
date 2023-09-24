@@ -13,6 +13,8 @@ import ma.yc.service.impl.DossierServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainAgentGUI implements DisplayGUI {
 
@@ -24,8 +26,14 @@ public class MainAgentGUI implements DisplayGUI {
     public MainAgentGUI() {
         this.agentService = new AgentServiceImpl();
         this.dossierService = new DossierServiceImpl();
+        this.agentDto = new AgentDto();
     }
-
+    public static boolean verifyEmail(String input){
+        String rgx = "^[a-zA-Z0-9]+@[a-z]+\\.[a-z]+$";
+        Pattern pattern = Pattern.compile(rgx);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
     @Override
     public int displayMainOptions(Scanner scanner ) {
         this.scanner = scanner;
@@ -33,14 +41,23 @@ public class MainAgentGUI implements DisplayGUI {
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("Authentification");
         String email = Util.readString("Email",scanner);
-        String password = Util.readString("Password",scanner);
+
 
         agentDto.email = email;
-        agentDto.password = password;
-        isAuthentificated = this.agentService.authentifier(agentDto);
-        if (isAuthentificated){
-            this.verifyCodeVerification();
+        if (verifyEmail(email)){
+            String password = Util.readString("Password",scanner);
+            agentDto.password = password;
+            String code = this.agentService.authentifier(agentDto);
+            if (!code.isEmpty()){
+                System.out.println("Success: " + code);
+            }else {
+                System.out.println("Ops");
+            }
+        }else {
+            System.out.println(email + " is not a valid email address.");
+
         }
+
         //todo : something went worng password or email are not correct .
 
         return 0;

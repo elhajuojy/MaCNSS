@@ -1,8 +1,8 @@
-/*
 package ma.yc.service;
 
 
 import java.util.Properties;
+
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
@@ -16,22 +16,22 @@ import java.io.InputStream;
 public class EmailService {
 
     private final Properties emailProperties;
-    private final Session mailSession;
+//    private final Session mailSession;
 
     public EmailService() throws IOException {
         // Charger les propriétés de configuration depuis un fichier
         emailProperties = loadEmailProperties();
 
         // Configurer la session SMTP
-        mailSession = Session.getInstance(emailProperties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(
-                        emailProperties.getProperty("mail.smtp.username"),
-                        emailProperties.getProperty("mail.smtp.password")
-                );
-            }
-        });
+//        mailSession = Session.getInstance(emailProperties, new Authenticator() {
+//            @Override
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(
+//                        emailProperties.getProperty("mail.smtp.username"),
+//                        emailProperties.getProperty("mail.smtp.password")
+//                );
+//            }
+//        });
     }
     public Properties loadEmailProperties() throws IOException {
         Properties properties = new Properties();
@@ -44,6 +44,24 @@ public class EmailService {
         }
         return properties;
     }
+
+//    public void sendEmail(String recipient, String subject, String body) {
+//        try {
+//            // Créer un message MIME
+//            Message message = new MimeMessage(mailSession);
+//            message.setFrom(new InternetAddress(emailProperties.getProperty("mail.smtp.from")));
+//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+//            message.setSubject(subject);
+//            message.setText(body);
+//
+//            // Envoyer le message
+//            Transport.send(message);
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//            // Gérer les erreurs d'envoi d'e-mail ici
+//        }
+//    }
+}
 
     public void sendEmail(String recipient, String subject, String body) {
         try {
@@ -62,4 +80,4 @@ public class EmailService {
         }
     }
 }
-*/
+

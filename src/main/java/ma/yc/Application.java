@@ -22,7 +22,6 @@ public class Application {
         try {
             Print.log("MACNSS Application ");
 
-            //while the user doesnt not want to exit the application do this loop
             int choice = 0;
             do {
                 choice  = displayGUI.displayMainOptions(scanner);

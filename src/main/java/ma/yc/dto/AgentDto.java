@@ -6,9 +6,9 @@ public class AgentDto {
     public String password;
     public String codeVerification;
 
-    public AgentDto(String email, String password, String codeVerification) {
-        this.email = email;
-        this.password = password;
-        this.codeVerification = codeVerification;
-    }
+//    public AgentDto() {
+//        this.email = email;
+//        this.password = password;
+//        this.codeVerification = codeVerification;
+//    }
 }

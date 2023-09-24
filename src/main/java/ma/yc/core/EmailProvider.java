@@ -1,5 +1,8 @@
-/*
+
 package ma.yc.core;
+
+
+
 
 //import javax.mail.*;
 //import javax.mail.internet.*;
@@ -31,32 +34,32 @@ public class EmailProvider  {
 
 
 
-
-        try {
-        Session session = Session.getInstance(props, new Authenticator() {
-
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
-        session.setDebug(true);
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-            System.out.println("Email sent successfully.");
-            Transport transport = session.getTransport("smtp");
-            transport.close();
-            System.out.println("SMTP session terminated.");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            System.err.println("Error sending email: " + e.getMessage());
-        }
+//
+//        try {
+//        Session session = Session.getInstance(props, new Authenticator() {
+//
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(username, password);
+//            }
+//        });
+//
+//        session.setDebug(true);
+//
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(username));
+//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+//            message.setSubject(subject);
+//            message.setText(body);
+//
+//            Transport.send(message);
+//            System.out.println("Email sent successfully.");
+//            Transport transport = session.getTransport("smtp");
+//            transport.close();
+//            System.out.println("SMTP session terminated.");
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//            System.err.println("Error sending email: " + e.getMessage());
+//        }
     }
 
 }

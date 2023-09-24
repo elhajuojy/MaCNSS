@@ -13,7 +13,7 @@ public class DatabaseConnection {
     private Connection connection;
     private final envLoader envLoader = new envLoader();
     public String url = envLoader.get("URL");
-    private String username = envLoader.get("USER");
+    private String username = envLoader.get("USERNAME");
     private String password = envLoader.get("PASSWORD");
     private String driver = envLoader.get("DRIVER");
 
@@ -24,7 +24,7 @@ public class DatabaseConnection {
             this.connection = DriverManager.getConnection(url, username, password);
             Print.log("Connection established.");
         } catch (ClassNotFoundException ex) {
-           Print.log("Database Connection Creation Failed : " + ex.getMessage());
+            Print.log("Database Connection Creation Failed : " + ex.getMessage());
         }
     }
 
@@ -60,4 +60,3 @@ public class DatabaseConnection {
 
 
 }
-
