@@ -1,4 +1,4 @@
-/*package ma.yc.Mapper.impl;
+package ma.yc.Mapper.impl;
 import ma.yc.Mapper.Mapper;
 import ma.yc.dto.AgentDto;
 import ma.yc.model.Agent;
@@ -54,5 +54,5 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
 //        return null;
 //    }
 }
-*/
+
 
