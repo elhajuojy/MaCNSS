@@ -21,10 +21,10 @@ public class MainGUI  implements  DisplayGUI{
                 new MainAdministeurGUI().displayMainOptions(scanner);
                 break;
             case 2:
-                new MainPaitentGUI().displayMainOptions(scanner);
+                new MainAgentGUI().displayMainOptions(scanner);
                 break;
             case 3:
-                new MainAgentGUI().displayMainOptions(scanner);
+                new MainPaitentGUI().displayMainOptions(scanner);
                 break;
             default:
                 //exit the application in default case

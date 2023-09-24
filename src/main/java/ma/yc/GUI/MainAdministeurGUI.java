@@ -20,9 +20,11 @@ public class MainAdministeurGUI implements DisplayGUI{
     AdminService adminService ;
     AgentService agentService ;
     boolean isAuthentificated = false;
+    private  AgentDto agentDto;
     public MainAdministeurGUI() {
         this.agentService = new AgentServiceImpl();
         this.adminService = new AdminServiceImpl();
+        this.agentDto = new AgentDto();
     }
 
 
@@ -64,6 +66,9 @@ public class MainAdministeurGUI implements DisplayGUI{
                 //go back to the main menu
                 new MainGUI().displayMainOptions(scanner);
                 return 0;
+            case 3 :
+                this.addAgent(scanner);
+            break;
             case 0:
                 //exit
                 Print.log("Bye Bye");
@@ -125,8 +130,21 @@ public class MainAdministeurGUI implements DisplayGUI{
     }
 
     private void addAgent(Scanner scanner) {
-        Print.log("=== Add an agent ===");
-        UserDto userDto = new UserGUI().displayOptions("email","password");
+
+        Print.log("Bienvenue dans l'application de gestion des patients");
+        Print.log("Authentification");
+        String email = Util.readString("Email",scanner);
+
+        String password = Util.readString("Password",scanner);
+
+        agentDto.email = email;
+        agentDto.password = password;
+        isAuthentificated = this.agentService.addAgent(agentDto);
+        if (isAuthentificated){
+            System.out.println("Success");
+        }else {
+            System.out.println("Ops");
+        }
 //        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
 //        this.agentService.addAgent(agentDto);
     }

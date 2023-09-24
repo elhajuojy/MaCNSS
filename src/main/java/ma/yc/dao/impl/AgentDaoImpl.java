@@ -21,13 +21,13 @@ public class AgentDaoImpl implements AgentDao {
 
     @Override
     public boolean addAgent(Agent a) {
+        String query = "INSERT INTO agents (email,password) VALUES (?,?);";
         try{
-            String query = "INSERT INTO agents (email,password) VALUES (?,?);";
             var statement = this.connection.prepareStatement(query);
             statement.setString(1, a.getEmail());
             statement.setString(2, a.getPassword());
-            var resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            var resultSet = statement.executeUpdate();
+            if(resultSet!=0){
                 return true;
             }
         } catch (SQLException e) {
@@ -62,7 +62,18 @@ public class AgentDaoImpl implements AgentDao {
     }
 
     @Override
-    public boolean authentifier(String email, String password) {
-        return false;
+    public String authentifier(Agent agent) {
+        String query = "SELECT  password FROM agents WHERE email=?;";
+        try{
+            var statement = this.connection.prepareStatement(query);
+            statement.setString(1, agent.getEmail());
+            var resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

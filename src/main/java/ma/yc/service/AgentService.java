@@ -1,7 +1,6 @@
 package ma.yc.service;
 
 import ma.yc.dto.AgentDto;
-import ma.yc.model.Agent;
 
 public interface AgentService {
 
@@ -11,6 +10,6 @@ public interface AgentService {
     AgentDto update(AgentDto agentDto);
     boolean sendCodeVerificationEmail(String code);
     boolean verifyCodeVerification(String code);
-    boolean authentifier(AgentDto agentDto);
+    String authentifier(AgentDto agentDto);
 
 }
