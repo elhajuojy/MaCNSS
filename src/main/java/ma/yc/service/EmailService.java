@@ -1,10 +1,13 @@
+/*
 package ma.yc.service;
+
 
 import java.util.Properties;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import com.mysql.cj.Session;
 import ma.yc.core.Util;
 
 import java.io.IOException;
@@ -59,3 +62,4 @@ public class EmailService {
         }
     }
 }
+*/

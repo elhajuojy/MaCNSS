@@ -2,12 +2,13 @@ package ma.yc.GUI;
 
 import ma.yc.core.Print;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainGUI  implements  DisplayGUI{
 
     @Override
-    public int displayMainOptions(Scanner scanner) {
+    public int displayMainOptions(Scanner scanner)  {
         Print.log("=== OPERATION  ===");
         Print.log("1 - are you an admin ? ");
         Print.log("2 - are you an agent ? ");
@@ -18,7 +19,9 @@ public class MainGUI  implements  DisplayGUI{
 
         switch (choice) {
             case 1:
-                new MainAdministeurGUI().displayMainOptions(scanner);
+
+                    new MainAdministeurGUI().displayMainOptions(scanner);
+
                 break;
             case 2:
                 new MainAgentGUI().displayMainOptions(scanner);

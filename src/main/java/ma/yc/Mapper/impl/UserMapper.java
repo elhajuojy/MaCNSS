@@ -1,9 +1,9 @@
-package ma.yc.Mapper.impl;
+/*package ma.yc.Mapper.impl;
 import ma.yc.Mapper.Mapper;
 
 import java.sql.PreparedStatement;
 
-public class UserMapper implements Mapper<String> {
+public class UserMapper implements Mapper<D> {
 
 
     @Override
@@ -27,7 +27,14 @@ public class UserMapper implements Mapper<String> {
     }
 
     @Override
+    public PreparedStatement toPreparedStatement(Object o, PreparedStatement preparedStatement) {
+        return null;
+    }
+
+    @Override
     public PreparedStatement toPreparedStatement(String s, PreparedStatement preparedStatement) {
         return null;
     }
 }
+*/
+
