@@ -48,25 +48,30 @@ public class MainPaitentGUI implements DisplayGUI{
         return this.patientService.authentification(patientDto);
     }
 
-    private int patientDashboard(Scanner scanner) {
+    public int patientDashboard(Scanner scanner) {
         Print.log("\t\t === OPERATION  ===");
         Print.log("\t\t 1 - Consult your dossier by num_dossier ");
         Print.log("\t\t 2 - Consult all dossiers ");
         Print.log("\t\t 3 - Go back to the main menu ");
         Print.log("\t\t 0 - Exit ");
-
         int choice = scanner.nextInt();
+        scanner = new Scanner(System.in);
         switch (choice){
+
             case 1:
+
                 //consult dossier by matricule
                 Print.log("Entre le code_bar de votre dossier");
                 String code_bar = Util.readString("num_dossier",scanner);
+
                 DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
-                this.patientService.consulterDossierParCode(dossierDto);
+                this.patientService.consulterDossierParCode(code_bar);
                 break;
             case 2:
+                Print.log("Entrer ton matricule");
+                String MatriculePatient = Util.readString("matricule",scanner);
                 DossierDto dossierDto1 = new DossierDto(null, patientDto.matricule);
-                this.patientService.consulterDossiers(dossierDto1);
+                this.patientService.consulterDossiers(MatriculePatient);
                 break;
             case 3:
                 //go back to the main menu

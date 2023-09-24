@@ -13,7 +13,7 @@ public class DatabaseConnection {
     private Connection connection;
     private final envLoader envLoader = new envLoader();
     public String url = envLoader.get("URL");
-    private String username = envLoader.get("USERNAME");
+    private String username = envLoader.get("USER");
     private String password = envLoader.get("PASSWORD");
     private String driver = envLoader.get("DRIVER");
 
@@ -33,6 +33,7 @@ public class DatabaseConnection {
     }
 
     public static DatabaseConnection getInstance() throws SQLException {
+
         if (instance == null) {
             instance = new DatabaseConnection();
         } else if (instance.getConnection().isClosed()) {

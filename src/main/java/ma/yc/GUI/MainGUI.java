@@ -27,7 +27,7 @@ public class MainGUI  implements  DisplayGUI{
                 new MainAgentGUI().displayMainOptions(scanner);
                 break;
             case 3:
-                new MainPaitentGUI().displayMainOptions(scanner);
+                new MainPaitentGUI().patientDashboard(scanner);
                 break;
             default:
                 //exit the application in default case

@@ -36,12 +36,12 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<String> consulterDossiers(DossierDto dossierDto) {
+    public List<DossierDto> consulterDossiers(String Matricule) {
         return null;
     }
 
     @Override
-    public List<String> consulterDossierParCode(DossierDto dossierDto) {
+    public DossierDto consulterDossierParCode(String CodeDossier) {
         return null;
     }
 }
