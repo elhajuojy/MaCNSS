@@ -26,7 +26,7 @@ public class DatabaseConnection {
             this.connection = DriverManager.getConnection(url, username, password);
             Print.log("Connection established.");
         } catch (ClassNotFoundException ex) {
-           Print.log("Database Connection Creation Failed : " + ex.getMessage());
+            Print.log("Database Connection Creation Failed : " + ex.getMessage());
         }
     }
 
@@ -62,4 +62,3 @@ public class DatabaseConnection {
 
 
 }
-

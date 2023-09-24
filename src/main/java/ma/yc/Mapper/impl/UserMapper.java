@@ -1,35 +1,58 @@
 package ma.yc.Mapper.impl;
 import ma.yc.Mapper.Mapper;
-import ma.yc.dto.UserDto;
-import ma.yc.model.Utilisateur;
+import ma.yc.dto.AgentDto;
+import ma.yc.model.Agent;
 
 import java.sql.PreparedStatement;
 
-public class UserMapper implements Mapper<UserDto, Utilisateur> {
+public class UserMapper implements Mapper<AgentDto, Agent> {
+
 
 
     @Override
-    public Utilisateur toEntity() {
+    public Agent toEntity() {
         return null;
     }
 
     @Override
-    public Utilisateur toEntity(UserDto userDto) {
+    public Agent toEntity(AgentDto agentDto) {
+        Agent agent = new Agent();
+        agent.setEmail(agentDto.email);
+        agent.setPassword(agentDto.password);
+        return agent;
+    }
+
+    @Override
+    public AgentDto toDto() {
         return null;
     }
 
     @Override
-    public UserDto toDto() {
+    public AgentDto toDto(AgentDto t) {
         return null;
     }
 
     @Override
-    public UserDto toDto(UserDto t) {
+
+    public PreparedStatement toPreparedStatement(Agent agent, PreparedStatement preparedStatement) {
+
         return null;
     }
 
-    @Override
-    public PreparedStatement toPreparedStatement(Utilisateur utilisateur, PreparedStatement preparedStatement) {
-        return null;
-    }
+//    @Override
+//    public String toDto() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String toDto(String s) {
+//        return null;
+//    }
+//
+//    @Override
+//    public PreparedStatement toPreparedStatement(String s, PreparedStatement preparedStatement) {
+//        return null;
+//    }
 }
+
+

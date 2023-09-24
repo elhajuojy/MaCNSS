@@ -1,12 +1,14 @@
 package ma.yc.dao;
 
+import ma.yc.model.Agent;
+
 public interface AgentDao {
-    void addAgent( );
+    boolean addAgent(Agent agent);
     void updateAgent();
     void deleteAgent();
     void update();
     boolean sendCodeVerificationEmail(String code);
     boolean verifyCodeVerification(String code);
-    boolean authentifier(String email, String password);
+    String authentifier(Agent agent);
 
 }
