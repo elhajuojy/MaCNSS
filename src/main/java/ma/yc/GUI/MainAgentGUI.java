@@ -164,9 +164,17 @@ public class MainAgentGUI implements DisplayGUI {
     }
 
     private void consultAllDossiers( ) {
-        //todo : the consulterDossiers function must return List of DossierDto
-//        List<DossierDto> dossierDtoList = this.dossierService.consulterDossiers();
+        //Todo:Test Just for test
+        // : the consulterDossiers function must return List of DossierDto
+        DossierDto dossierDto1 = new DossierDto();
+        dossierDto1.patientDto = new PatientDto();
+        dossierDto1.patientDto.matricule = Util.readString("Matricule",scanner);
+        List<DossierDto> dossierDtoList = this.dossierService.consulterDossiers(dossierDto1);
         //todo:stream data and map it to be more nice to be seen
+        dossierDtoList.stream().map(dossierDto -> {
+            Print.log(dossierDto.toString());
+            return dossierDto;
+        });
 
     }
 

@@ -29,7 +29,7 @@ public class DossierServiceImpl implements DossierService {
 //        DossierDto randomDossierDto = this.randomDossierDto();
         //verify information and checkout some code ;
         Print.log(dossierDto.toString());
-        //todo: implement this mapper method to entity from DossierDto
+        //: implement this mapper method to entity from DossierDto
         Dossier dossier = this.dossierMapper.toEntity(dossierDto);
         //: call the dao to save the dossier
         boolean isSaved = this.dossierDao.enregistrerDossier(dossier);
@@ -96,11 +96,47 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public List<String> consulterDossier() {
+        //todo : consulterDossier without checking information of the dossier
+
+        return null;
+    }
+
+    @Override
+    public List<DossierDto> consulterDossier(DossierDto dossierDto) {
+        // : Validation des données
+        //validation of codedossier if its String or not empty
+        if (dossierDto.numDossier == null || dossierDto.numDossier.isEmpty()){
+            //: throw exception
+            Dossier dossier = this.dossierDao.consulterDossier("codeDossier");
+            DossierDto dossierDto1 = this.dossierMapper.toDto(dossier);
+            List<DossierDto> dossierDtos = new ArrayList<>();
+            dossierDtos.add(dossierDto1);
+            return dossierDtos;
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<DossierDto> consulterDossiers(DossierDto dossierDto) {
+        // : Validation des données matricule de patient not null and not empty
+        if (dossierDto.patientDto.matricule == null || dossierDto.patientDto.matricule.isEmpty()){
+            //: throw exception
+            List<Dossier> dossiers = this.dossierDao.consulterDossiers("matricule");
+            List<DossierDto> dossierDtos = new ArrayList<>();
+            for (Dossier dossier : dossiers) {
+                DossierDto dossierDto1 = this.dossierMapper.toDto(dossier);
+                dossierDtos.add(dossierDto1);
+            }
+            return dossierDtos;
+        }
+
         return null;
     }
 
     @Override
     public List<String> consulterDossiers() {
+        //todo : consulterDossiers without checking information of the dossier
         return null;
     }
 
