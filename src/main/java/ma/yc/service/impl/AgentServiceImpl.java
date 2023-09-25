@@ -10,6 +10,8 @@ import ma.yc.model.Agent;
 import ma.yc.service.AgentService;
 
 import java.security.SecureRandom;
+import java.time.Instant;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +22,12 @@ public class AgentServiceImpl implements AgentService {
     private Mapper<AgentDto,Agent> userMapper;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+    public static boolean verifyEmail(String input){
+        String rgx = "^[a-zA-Z0-9]+@[a-z]+\\.[a-z]+$";
+        Pattern pattern = Pattern.compile(rgx);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
     public AgentServiceImpl() {
         this.agentDao = new AgentDaoImpl();
         this.userMapper = new UserMapper();
@@ -27,31 +35,77 @@ public class AgentServiceImpl implements AgentService {
 
     @Override
     public boolean addAgent(AgentDto agentDto) {
-        Agent agent = userMapper.toEntity(agentDto);
-        String hashedPassword = BCrypt.hashpw(agent.getPassword(), BCrypt.gensalt());
-        agent.setPassword(hashedPassword);
-        boolean test = this.agentDao.addAgent(agent);
-
-        if (test){
-            return true;
+        boolean result = false;
+        if (verifyEmail(agentDto.email)) {
+            Agent agent = this.userMapper.toEntity(agentDto);
+            boolean exist = this.agentDao.agentExist(agent);
+            if (exist) {
+                result = false;
+            } else {
+                String hashedPassword = BCrypt.hashpw(agent.getPassword(), BCrypt.gensalt());
+                agent.setPassword(hashedPassword);
+                boolean test = this.agentDao.addAgent(agent);
+                if (test) {
+                    result = true;
+                }
+            }
         }
-        return false;
+        return result;
     }
 
     @Override
-    public AgentDto updateAgent(AgentDto agentDto) {
+    public boolean selectAgent(AgentDto agentDto) {
+        boolean result = false;
+        if (verifyEmail(agentDto.email)){
+            Agent agent = this.userMapper.toEntity(agentDto);
+            List <Agent> retrieve = this.agentDao.selectAgent(agent);
+            String retieveEmail = retrieve.get(0).getEmail();
+            if(!retieveEmail.isEmpty()){
+                result=true;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean insertCode(AgentDto agentDto) {
+        boolean result = false;
+        agentDto.timeRegester = System.currentTimeMillis();
+        Agent agent = this.userMapper.toEntity(agentDto);
+        boolean returnInsert = this.agentDao.insertCodeVerif(agent);
+        if (returnInsert){
+            result=true;
+
+        }
+        return result;
+    }
+
+
+    @Override
+    public AgentDto update(AgentDto agentDto) {
 
         return  null;
     }
 
     @Override
     public boolean deleteAgent(AgentDto agentDto) {
-        return false;
+        boolean isDelete = false;
+        if (verifyEmail(agentDto.email)){
+            Agent agent = this.userMapper.toEntity(agentDto);
+            isDelete = agentDao.deleteAgent(agent.getEmail());
+
+        }
+        return isDelete;
     }
 
     @Override
-    public AgentDto update(AgentDto agentDto) {
-        return null;
+    public boolean updateAgent(AgentDto agentDto, String email) {
+        boolean result = false;
+        if (verifyEmail(agentDto.email)){
+            Agent agent = this.userMapper.toEntity(agentDto);
+            result = this.agentDao.updateAgent(agent,email);
+        }
+        return result;
     }
 
     @Override
