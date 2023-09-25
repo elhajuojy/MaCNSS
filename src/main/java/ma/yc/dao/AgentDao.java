@@ -2,10 +2,15 @@ package ma.yc.dao;
 
 import ma.yc.model.Agent;
 
+import java.util.List;
+
 public interface AgentDao {
     boolean addAgent(Agent agent);
-    void updateAgent();
-    void deleteAgent();
+    boolean updateAgent(Agent agent,String email);
+    List<Agent> selectAgent(Agent agent);
+    boolean agentExist(Agent agent);
+
+    boolean deleteAgent(String email);
     void update();
     boolean sendCodeVerificationEmail(String code);
     boolean verifyCodeVerification(String code);

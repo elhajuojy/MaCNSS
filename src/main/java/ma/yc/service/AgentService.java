@@ -5,7 +5,8 @@ import ma.yc.dto.AgentDto;
 public interface AgentService {
 
     boolean addAgent(AgentDto agentDto);
-    AgentDto updateAgent(AgentDto agentDto);
+    boolean selectAgent(AgentDto agentDto);
+    boolean updateAgent(AgentDto agentDto, String email);
     boolean deleteAgent(AgentDto agentDto);
     AgentDto update(AgentDto agentDto);
     boolean sendCodeVerificationEmail(String code);
