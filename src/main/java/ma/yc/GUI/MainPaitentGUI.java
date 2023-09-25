@@ -10,6 +10,7 @@ import ma.yc.service.PatientService;
 import ma.yc.service.impl.PatientServiceImpl;
 
 import java.security.PublicKey;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainPaitentGUI implements DisplayGUI{
@@ -48,30 +49,41 @@ public class MainPaitentGUI implements DisplayGUI{
         return this.patientService.authentification(patientDto);
     }
 
-    private int patientDashboard(Scanner scanner) {
+    public int patientDashboard(Scanner scanner) {
         Print.log("\t\t === OPERATION  ===");
         Print.log("\t\t 1 - Consult your dossier by num_dossier ");
         Print.log("\t\t 2 - Consult all dossiers ");
         Print.log("\t\t 3 - Go back to the main menu ");
         Print.log("\t\t 0 - Exit ");
-
         int choice = scanner.nextInt();
+        scanner = new Scanner(System.in);
         switch (choice){
+
             case 1:
+
                 //consult dossier by matricule
                 Print.log("Entre le code_bar de votre dossier");
-                String numDossier = Util.readString("num_dossier",scanner);
-                DossierDto dossierDto = new DossierDto();
-                dossierDto.numDossier = numDossier;
-                dossierDto.patientDto.matricule = patientDto.matricule;
+
+                String code_bar = Util.readString("num_dossier",scanner);
+
+                //DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
+                DossierDto dossierDto = this.patientService.consulterDossierParCode(code_bar);
+                Print.log("Folder status " + dossierDto.status.toString());
+                Print.log("Total to Reimburse " + dossierDto.TotalRemboursement);
 
 
-                this.patientService.consulterDossierParCode(dossierDto);
                 break;
             case 2:
-                DossierDto dossierDto1 = new DossierDto();
-                dossierDto1.patientDto.matricule = patientDto.matricule;
-                this.patientService.consulterDossiers(dossierDto1);
+                Print.log("Entrer ton matricule");
+                String MatriculePatient = Util.readString("matricule",scanner);
+               List<DossierDto> listdossierDto = this.patientService.consulterDossiers(MatriculePatient);
+                for(DossierDto d : listdossierDto){
+                    Print.log("--------------------num de dossier" + d.num_dossier + " ----------------------");
+                    Print.log( "total de remboursement pour ce dossier " + d.TotalRemboursement);
+                    Print.log( "le status de dossier " + d.status.toString());
+                    System.out.println("-------------------------------------------------------------");
+                }
+
                 break;
             case 3:
                 //go back to the main menu

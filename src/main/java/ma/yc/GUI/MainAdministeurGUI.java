@@ -109,19 +109,49 @@ public class MainAdministeurGUI implements DisplayGUI{
 
     private void updateAgent(Scanner scanner) {
         Print.log("=== Update an agent ===");
-        UserDto userDto = new UserGUI().displayOptions("email");
-        //todo : call update agent srevice
-//        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
-//        this.agentService.updateAgent(agentDto);
+
+        Print.log("Email : ");
+        String email  = Util.readString("Email",scanner);
+
+        agentDto.email = email;
+         boolean selected = this.agentService.selectAgent(agentDto);
+         if (selected){
+             Print.log("=== Update an agent ===");
+             String emailUptodate = Util.readString("Email",scanner);
+
+             String passWord = Util.readString("Password",scanner);
+
+             agentDto.email = emailUptodate;
+             agentDto.password = passWord;
+             boolean isUpdated = this.agentService.updateAgent(agentDto,email);
+             if (isUpdated){
+                 System.out.println("Update seccuss");
+             }
+         }else {
+             System.out.println("--------------***********-------------------");
+             System.out.println("Problem apper in the update function");
+             System.out.println("--------------***********-------------------");
+         }
+
+
 
     }
 
     private void deleteAgent(Scanner scanner) {
+        boolean result  = false;
         Print.log("=== Delete an agent ===");
-        UserDto userDto = new UserGUI().displayOptions("email");
-        //todo : delete agent
-//        AgentDto agentDto = new AgentDto(userDto.email, null,null);
-//        this.agentService.deleteAgent(agentDto);
+
+
+        Print.log("Enter your email");
+        String email = Util.readString("Email",scanner);
+        agentDto.email = email;
+        result = this.agentService.deleteAgent(agentDto);
+        if (result){
+            System.out.println("Delete successfully completed");
+        }else {
+            System.out.println("Waring");
+        }
+
     }
 
     private void selectAllAgents(Scanner scanner) {
@@ -131,7 +161,7 @@ public class MainAdministeurGUI implements DisplayGUI{
     private void addAgent(Scanner scanner) {
 
         Print.log("Bienvenue dans l'application de gestion des patients");
-        Print.log("Authentification");
+        Print.log("Enregester");
         String email = Util.readString("Email",scanner);
         String password = Util.readString("Password",scanner);
 
@@ -141,7 +171,7 @@ public class MainAdministeurGUI implements DisplayGUI{
         if (isAuthentificated){
             System.out.println("Success");
         }else {
-            System.out.println("Ops");
+            System.out.println("The account use reserved");
         }
     }
 

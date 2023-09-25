@@ -42,7 +42,7 @@ public class MainGUI  implements  DisplayGUI{
                     new MainAgentGUI().displayMainOptions(scanner);
                 break;
             case 3:
-                new MainPaitentGUI().displayMainOptions(scanner);
+                new MainPaitentGUI().patientDashboard(scanner);
                 break;
 //            case 4:
 //                new DossierServiceImpl().enregistrerDossier(new DossierDto());

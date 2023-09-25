@@ -25,10 +25,11 @@ public class PatientMapper implements Mapper<PatientDto , Patient> {
     @Override
     public PatientDto toDto() {
         return null;
+
     }
 
     @Override
-    public PatientDto toDto(PatientDto t) {
+    public PatientDto toDto(Patient t) {
         return null;
     }
 

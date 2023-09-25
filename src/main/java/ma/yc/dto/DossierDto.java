@@ -6,6 +6,7 @@ import ma.yc.dto.RemboursementDto;
 import java.util.List;
 
 public class DossierDto {
+
     public String numDossier;
     public statusDossier status;
     public float totalRemboursement;
@@ -18,6 +19,7 @@ public class DossierDto {
     public List<ScannerDto> scannersDto;
     public List<RadioDto> radiosDto;
     public List<VisiteDto> visitesDto;
+
 
     @Override
     public String toString() {
@@ -34,5 +36,6 @@ public class DossierDto {
                 ", radiosDto=" + radiosDto +
                 ", visitesDto=" + visitesDto +
                 '}';
+
     }
 }

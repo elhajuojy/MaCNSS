@@ -19,6 +19,8 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
         Agent agent = new Agent();
         agent.setEmail(agentDto.email);
         agent.setPassword(agentDto.password);
+        agent.setCodeVerification(agentDto.codeVerification);
+        agent.setTimeRegester(agentDto.timeRegester);
         return agent;
     }
 
@@ -28,7 +30,7 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
     }
 
     @Override
-    public AgentDto toDto(AgentDto t) {
+    public AgentDto toDto(Agent t) {
         return null;
     }
 

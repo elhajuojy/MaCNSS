@@ -18,24 +18,29 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
     @Override
     public Dossier toEntity(DossierDto dossierDto) {
         //todo: implement this method to entity from DossierDto
+
         return null;
     }
 
     @Override
     public DossierDto toDto() {
+
         //todo: implement this method to dossierDto from DossierEntity
+
         return null;
     }
 
     @Override
-    public DossierDto toDto(DossierDto t) {
-
-        return null;
+    public DossierDto toDto(Dossier d) {
+        DossierDto dossierDto = new DossierDto();
+        dossierDto.num_dossier = d.getNumDossier();
+        dossierDto.status = d.getStatus();
+        dossierDto.TotalRemboursement = d.getTotalRemboursement();
+        return dossierDto;
     }
 
     @Override
     public PreparedStatement toPreparedStatement(Dossier dossier, PreparedStatement preparedStatement) {
-
         return null;
     }
 }

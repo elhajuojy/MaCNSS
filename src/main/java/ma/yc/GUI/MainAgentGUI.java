@@ -12,7 +12,13 @@ import ma.yc.service.impl.AgentServiceImpl;
 import ma.yc.service.impl.DossierServiceImpl;
 import ma.yc.service.impl.PatientServiceImpl;
 
-import java.util.*;
+
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +44,36 @@ public class MainAgentGUI implements DisplayGUI {
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }
+
+    public static Boolean sendMail(String body,String subject ,String email) {
+        final String username = "obelkadi336@gmail.com";
+        final String password = "hbdi wose rkeq qpme";
+
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.starttls.enable", "true");
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject(subject);
+            message.setText("Here is the code of verification authentic: "+body);
+            Transport.send(message);
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     @Override
     public int displayMainOptions(Scanner scanner ) {
         this.scanner = scanner;
@@ -53,6 +89,12 @@ public class MainAgentGUI implements DisplayGUI {
             String code = this.agentService.authentifier(agentDto);
             if (!code.isEmpty()){
                 System.out.println("Success: " + code);
+
+                this.agentDto.codeVerification=code;
+                if(this.agentService.insertCode(agentDto)){
+                    desplayValidateCode(scanner, agentDto);
+                }
+                sendMail(code, "code","hay.anas.336@gmail.com");
             }else {
                 System.out.println("Ops");
             }
@@ -64,6 +106,12 @@ public class MainAgentGUI implements DisplayGUI {
         Print.log("something went worng password or email are not correct .");
         return 0;
     }
+    public static void desplayValidateCode(Scanner scanner,AgentDto agentDto){
+        String codeVerification = Util.readString("code",scanner);
+        agentDto.codeVerification = codeVerification;
+        this.
+    }
+
 
     void verifyCodeVerification( ){
         //if the authentification is successful then show the admin dashboard

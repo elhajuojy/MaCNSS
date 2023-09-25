@@ -9,8 +9,8 @@ public interface DossierDao {
     boolean enregistrerDossier(Dossier dossier);
     boolean modifierDossier();
     float totalRemoursement();
-    List<String> consulterDossier();
-    List<String> consulterDossiers();
+    Dossier consulterDossier(String CodeDossier);
+    List<Dossier> consulterDossiers(String MatriculeUser);
     boolean suiviEtatDossier(String statusDossier);
     boolean envoyeEmailChangemenetEtat(String statusDossier);
 
