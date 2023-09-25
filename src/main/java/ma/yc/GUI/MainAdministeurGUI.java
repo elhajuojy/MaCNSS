@@ -1,14 +1,19 @@
 package ma.yc.GUI;
 
+
 import ma.yc.core.Print;
 import ma.yc.core.Util;
+import ma.yc.database.DatabaseConnection;
+import ma.yc.dto.AdminDto;
 import ma.yc.dto.AgentDto;
 import ma.yc.dto.UserDto;
 import ma.yc.service.AdminService;
 import ma.yc.service.AgentService;
 import ma.yc.service.impl.AdminServiceImpl;
 import ma.yc.service.impl.AgentServiceImpl;
+import org.mindrot.jbcrypt.BCrypt;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainAdministeurGUI implements DisplayGUI{
@@ -30,7 +35,7 @@ public class MainAdministeurGUI implements DisplayGUI{
 
 
     @Override
-    public int displayMainOptions(Scanner scanner) {
+    public int displayMainOptions(Scanner scanner)  {
         //show the admin options
         // there's one option for now which is authentification before he can do anything
         // if the authentification is successful then he can do anything
@@ -44,6 +49,7 @@ public class MainAdministeurGUI implements DisplayGUI{
         int choice = scanner.nextInt();
         switch (choice){
             case 1:
+
                 //authentication: Admin need to be authenticated before he can do anything
                 String email;
                 String password ;
@@ -51,8 +57,8 @@ public class MainAdministeurGUI implements DisplayGUI{
                 email  = Util.readString("Email",scanner);
                 Print.log("Password : ");
                 password = scanner.next();
-                UserDto userDto = new UserDto(email,password);
-                isAuthentificated = this.adminService.authentifier(userDto);
+                AdminDto adminDto = new AdminDto(email,password);
+                isAuthentificated = this.adminService.authentifier(adminDto);
                 if (isAuthentificated){
                     //if the authentication is successful then show the admin dashboard
                     this.AdminDashboard(scanner);
@@ -79,10 +85,9 @@ public class MainAdministeurGUI implements DisplayGUI{
         return 0;
     }
 
-    public void AdminDashboard(Scanner scanner){
+    public void AdminDashboard(Scanner scanner)  {
 
         Print.log("=== Gestion des comptes des agents CNSS   ===");
-
         Print.log("1- Add an agent ");
         Print.log("2- Select All agents ");
         Print.log("3- Delete an agent ");
@@ -109,6 +114,7 @@ public class MainAdministeurGUI implements DisplayGUI{
 
     private void updateAgent(Scanner scanner) {
         Print.log("=== Update an agent ===");
+
         Print.log("Email : ");
         String email  = Util.readString("Email",scanner);
 
@@ -132,8 +138,7 @@ public class MainAdministeurGUI implements DisplayGUI{
              System.out.println("--------------***********-------------------");
          }
 
-//        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
-//        this.agentService.updateAgent(agentDto);
+        UserDto userDto = new UserGUI().displayOptions("email");
 
     }
 
@@ -150,12 +155,13 @@ public class MainAdministeurGUI implements DisplayGUI{
         }else {
             System.out.println("Waring");
         }
-//        AgentDto agentDto = new AgentDto(userDto.email, null,null);
-//        this.agentService.deleteAgent(agentDto);
+        UserDto userDto = new UserGUI().displayOptions("email");
+        //todo : delete agent
+
     }
 
     private void selectAllAgents(Scanner scanner) {
-        //show all agents
+        //todo : show all agents
     }
 
     private void addAgent(Scanner scanner) {
@@ -163,7 +169,6 @@ public class MainAdministeurGUI implements DisplayGUI{
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("Enregester");
         String email = Util.readString("Email",scanner);
-
         String password = Util.readString("Password",scanner);
 
         agentDto.email = email;
@@ -174,8 +179,6 @@ public class MainAdministeurGUI implements DisplayGUI{
         }else {
             System.out.println("The account use reserved");
         }
-//        AgentDto agentDto = new AgentDto(userDto.email, userDto.password, null);
-//        this.agentService.addAgent(agentDto);
     }
 
 }

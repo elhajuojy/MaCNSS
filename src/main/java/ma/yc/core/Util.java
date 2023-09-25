@@ -22,7 +22,6 @@ public class Util {
     }
 
     public static String readString(String key , Scanner scanner){
-        scanner.nextLine();
         System.out.print(key+" : ");
         return scanner.nextLine();
     }
