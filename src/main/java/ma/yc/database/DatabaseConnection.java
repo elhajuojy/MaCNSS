@@ -14,7 +14,7 @@ public class DatabaseConnection {
     private final envLoader envLoader = new envLoader();
     public String url = envLoader.get("URL");
     private String username = envLoader.get("USERNAME");
-    private String password = envLoader.get("");
+    private String password = envLoader.get("PASSWORD");
     private String driver = envLoader.get("DRIVER");
 
 

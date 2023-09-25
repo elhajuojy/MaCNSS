@@ -1,7 +1,7 @@
 package ma.yc;
 
 import ma.yc.GUI.*;
-import ma.yc.core.EmailProvider;
+//import ma.yc.core.EmailProvider;
 import ma.yc.core.Print;
 import ma.yc.dao.AdministateurDao;
 import ma.yc.database.DatabaseConnection;

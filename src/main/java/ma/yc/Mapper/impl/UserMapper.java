@@ -8,6 +8,12 @@ import java.sql.PreparedStatement;
 public class UserMapper implements Mapper<AgentDto, Agent> {
 
 
+
+    @Override
+    public Agent toEntity() {
+        return null;
+    }
+
     @Override
     public Agent toEntity(AgentDto agentDto) {
         Agent agent = new Agent();
@@ -16,6 +22,23 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
         agent.setCodeVerification(agentDto.codeVerification);
         agent.setTimeRegester(agentDto.timeRegester);
         return agent;
+    }
+
+    @Override
+    public AgentDto toDto() {
+        return null;
+    }
+
+    @Override
+    public AgentDto toDto(AgentDto t) {
+        return null;
+    }
+
+    @Override
+
+    public PreparedStatement toPreparedStatement(Agent agent, PreparedStatement preparedStatement) {
+
+        return null;
     }
 
 //    @Override
@@ -33,3 +56,5 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
 //        return null;
 //    }
 }
+
+
