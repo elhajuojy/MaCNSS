@@ -30,7 +30,7 @@ public class AdminMapper implements Mapper<AdminDto, Administrateur> {
     }
 
     @Override
-    public AdminDto toDto(AdminDto t) {
+    public AdminDto toDto(Administrateur t) {
         return null;
     }
 

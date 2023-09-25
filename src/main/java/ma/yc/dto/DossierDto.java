@@ -5,14 +5,15 @@ import ma.yc.enums.statusDossier;
 public class DossierDto {
     public String num_dossier ;
     public String matricule;
+    public Float TotalRemboursement;
     public statusDossier status;
 
     public DossierDto() {
     }
 
     public DossierDto(String num_dossier, String matricule) {
-        this.num_dossier = num_dossier;
+        /*this.num_dossier = num_dossier;
         this.matricule = matricule;
-        this.status = statusDossier.En_attend;
+        this.status = statusDossier.En_attend;*/
     }
 }

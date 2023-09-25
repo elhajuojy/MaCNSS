@@ -30,7 +30,7 @@ public class UserMapper implements Mapper<AgentDto, Agent> {
     }
 
     @Override
-    public AgentDto toDto(AgentDto t) {
+    public AgentDto toDto(Agent t) {
         return null;
     }
 
