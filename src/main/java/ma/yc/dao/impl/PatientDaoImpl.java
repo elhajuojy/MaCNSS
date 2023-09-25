@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class PatientDaoImpl implements PatientDao {
     private  Connection connection;
+    private Patient patient;
 
     public PatientDaoImpl() {
        try{

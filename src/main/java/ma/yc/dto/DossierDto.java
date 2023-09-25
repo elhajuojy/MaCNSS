@@ -1,21 +1,38 @@
 package ma.yc.dto;
 
 import ma.yc.enums.statusDossier;
-import ma.yc.model.Fichier;
+import ma.yc.dto.RemboursementDto;
+
+import java.util.List;
 
 public class DossierDto {
-    public String num_dossier ;
-    public String matricule;
+    public String numDossier;
     public statusDossier status;
+    public float totalRemboursement;
+    public RemboursementDto remboursementDto;
+    public FichierDto fichier;
+    public PatientDto patientDto;
 
+    public List<MedicamentDto> medicamentsDto;
+    public List<AnalyseDto> analysesDto;
+    public List<ScannerDto> scannersDto;
+    public List<RadioDto> radiosDto;
+    public List<VisiteDto> visitesDto;
 
-
-    public DossierDto() {
-    }
-
-    public DossierDto(String num_dossier, String matricule) {
-        this.num_dossier = num_dossier;
-        this.matricule = matricule;
-        this.status = statusDossier.En_attend;
+    @Override
+    public String toString() {
+        return "DossierDto{" +
+                "numDossier='" + numDossier + '\'' +
+                ", status=" + status +
+                ", totalRemboursement=" + totalRemboursement +
+                ", remboursementDto=" + remboursementDto +
+                ", fichier=" + fichier +
+                ", patientDto=" + patientDto +
+                ", medicamentsDto=" + medicamentsDto +
+                ", analysesDto=" + analysesDto +
+                ", scannersDto=" + scannersDto +
+                ", radiosDto=" + radiosDto +
+                ", visitesDto=" + visitesDto +
+                '}';
     }
 }

@@ -9,6 +9,7 @@ public class Dossier {
     private statusDossier status;
     private float totalRemboursement;
     private Remboursement remboursement;
+    private Patient patient;
     private Fichier fichier;
 
     private List<Medicament> medicaments;
@@ -16,6 +17,14 @@ public class Dossier {
     private List<Scanner> scanners;
     private List<Radio> radios;
     private List<Visite> visites;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 
     public List<Medicament> getMedicaments() {
         return medicaments;

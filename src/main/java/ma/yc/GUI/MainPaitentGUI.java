@@ -60,12 +60,17 @@ public class MainPaitentGUI implements DisplayGUI{
             case 1:
                 //consult dossier by matricule
                 Print.log("Entre le code_bar de votre dossier");
-                String code_bar = Util.readString("num_dossier",scanner);
-                DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
+                String numDossier = Util.readString("num_dossier",scanner);
+                DossierDto dossierDto = new DossierDto();
+                dossierDto.numDossier = numDossier;
+                dossierDto.patientDto.matricule = patientDto.matricule;
+
+
                 this.patientService.consulterDossierParCode(dossierDto);
                 break;
             case 2:
-                DossierDto dossierDto1 = new DossierDto(null, patientDto.matricule);
+                DossierDto dossierDto1 = new DossierDto();
+                dossierDto1.patientDto.matricule = patientDto.matricule;
                 this.patientService.consulterDossiers(dossierDto1);
                 break;
             case 3:
