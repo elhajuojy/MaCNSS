@@ -1,0 +1,39 @@
+package ma.yc.Mapper.impl;
+
+import ma.yc.Mapper.Mapper;
+import ma.yc.dto.DossierDto;
+import ma.yc.model.Dossier;
+
+import java.sql.PreparedStatement;
+
+public class DossierMapper implements Mapper <DossierDto, Dossier> {
+
+    @Override
+    public Dossier toEntity() {
+        return null;
+    }
+
+    @Override
+    public Dossier toEntity(DossierDto dossierDto) {
+        return null;
+    }
+
+    @Override
+    public DossierDto toDto() {
+        return null;
+    }
+
+    @Override
+    public DossierDto toDto(Dossier d) {
+        DossierDto dossierDto = new DossierDto();
+        dossierDto.num_dossier = d.getNumDossier();
+        dossierDto.status = d.getStatus();
+        dossierDto.TotalRemboursement = d.getTotalRemboursement();
+        return dossierDto;
+    }
+
+    @Override
+    public PreparedStatement toPreparedStatement(Dossier dossier, PreparedStatement preparedStatement) {
+        return null;
+    }
+}

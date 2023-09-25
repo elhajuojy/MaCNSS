@@ -5,9 +5,23 @@ import ma.yc.enums.statusDossier;
 import java.util.List;
 
 public class Dossier {
+
+
+
     private String numDossier;
     private statusDossier status;
     private float totalRemboursement;
+
+    private Patient patient;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     private Remboursement remboursement;
     private Fichier fichier;
 
@@ -98,5 +112,6 @@ public class Dossier {
     public void setTotalRemboursement(float totalRemboursement) {
         this.totalRemboursement = totalRemboursement;
     }
+
 
 }

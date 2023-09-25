@@ -10,6 +10,7 @@ import ma.yc.service.PatientService;
 import ma.yc.service.impl.PatientServiceImpl;
 
 import java.security.PublicKey;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainPaitentGUI implements DisplayGUI{
@@ -64,14 +65,24 @@ public class MainPaitentGUI implements DisplayGUI{
                 Print.log("Entre le code_bar de votre dossier");
                 String code_bar = Util.readString("num_dossier",scanner);
 
-                DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
-                this.patientService.consulterDossierParCode(code_bar);
+                //DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
+                DossierDto dossierDto = this.patientService.consulterDossierParCode(code_bar);
+                Print.log("Folder status " + dossierDto.status.toString());
+                Print.log("Total to Reimburse " + dossierDto.TotalRemboursement);
+
+
                 break;
             case 2:
                 Print.log("Entrer ton matricule");
                 String MatriculePatient = Util.readString("matricule",scanner);
-                DossierDto dossierDto1 = new DossierDto(null, patientDto.matricule);
-                this.patientService.consulterDossiers(MatriculePatient);
+               List<DossierDto> listdossierDto = this.patientService.consulterDossiers(MatriculePatient);
+                for(DossierDto d : listdossierDto){
+                    Print.log("--------------------num de dossier" + d.num_dossier + " ----------------------");
+                    Print.log( "total de remboursement pour ce dossier " + d.TotalRemboursement);
+                    Print.log( "le status de dossier " + d.status.toString());
+                    System.out.println("-------------------------------------------------------------");
+                }
+
                 break;
             case 3:
                 //go back to the main menu
