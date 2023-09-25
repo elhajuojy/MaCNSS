@@ -2,14 +2,16 @@ package ma.yc.GUI;
 
 import ma.yc.core.Print;
 import ma.yc.core.Util;
-import ma.yc.dto.AgentDto;
-import ma.yc.dto.DossierDto;
+import ma.yc.dto.*;
 import ma.yc.enums.statusDossier;
 import ma.yc.model.*;
 import ma.yc.service.AgentService;
 import ma.yc.service.DossierService;
+import ma.yc.service.PatientService;
 import ma.yc.service.impl.AgentServiceImpl;
 import ma.yc.service.impl.DossierServiceImpl;
+import ma.yc.service.impl.PatientServiceImpl;
+
 
 import javax.mail.*;
 import javax.mail.internet.AddressException;
@@ -24,7 +26,9 @@ import java.util.regex.Pattern;
 public class MainAgentGUI implements DisplayGUI {
 
     private AgentService agentService;
+    private DossierDto dossierDto = new DossierDto();
     private DossierService dossierService;
+    private PatientService patientService;
     private boolean isAuthentificated = false;
     private Scanner scanner ;
     private AgentDto agentDto;
@@ -32,6 +36,7 @@ public class MainAgentGUI implements DisplayGUI {
         this.agentService = new AgentServiceImpl();
         this.dossierService = new DossierServiceImpl();
         this.agentDto = new AgentDto();
+        this.patientService = new PatientServiceImpl();
     }
     public static boolean verifyEmail(String input){
         String rgx = "^[a-zA-Z0-9]+@[a-z]+\\.[a-z]+$";
@@ -75,9 +80,8 @@ public class MainAgentGUI implements DisplayGUI {
 
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("Authentification");
+        scanner.nextLine();
         String email = Util.readString("Email",scanner);
-
-
         agentDto.email = email;
         if (verifyEmail(email)){
             String password = Util.readString("Password",scanner);
@@ -98,9 +102,8 @@ public class MainAgentGUI implements DisplayGUI {
             System.out.println(email + " is not a valid email address.");
 
         }
-
-        //todo : something went worng password or email are not correct .
-
+        // : something went worng password or email are not correct .
+        Print.log("something went worng password or email are not correct .");
         return 0;
     }
     public static void desplayValidateCode(Scanner scanner,AgentDto agentDto){
@@ -117,13 +120,14 @@ public class MainAgentGUI implements DisplayGUI {
 
         boolean isCodeVerified = this.agentService.verifyCodeVerification(code);
         if (isCodeVerified){
-            this.AgentDashboard();
+            this.agentDashboard();
         }else {
-            //todo : something went worng the code is not correct .
+            //: something went worng the code is not correct .
+            Print.log("something went worng the code is not correct");
         }
     }
 
-    private void AgentDashboard( ) {
+    private void agentDashboard( ) {
         Print.log("=== Agent Operation  ===");
         Print.log("1 - Add a new Dossier ");
         Print.log("2 - Change a Dossier status");
@@ -183,7 +187,7 @@ public class MainAgentGUI implements DisplayGUI {
         String status = Util.readString("Status",scanner);
 
         DossierDto dossierDto = new DossierDto();
-        dossierDto.num_dossier = code_bar;
+        dossierDto.numDossier = code_bar;
         //TODO : CONVERT THE STRING TO ENUM
 //        dossierDto.status = "En_attend";
         this.dossierService.suiviEtatDossier("");
@@ -191,46 +195,196 @@ public class MainAgentGUI implements DisplayGUI {
     }
 
     private void addDossier( ) {
-        //todo : ask about the dossier information and add it
+        // : ask about the dossier information and add it
         Print.log("Entre le matricule de votre patient");
         String matricule = Util.readString("Matricule",scanner);
-        //todo : first i need to verify the patient matircule if it exist or not
-        if (true)
+        // first i need to verify the patient matircule if it exist or not
+        PatientDto patientDto = new PatientDto();
+        patientDto.matricule = matricule;
+        if (!this.patientService.authentification(patientDto))
         {
             Print.log("Matricule does not exist");
             return;
         }
-        //todo : if the matricule exist then add the dossier
-        DossierDto dossierDto = new DossierDto();
-        dossierDto.matricule = matricule ;
-        Print.log("Entre le num dossier de votre dossier");
-        Print.log("");
+        // : if the matricule exist then add the dossier
+        dossierDto.patientDto =patientDto  ;
         String num_dossier = Util.readString("Num dossier",scanner);
-        Print.log("Entre le status de votre dossier");
-        statusDossier status = statusDossier.En_attend;
-        dossierDto.status = status;
+        dossierDto.numDossier = num_dossier;
+        dossierDto.status = statusDossier.En_attend;
 
-        //todo: ask about ficher one ficher
+        //: ask about ficher one ficher
+        dossierDto.fichier = this.saveFicher();
 
+        //: ask about medicaments  list;
+        dossierDto.medicamentsDto = this.saveMedicament();
 
-        //todo: ask about medicaments  list;
+        //: ask about analyses list;
+        //: ask if there's a analyses to include in the dossier
 
-        //todo: ask about analyses list;
-
-        //todo : ask about scanners list;
-
-        //todo : ask about radios list;
-
-        //todo : ask about visits list ;
-
+        dossierDto.analysesDto = this.saveAnalyses();
+        // : ask about scanners list;
+        dossierDto.scannersDto = this.saveScanners();
+        // : ask about radios list;
+        dossierDto.radiosDto = this.saveRadios();
+        // : ask about visits list ;
+        dossierDto.visitesDto = this.saveVisits();
+        //: Print information
+        Print.log(dossierDto.toString());
         //:save dossier
         this.dossierService.enregistrerDossier(dossierDto);
-        //todo:call service to count amomunt .... totalRemboursement
 
 
-        //todo : show totalRemboursement
+        //:call service to count amomunt .... totalRemboursement
+        Float totalRemoursement =  this.dossierService.totalRemoursement();
+        Print.log("Total Remboursement : " + totalRemoursement);
 
 
+
+
+    }
+
+    private FichierDto saveFicher() {
+        this.dossierDto.fichier = new FichierDto();
+        String dateDepot = Util.readString("dateDepot",scanner);
+        String specialite = Util.readString("specialite",scanner);
+        Print.log("Entre les total frais dossier ");
+        float totalFraisDossier = scanner.nextFloat();
+
+        dossierDto.fichier.dateDepot = dateDepot;
+        dossierDto.fichier.specialite = specialite;
+        dossierDto.fichier.totalFraisDossier = totalFraisDossier;
+        return dossierDto.fichier ;
+    }
+
+    private List<VisiteDto> saveVisits() {
+        this.dossierDto.visitesDto = new ArrayList<>();
+        Print.log("Voulez vous ajouter un autre visite ? (y/n)");
+        String saveVisits = scanner.nextLine();
+        boolean isVisites = false;
+        if (saveVisits.equals("y")){
+            isVisites = true;
+        }
+        while (isVisites){
+            VisiteDto visiteDto = new VisiteDto();
+            visiteDto.description = Util.readString("Description",scanner);
+            visiteDto.prix =  scanner.nextFloat();
+            visiteDto.visiteId = scanner.nextLong();
+            //: add visite to list
+            dossierDto.visitesDto.add(visiteDto);
+            Print.log("Voulez vous ajouter un autre visite ? (y/n)");
+            String choice = Util.readString("Choix",scanner);
+            if (choice.equals("n")){
+                break;
+            }
+        }
+        return this.dossierDto.visitesDto;
+    }
+
+    private List<RadioDto> saveRadios() {
+        this.dossierDto.radiosDto = new ArrayList<>();
+
+        Print.log("Voulez vous ajouter un autre radio ? (y/n)");
+        String saveRadois = scanner.nextLine();
+        boolean isRadios = false;
+        if (saveRadois.equals("y")){
+            isRadios = true;
+        }
+        while (isRadios){
+            RadioDto radioDto = new RadioDto();
+            radioDto.description = Util.readString("Description",scanner);
+            radioDto.prix =  scanner.nextFloat();
+            radioDto.radioId = scanner.nextLong();
+            //: add radio to list
+            dossierDto.radiosDto.add(radioDto);
+            Print.log("Voulez vous ajouter un autre radio ? (y/n)");
+            String choice = Util.readString("Choix",scanner);
+            if (choice.equals("n")){
+                break;
+            }
+        }
+
+        return this.dossierDto.radiosDto;
+    }
+
+    private List<ScannerDto> saveScanners() {
+        this.dossierDto.scannersDto = new ArrayList<>();
+
+        Print.log("Voulez vous ajouter un autre scanner ? (y/n)");
+        String saveScanner = Util.readString("choice",scanner);
+        boolean isScanners = false;
+        if (saveScanner.equals("y")){
+            isScanners= true;
+        }
+        while (isScanners){
+            ScannerDto scannerDto = new ScannerDto();
+            scannerDto.description = Util.readString("Description",scanner);
+            scannerDto.prix =  scanner.nextFloat();
+            scannerDto.scannerId = scanner.nextLong();
+            //: add scanner to list
+            dossierDto.scannersDto.add(scannerDto);
+            Print.log("Voulez vous ajouter un autre scanner ? (y/n)");
+            String choice = Util.readString("Choix",scanner);
+            if (choice.equals("n")){
+                break;
+            }
+        }
+        return  this.dossierDto.scannersDto;
+    }
+
+    private List<AnalyseDto> saveAnalyses() {
+        dossierDto.analysesDto = new ArrayList<>();
+        List<AnalyseDto> analyseDtoList = new ArrayList<>();
+        Print.log("Voulez vous ajouter un autre analyse ? (y/n)");
+        String saveAnaylayse = scanner.nextLine();
+        boolean isAnalyses = false;
+        if (saveAnaylayse.equals("y")){
+            isAnalyses = true;
+        }
+        while (isAnalyses){
+            AnalyseDto analyseDto = new AnalyseDto();
+            analyseDto.description = Util.readString("Description ",scanner);
+            analyseDto.prix =  scanner.nextFloat();
+            analyseDto.AnalyseId = scanner.nextLong();
+            //: add analyse to list
+            dossierDto.analysesDto.add(analyseDto);
+            Print.log("Voulez vous ajouter un autre analyse ? (y/n)");
+            String choice = Util.readString("Choix",scanner);
+            if (choice.equals("n")){
+                break;
+            }
+        }
+
+        return analyseDtoList;
+    }
+
+    public List<MedicamentDto> saveMedicament(){
+        List<MedicamentDto> medicamentDtoList = new ArrayList<>();
+        MedicamentDto medicamentDto = new MedicamentDto();
+        Print.log("Voulez vous ajouter un autre medicament ? (y/n)");
+        scanner.nextLine();
+        String addMedicament =scanner.nextLine();
+        boolean isMedicamentSave = false;
+        if (addMedicament.equals("y") ){
+            isMedicamentSave = true;
+        }
+        while (isMedicamentSave){
+            Print.log("Entre le code bar  de medicament");
+            long codeBar = scanner.nextLong();
+            Print.log("Entre la quantite de medicament");
+            int quantite = scanner.nextInt();
+            medicamentDto.codeBarre = codeBar;
+            medicamentDto.quantite = quantite;
+
+            //: add medicament to list
+            medicamentDtoList.add(medicamentDto);
+
+            Print.log("Voulez vous ajouter un autre medicament ? (y/n)");
+            String choice = Util.readString("Choix",scanner);
+            if (choice.equals("n")){
+                break;
+            }
+        }
+        return medicamentDtoList;
     }
 
 

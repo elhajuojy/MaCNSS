@@ -16,6 +16,7 @@ import java.util.Queue;
 
 public class AgentDaoImpl implements AgentDao {
     private Connection connection;
+    private Agent agent;
 
     public AgentDaoImpl() {
         try {

@@ -12,6 +12,8 @@ public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
     private final envLoader envLoader = new envLoader();
+    //WORNING: this is not a good practice to put the password in the code
+    // : THOSE INFORMATION MUST COME FROM .ENV FILE
     public String url = envLoader.get("URL");
     private String username = envLoader.get("USER");
     private String password = envLoader.get("PASSWORD");

@@ -17,9 +17,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainAdministeurGUI implements DisplayGUI{
-
-
-
     //need AgentService which is all agent function stored
     // in like add agent delete agent and update agent we looked in
     AdminService adminService ;
@@ -53,10 +50,8 @@ public class MainAdministeurGUI implements DisplayGUI{
                 //authentication: Admin need to be authenticated before he can do anything
                 String email;
                 String password ;
-                Print.log("Email : ");
                 email  = Util.readString("Email",scanner);
-                Print.log("Password : ");
-                password = scanner.next();
+                password = Util.readString("Password",scanner);
                 AdminDto adminDto = new AdminDto(email,password);
                 isAuthentificated = this.adminService.authentifier(adminDto);
                 if (isAuthentificated){
