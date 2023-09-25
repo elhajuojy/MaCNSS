@@ -1,18 +1,14 @@
 package ma.yc.dao.impl;
 
-import ma.yc.core.Print;
 import ma.yc.dao.AgentDao;
 import ma.yc.database.DatabaseConnection;
-import ma.yc.dto.AgentDto;
 import ma.yc.model.Agent;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class AgentDaoImpl implements AgentDao {
     private Connection connection;

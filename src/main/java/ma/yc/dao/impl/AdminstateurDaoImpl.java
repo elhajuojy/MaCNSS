@@ -1,6 +1,5 @@
 package ma.yc.dao.impl;
 
-import ma.yc.core.Print;
 import ma.yc.dao.AdministateurDao;
 import ma.yc.database.DatabaseConnection;
 import ma.yc.model.Administrateur;

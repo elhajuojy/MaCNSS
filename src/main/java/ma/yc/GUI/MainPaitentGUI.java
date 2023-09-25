@@ -69,7 +69,7 @@ public class MainPaitentGUI implements DisplayGUI{
                 //DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
                 DossierDto dossierDto = this.patientService.consulterDossierParCode(code_bar);
                 Print.log("Folder status " + dossierDto.status.toString());
-                Print.log("Total to Reimburse " + dossierDto.TotalRemboursement);
+                Print.log("Total to Reimburse " + dossierDto.totalRemboursement);
 
 
                 break;
@@ -78,8 +78,8 @@ public class MainPaitentGUI implements DisplayGUI{
                 String MatriculePatient = Util.readString("matricule",scanner);
                List<DossierDto> listdossierDto = this.patientService.consulterDossiers(MatriculePatient);
                 for(DossierDto d : listdossierDto){
-                    Print.log("--------------------num de dossier" + d.num_dossier + " ----------------------");
-                    Print.log( "total de remboursement pour ce dossier " + d.TotalRemboursement);
+                    Print.log("--------------------num de dossier" + d.numDossier + " ----------------------");
+                    Print.log( "total de remboursement pour ce dossier " + d.totalRemboursement);
                     Print.log( "le status de dossier " + d.status.toString());
                     System.out.println("-------------------------------------------------------------");
                 }

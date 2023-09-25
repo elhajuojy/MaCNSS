@@ -33,9 +33,9 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
     @Override
     public DossierDto toDto(Dossier d) {
         DossierDto dossierDto = new DossierDto();
-        dossierDto.num_dossier = d.getNumDossier();
+        dossierDto.numDossier = d.getNumDossier();
         dossierDto.status = d.getStatus();
-        dossierDto.TotalRemboursement = d.getTotalRemboursement();
+        dossierDto.totalRemboursement = d.getTotalRemboursement();
         return dossierDto;
     }
 

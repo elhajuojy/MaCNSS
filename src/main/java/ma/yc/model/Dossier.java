@@ -11,17 +11,6 @@ public class Dossier {
     private String numDossier;
     private statusDossier status;
     private float totalRemboursement;
-
-    private Patient patient;
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
     private Remboursement remboursement;
     private Patient patient;
     private Fichier fichier;

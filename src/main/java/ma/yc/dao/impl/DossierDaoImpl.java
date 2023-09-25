@@ -5,7 +5,7 @@ import ma.yc.dao.DossierDao;
 import ma.yc.database.DatabaseConnection;
 
 import ma.yc.enums.statusDossier;
-import ma.yc.model.Dossier;
+import ma.yc.model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,19 +30,7 @@ public class DossierDaoImpl implements DossierDao {
 
 
     }
-    //Dossier uses the DossierEntity class which means
-    // all subclass which inside the DossierEntity class
-    //todo : the DossierDaoImpl uses the DossierEntity class
-    Connection connection ;
-    private Dossier dossier;
 
-    public DossierDaoImpl() {
-        try{
-            this.connection = DatabaseConnection.getInstance().getConnection();
-        }catch (SQLException e){
-            Print.log(e.toString());
-        }
-    }
 
     public DossierDaoImpl(Dossier dossier) {
         this.dossier = dossier;
@@ -64,7 +52,7 @@ public class DossierDaoImpl implements DossierDao {
             //count total Reimbursement
             float totalRemboursement = this.totalRemoursement();
             statement.setFloat(3,totalRemboursement);
-            statement.setString(4,dossier.getPatient().getMatricule());
+//            statement.setString(4,dossier.getPatient().getMatricule());
             int isSaved = statement.executeUpdate();
             //todo : check if the dossier get saved ;
             if(isSaved ==1){
@@ -124,7 +112,7 @@ public class DossierDaoImpl implements DossierDao {
         return 0;
     }
 
-    private int saveMedicament(Medicament medicament,Dossier dossier) {
+    private int saveMedicament(Medicament medicament, Dossier dossier) {
         try{
             String insertFicherQuery = "INSERT INTO medicament (codeBarre, quantite, prix, dossierNum)" +
                     "VALUES (?,?,?,?)";
@@ -151,7 +139,7 @@ public class DossierDaoImpl implements DossierDao {
             insertFicherStatement.setString(2,dossier.getFichier().getDateDepot().toString());
             insertFicherStatement.setFloat(3,dossier.getFichier().getTotalFraisDossier());
             insertFicherStatement.setString(4,dossier.getFichier().getSpecialite());
-            insertFicherStatement.setString(5,dossier.getPatient().getMatricule());
+//            insertFicherStatement.setString(5,dossier.getPatient().getMatricule());
            return insertFicherStatement.executeUpdate();
 
         }catch (SQLException e){

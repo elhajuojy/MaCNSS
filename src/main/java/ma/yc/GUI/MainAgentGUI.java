@@ -17,6 +17,7 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
@@ -109,7 +110,6 @@ public class MainAgentGUI implements DisplayGUI {
     public static void desplayValidateCode(Scanner scanner,AgentDto agentDto){
         String codeVerification = Util.readString("code",scanner);
         agentDto.codeVerification = codeVerification;
-        this.
     }
 
 
