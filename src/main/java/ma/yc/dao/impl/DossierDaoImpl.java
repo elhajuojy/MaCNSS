@@ -188,7 +188,7 @@ public class DossierDaoImpl implements DossierDao {
             insertFicherStatement.setString(2,dossier.getFichier().getDateDepot().toString());
             insertFicherStatement.setFloat(3,dossier.getFichier().getTotalFraisDossier());
             insertFicherStatement.setString(4,dossier.getFichier().getSpecialite());
-//            insertFicherStatement.setString(5,dossier.getPatient().getMatricule());
+            insertFicherStatement.setString(5,dossier.getPatient().getMatricule());
            return insertFicherStatement.executeUpdate();
 
         }catch (SQLException e){
@@ -287,8 +287,7 @@ public class DossierDaoImpl implements DossierDao {
 
     @Override
     public boolean envoyeEmailChangemenetEtat(String statusDossier) {
-        //todo : envoye email to user but i guess we don't need this method
-        // because we have a method in the service
+        //todo : envoye email to user but i guess we don't need this method  because we have a method in the service
         return false;
     }
 

@@ -78,7 +78,6 @@ public class MainAgentGUI implements DisplayGUI {
     @Override
     public int displayMainOptions(Scanner scanner ) {
         this.scanner = scanner;
-
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("Authentification");
         scanner.nextLine();
@@ -267,7 +266,9 @@ public class MainAgentGUI implements DisplayGUI {
         while (isVisites){
             VisiteDto visiteDto = new VisiteDto();
             visiteDto.description = Util.readString("Description",scanner);
+            Print.log("Entre le prix de la visite : ");
             visiteDto.prix =  scanner.nextFloat();
+            Print.log("Entre l'id de la visite : ");
             visiteDto.visiteId = scanner.nextLong();
             //: add visite to list
             dossierDto.visitesDto.add(visiteDto);
@@ -292,7 +293,9 @@ public class MainAgentGUI implements DisplayGUI {
         while (isRadios){
             RadioDto radioDto = new RadioDto();
             radioDto.description = Util.readString("Description",scanner);
+            Print.log("Entre le prix de la radio : ");
             radioDto.prix =  scanner.nextFloat();
+            Print.log("Entre l'id de la radio : ");
             radioDto.radioId = scanner.nextLong();
             //: add radio to list
             dossierDto.radiosDto.add(radioDto);
@@ -318,7 +321,9 @@ public class MainAgentGUI implements DisplayGUI {
         while (isScanners){
             ScannerDto scannerDto = new ScannerDto();
             scannerDto.description = Util.readString("Description",scanner);
+            Print.log("Entre le prix de la scanner : ");
             scannerDto.prix =  scanner.nextFloat();
+            Print.log("Entre l'id de la scanner : ");
             scannerDto.scannerId = scanner.nextLong();
             //: add scanner to list
             dossierDto.scannersDto.add(scannerDto);
@@ -343,7 +348,9 @@ public class MainAgentGUI implements DisplayGUI {
         while (isAnalyses){
             AnalyseDto analyseDto = new AnalyseDto();
             analyseDto.description = Util.readString("Description ",scanner);
+            Print.log("Entre le prix de l'analyse : ");
             analyseDto.prix =  scanner.nextFloat();
+            Print.log("Entre l'id de l'analyse : ");
             analyseDto.analyseId = scanner.nextLong();
             //: add analyse to list
             dossierDto.analysesDto.add(analyseDto);

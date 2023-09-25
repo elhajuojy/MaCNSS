@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean authentifier(AdminDto adminDto) {
-        //:TODO appeler la méthode authentifier de AdministateurDao
+        //: appeler la méthode authentifier de AdministateurDao
         //here you can map the userDto to the entity
         //then call the dao
 

@@ -25,12 +25,12 @@ public class DossierServiceImpl implements DossierService {
     @Override
     public boolean enregistrerDossier(DossierDto dossierDto) {
         //: we need to map the dossierDto to the entity
-        //todo : this should be removed in the future
-        DossierDto randomDossierDto = this.randomDossierDto();
+        // : this should be removed in the future
+//        DossierDto randomDossierDto = this.randomDossierDto();
         //verify information and checkout some code ;
-        Print.log(randomDossierDto.toString());
+        Print.log(dossierDto.toString());
         //todo: implement this mapper method to entity from DossierDto
-        Dossier dossier = this.dossierMapper.toEntity(randomDossierDto);
+        Dossier dossier = this.dossierMapper.toEntity(dossierDto);
         //: call the dao to save the dossier
         boolean isSaved = this.dossierDao.enregistrerDossier(dossier);
         if (isSaved){
