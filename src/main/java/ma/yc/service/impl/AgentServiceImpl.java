@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 
 public class AgentServiceImpl implements AgentService {
 
-    //todo:todoagent
     private AgentDao agentDao;
     private Mapper<AgentDto,Agent> userMapper;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
