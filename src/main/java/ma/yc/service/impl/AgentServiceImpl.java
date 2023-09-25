@@ -10,6 +10,7 @@ import ma.yc.model.Agent;
 import ma.yc.service.AgentService;
 
 import java.security.SecureRandom;
+import java.time.Instant;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +66,20 @@ public class AgentServiceImpl implements AgentService {
         }
         return result;
     }
+
+    @Override
+    public boolean insertCode(AgentDto agentDto) {
+        boolean result = false;
+        agentDto.timeRegester = System.currentTimeMillis();
+        Agent agent = this.userMapper.toEntity(agentDto);
+        boolean returnInsert = this.agentDao.insertCodeVerif(agent);
+        if (returnInsert){
+            result=true;
+
+        }
+        return result;
+    }
+
 
     @Override
     public AgentDto update(AgentDto agentDto) {

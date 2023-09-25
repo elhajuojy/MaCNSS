@@ -66,6 +66,9 @@ public class MainAdministeurGUI implements DisplayGUI{
                 //go back to the main menu
                 new MainGUI().displayMainOptions(scanner);
                 return 0;
+            case  3:
+                this.addAgent(scanner);
+                break;
             case 0:
                 //exit
                 Print.log("Bye Bye");

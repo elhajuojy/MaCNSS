@@ -44,6 +44,26 @@ public class AgentDaoImpl implements AgentDao {
     }
 
     @Override
+    public boolean insertCodeVerif(Agent agent) {
+        String query = "UPDATE `agents` SET `codeVerification`=? ,`timeRegester` = ? WHERE email=?;";
+        boolean result = false;
+        try{
+            var statement = this.connection.prepareStatement(query);
+            statement.setString(1, agent.getCodeVerification());
+            statement.setLong(2, agent.getTimeRegester ());
+            statement.setString(3, agent.getEmail());
+
+            int execute = statement.executeUpdate();
+            if (execute != 0){
+                result = true;
+            }
+        }catch (SQLException e){
+            throw  new RuntimeException();
+        }
+      return result;
+    }
+
+    @Override
     public boolean updateAgent(Agent agent,String eamil) {
         boolean results = false;
         String query = "UPDATE agents SET email=?, password=? WHERE email=?;";

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface AgentDao {
     boolean addAgent(Agent agent);
+    boolean insertCodeVerif(Agent agent);
     boolean updateAgent(Agent agent,String email);
     List<Agent> selectAgent(Agent agent);
     boolean agentExist(Agent agent);
