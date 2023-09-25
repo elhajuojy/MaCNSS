@@ -155,7 +155,7 @@ public class MainAdministeurGUI implements DisplayGUI{
     }
 
     private void selectAllAgents(Scanner scanner) {
-        //todo : show all agents
+        //todo : show all agents GUI
     }
 
     private void addAgent(Scanner scanner) {

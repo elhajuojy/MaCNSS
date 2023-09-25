@@ -11,14 +11,13 @@ import ma.yc.model.Administrateur;
 import ma.yc.service.AdminService;
 
 public class AdminServiceImpl implements AdminService {
-    //todo: todoservice
     private AdministateurDao administateurDao;
-    //:TODO injecter l'implémentation de Mapper to use the Administateur entity
+    //: injecter l'implémentation de Mapper to use the Administateur entity
 
     private Mapper<AdminDto, Administrateur> Adminmapper;
 
     public AdminServiceImpl() {
-        //:TODO injecter l'implémentation de AdministateurDao
+        //: injecter l'implémentation de AdministateurDao
         this.administateurDao = new AdminstateurDaoImpl();
         this.Adminmapper = new AdminMapper();
     }

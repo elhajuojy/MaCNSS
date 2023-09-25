@@ -31,84 +31,133 @@ public class DossierDaoImpl implements DossierDao {
 
     }
 
-
-    public DossierDaoImpl(Dossier dossier) {
-        this.dossier = dossier;
-    }
+//    public DossierDaoImpl(Dossier dossier) {
+//        this.dossier = dossier;
+//    }
 
     @Override
     public boolean enregistrerDossier(Dossier dossier) {
         this.dossier = dossier;
-        //todo: save dossier to database
         String QUERY = "INSERT INTO dossiers (numDossier, status, totalRemboursement, matricule) " +
                 "VALUES(?,?,?,?)";
 
         //I
         try {
-            //todo : save Dossier to Database
+            // : save Dossier to Database
             PreparedStatement statement = connection.prepareStatement(QUERY);
             statement.setString(1,dossier.getNumDossier());
             statement.setString(2,dossier.getStatus().toString());
             //count total Reimbursement
             float totalRemboursement = this.totalRemoursement();
             statement.setFloat(3,totalRemboursement);
-//            statement.setString(4,dossier.getPatient().getMatricule());
+            statement.setString(4,dossier.getPatient().getMatricule());
             int isSaved = statement.executeUpdate();
-            //todo : check if the dossier get saved ;
+            // : check if the dossier get saved ;
             if(isSaved ==1){
-                //todo : if the type douc not null it will be inserted to database
+                // : if the type douc not null it will be inserted to database
                 this.insertFicher(dossier);
-                //todo : if the medicmenet
-                if (dossier.getMedicaments().size()>0){
+                // : if the dossier has medicament it will be inserted to database
+                if (dossier.getMedicaments().size()>0 || dossier.getMedicaments() != null){
                     dossier.getMedicaments().forEach(medicament -> {
                         this.saveMedicament(medicament,dossier);
                     });
                 }
-
-                if (dossier.getScanners().size()>0){
+                if (dossier.getScanners().size()>0 || dossier.getScanners() != null){
                     dossier.getScanners().forEach(scanner -> {
                         this.saveScanner(scanner, dossier);
                     });
                 }
-                if (dossier.getAnalyses().size()>0){
+                if (dossier.getAnalyses().size()>0 || dossier.getAnalyses() != null){
                     dossier.getAnalyses().forEach(analyse -> {
                         this.saveAnalyse(analyse,dossier);
                     });
                 }
-                if (dossier.getRadios().size()>0){
+                if (dossier.getRadios().size()>0 || dossier.getRadios() != null){
                     dossier.getRadios().forEach(radio -> {
                         this.saveRadio(radio,dossier);
                     });
                 }
 
-                if (dossier.getVisites().size()>0){
+                if (dossier.getVisites().size()>0 || dossier.getVisites() != null){
                     dossier.getVisites().forEach(visite -> {
                         this.saveVisit(visite,dossier);
                     });
                 }
 
+                Print.log("Dossier Dao =>"+ dossier.toString());
+                return true;
             }
 
 
         }catch (SQLException e){
             Print.log(e.toString());
         }
-        Print.log("Dossier Dao =>"+ dossier.toString());
 
         return false;
     }
 
-    private void saveVisit(Visite visite, Dossier dossier) {
+    private int saveVisit(Visite visite, Dossier dossier) {
+        try{
+            String query = "INSERT INTO Visite (visiteId, prix, description, dossierNum)" +
+                    "VALUES (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1,visite.getVisiteId());
+            statement.setFloat(2,visite.getPrix());
+            statement.setString(3,visite.getDescription());
+            statement.setString(4,dossier.getNumDossier());
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            Print.log(e.toString());
+        }
+
+        return  0;
     }
 
-    private void saveRadio(Radio radio, Dossier dossier) {
+    private int saveRadio(Radio radio, Dossier dossier) {
+        try{
+            String query = "INSERT INTO radio (radioId, prix, description, dossierNum)" +
+                    "VALUES (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1,radio.getRadioId());
+            statement.setFloat(2,radio.getPrix());
+            statement.setString(3,radio.getDescription());
+            statement.setString(4,dossier.getNumDossier());
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            Print.log(e.toString());
+        }
+        return 0;
     }
 
     private int saveAnalyse(Analyse analyse, Dossier dossier) {
+        try{
+            String query = "INSERT INTO analyse (analyseId, prix, description, dossierNum)" +
+                    "VALUES (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1,analyse.getAnalyseId());
+            statement.setFloat(2,analyse.getPrix());
+            statement.setString(3,analyse.getDescription());
+            statement.setString(4,dossier.getNumDossier());
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            Print.log(e.toString());
+        }
         return  0;
     }
 
     private int saveScanner(Scanner scanner, Dossier dossier) {
+        try{
+            String query = "INSERT INTO scanner (scannerId, prix, description, dossierNum)" +
+                    "VALUES (?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1,scanner.getScannerId());
+            statement.setFloat(2,scanner.getPrix());
+            statement.setString(3,scanner.getDescription());
+            statement.setString(4,dossier.getNumDossier());
+            return statement.executeUpdate();
+        }catch (SQLException e){
+            Print.log(e.toString());
+        }
         return 0;
     }
 
@@ -156,7 +205,7 @@ public class DossierDaoImpl implements DossierDao {
 
     @Override
     public float totalRemoursement() {
-
+        //todo : calculate total remoursement
         return 0;
     }
 
@@ -232,11 +281,14 @@ public class DossierDaoImpl implements DossierDao {
 
     @Override
     public boolean suiviEtatDossier(String statusDossier) {
+        //todo : change status of dossier in database
         return false;
     }
 
     @Override
     public boolean envoyeEmailChangemenetEtat(String statusDossier) {
+        //todo : envoye email to user but i guess we don't need this method
+        // because we have a method in the service
         return false;
     }
 

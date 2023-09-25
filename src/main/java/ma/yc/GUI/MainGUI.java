@@ -16,7 +16,7 @@ public class MainGUI  implements  DisplayGUI{
         Print.log("2 - are you an agent ? ");
         Print.log("3 - are you a patient ? ");
         //Todo:Test save dossier to database ...
-//        Print.log("4 - Add Dossier to database Test");
+        Print.log("4 - Add Dossier to database Test");
         Print.log("0 - Exit ");
         //get the choice from the user
         int choice = scanner.nextInt();
@@ -44,9 +44,9 @@ public class MainGUI  implements  DisplayGUI{
             case 3:
                 new MainPaitentGUI().patientDashboard(scanner);
                 break;
-//            case 4:
-//                new DossierServiceImpl().enregistrerDossier(new DossierDto());
-//                break;
+            case 4:
+                new DossierServiceImpl().enregistrerDossier(new DossierDto());
+                break;
             default:
                 //exit the application in default case
                 break;

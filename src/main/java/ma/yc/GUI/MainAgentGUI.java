@@ -344,7 +344,7 @@ public class MainAgentGUI implements DisplayGUI {
             AnalyseDto analyseDto = new AnalyseDto();
             analyseDto.description = Util.readString("Description ",scanner);
             analyseDto.prix =  scanner.nextFloat();
-            analyseDto.AnalyseId = scanner.nextLong();
+            analyseDto.analyseId = scanner.nextLong();
             //: add analyse to list
             dossierDto.analysesDto.add(analyseDto);
             Print.log("Voulez vous ajouter un autre analyse ? (y/n)");

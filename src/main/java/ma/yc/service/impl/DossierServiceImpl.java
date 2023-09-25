@@ -2,6 +2,7 @@ package ma.yc.service.impl;
 
 import ma.yc.Mapper.impl.DossierMapper;
 import ma.yc.core.Print;
+import ma.yc.core.Util;
 import ma.yc.dao.DossierDao;
 import ma.yc.dao.impl.DossierDaoImpl;
 import ma.yc.dto.*;
@@ -28,20 +29,21 @@ public class DossierServiceImpl implements DossierService {
         DossierDto randomDossierDto = this.randomDossierDto();
         //verify information and checkout some code ;
         Print.log(randomDossierDto.toString());
+        //todo: implement this mapper method to entity from DossierDto
         Dossier dossier = this.dossierMapper.toEntity(randomDossierDto);
         //: call the dao to save the dossier
         boolean isSaved = this.dossierDao.enregistrerDossier(dossier);
         if (isSaved){
+            //: calacuer le total de remoursement
             this.totalRemoursement();
 
         }
-        //todo: calacuer le total de remoursement
         return  isSaved;
     }
 
     private DossierDto randomDossierDto( ) {
         DossierDto dossierDtoRandom = new DossierDto();
-        dossierDtoRandom.numDossier = "093874873";
+        dossierDtoRandom.numDossier = String.valueOf(Util.generatedLong());
         dossierDtoRandom.patientDto = new PatientDto();
         //patient information
         dossierDtoRandom.patientDto.matricule = "11111";
@@ -104,7 +106,6 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public boolean suiviEtatDossier(String statusDossier) {
-
         this.envoyeEmailChangemenetEtat("message");
         return false;
     }
