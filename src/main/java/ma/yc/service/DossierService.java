@@ -13,6 +13,6 @@ public interface DossierService {
     List<DossierDto> consulterDossier(DossierDto dossierDto);
     List<DossierDto> consulterDossiers(DossierDto dossierDto);
     List<String> consulterDossiers();
-    boolean suiviEtatDossier(String statusDossier);
+    boolean suiviEtatDossier(DossierDto dossierDto,String statusDossier);
     boolean envoyeEmailChangemenetEtat(String statusDossier);
 }

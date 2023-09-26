@@ -288,9 +288,21 @@ public class DossierDaoImpl implements DossierDao {
     }
 
     @Override
-    public boolean suiviEtatDossier(String statusDossier) {
-        //todo : change status of dossier in database
-        return false;
+    public boolean suiviEtatDossier(Dossier dossier) {
+        boolean result = false;
+        String query = "UPDATE `dossiers` SET `status`=? WHERE `numDossier`=?;";
+        try{
+            var statement  = this.connection.prepareStatement(query);
+            String status = dossier.getStatus().toString();
+            statement.setString(1, status);
+            statement.setString(2, dossier.getNumDossier());
+            statement.executeUpdate();
+            result = true;
+        }catch (SQLException e){
+            throw new RuntimeException();
+        }
+        return result;
+
     }
 
     @Override

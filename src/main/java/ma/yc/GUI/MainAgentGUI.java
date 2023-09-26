@@ -17,6 +17,11 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 import java.util.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -73,12 +78,25 @@ public class MainAgentGUI implements DisplayGUI {
             return false;
         }
     }
+
+    void verifyCodeVerification(AgentDto agentDto){
+        //if the authentification is successful then show the Agent dashboard
+        Print.log("Send the verification code to your email");
+        String code = Util.readString("Code",scanner);
+
+        this.agentDto.codeVerification = code;
+        boolean isCodeVerified = this.agentService.verifyCodeVerification(agentDto);
+        if (isCodeVerified){
+            this.agentDashboard();
+        }else {
+            System.out.println("the COde is expered !");
+        }
+    }
     @Override
     public int displayMainOptions(Scanner scanner ) {
         this.scanner = scanner;
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("Authentification");
-        scanner.nextLine();
         String email = Util.readString("Email",scanner);
         agentDto.email = email;
         if (verifyEmail(email)){
@@ -90,9 +108,12 @@ public class MainAgentGUI implements DisplayGUI {
 
                 this.agentDto.codeVerification=code;
                 if(this.agentService.insertCode(agentDto)){
-                    desplayValidateCode(scanner, agentDto);
+                    sendMail(code, "code","hay.anas.336@gmail.com");
+                        verifyCodeVerification(agentDto);
                 }
+
                 sendMail(code, "code", agentDto.email);
+
             }else {
                 System.out.println("Ops");
             }
@@ -100,29 +121,12 @@ public class MainAgentGUI implements DisplayGUI {
             System.out.println(email + " is not a valid email address.");
 
         }
-        // : something went worng password or email are not correct .
         Print.log("something went worng password or email are not correct .");
         return 0;
     }
-    public static void desplayValidateCode(Scanner scanner,AgentDto agentDto){
-        String codeVerification = Util.readString("code",scanner);
-        agentDto.codeVerification = codeVerification;
-    }
 
 
-    void verifyCodeVerification( ){
-        //if the authentification is successful then show the admin dashboard
-        Print.log("Send the verification code to your email");
-        String code = Util.readString("Code",scanner);
 
-        boolean isCodeVerified = this.agentService.verifyCodeVerification(code);
-        if (isCodeVerified){
-            this.agentDashboard();
-        }else {
-            //: something went worng the code is not correct .
-            Print.log("something went worng the code is not correct");
-        }
-    }
 
     private void agentDashboard( ) {
         Print.log("=== Agent Operation  ===");
@@ -190,12 +194,21 @@ public class MainAgentGUI implements DisplayGUI {
         String code_bar = Util.readString("num_dossier",scanner);
         Print.log("Entre le nouveau status");
         String status = Util.readString("Status",scanner);
-
+        System.out.println(status);
         DossierDto dossierDto = new DossierDto();
         dossierDto.numDossier = code_bar;
-        //TODO : CONVERT THE STRING TO ENUM
-//        dossierDto.status = "En_attend";
-        this.dossierService.suiviEtatDossier("");
+
+       boolean result = this.dossierService.suiviEtatDossier(dossierDto,status);
+       if (result){
+           System.out.println("---------------**********--------------------");
+           System.out.println("\nthe status dossier changed successfully");
+           System.out.println("---------------**********--------------------");
+
+       }else {
+           System.out.println("---------------**********--------------------");
+           System.out.println("\nthe status is not changed");
+           System.out.println("---------------**********--------------------");
+       }
 
     }
 

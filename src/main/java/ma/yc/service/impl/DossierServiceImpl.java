@@ -149,10 +149,28 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public boolean suiviEtatDossier(String statusDossier) {
-        this.envoyeEmailChangemenetEtat("message");
-        return false;
+
+    public boolean suiviEtatDossier(DossierDto dossierDto, String statusDossier) {
+        boolean result = false;
+        if(statusDossier.equals("Refuse")) {
+            dossierDto.status = ma.yc.enums.statusDossier.Refusé;
+            Dossier dossier = this.dossierMapper.toEntity(dossierDto);
+            result = this.dossierDao.suiviEtatDossier(dossier);
+        } else if (statusDossier.equals("Valide")) {
+            dossierDto.status = ma.yc.enums.statusDossier.Validé;
+            Dossier dossier = this.dossierMapper.toEntity(dossierDto);
+            result = this.dossierDao.suiviEtatDossier(dossier);
+        }
+        return result;
+
     }
+
+//    @Override
+//    public boolean suiviEtatDossier(String statusDossier) {
+//
+//        this.envoyeEmailChangemenetEtat("message");
+//        return false;
+//    }
 
     @Override
     public boolean envoyeEmailChangemenetEtat(String statusDossier) {

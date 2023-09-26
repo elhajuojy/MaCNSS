@@ -13,7 +13,7 @@ public interface AgentDao {
 
     boolean deleteAgent(String email);
     void update();
-    boolean sendCodeVerificationEmail(String code);
+    Agent sendCodeVerificationEmail(Agent agent);
     boolean verifyCodeVerification(String code);
     String authentifier(Agent agent);
 

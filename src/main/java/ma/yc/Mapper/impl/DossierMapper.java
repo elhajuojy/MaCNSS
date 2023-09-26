@@ -38,6 +38,7 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
 
     @Override
     public Dossier toEntity(DossierDto dossierDto) {
+
         //: implement this method to entity from DossierDto
         Dossier dossier = new Dossier();
         dossier.setNumDossier(dossierDto.numDossier);
@@ -96,8 +97,7 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
         Patient patient = this.patientMapper.toEntity(dossierDto.patientDto);
 
         dossier.setPatient(patient);
-
-
+      
         return dossier;
     }
 

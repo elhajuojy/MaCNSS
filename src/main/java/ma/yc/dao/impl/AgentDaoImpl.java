@@ -147,8 +147,24 @@ public class AgentDaoImpl implements AgentDao {
     }
 
     @Override
-    public boolean sendCodeVerificationEmail(String code) {
-        return false;
+    public Agent sendCodeVerificationEmail(Agent agent) {
+        String query = "SELECT `codeVerification`,`timeRegester` FROM agents WHERE email = ? and codeVerification = ?;";
+
+        boolean result = false;
+        try{
+
+            var statement = this.connection.prepareStatement(query);
+            statement.setString(1,agent.getEmail());
+            statement.setString(2,agent.getCodeVerification());
+            ResultSet test = statement.executeQuery();
+            while (test.next()){
+                agent.setCodeVerification(test.getString("codeVerification"));
+                agent.setTimeRegester(test.getLong("timeRegester"));
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+       return agent;
     }
 
     @Override
