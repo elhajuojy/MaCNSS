@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class AdminstateurDaoImpl implements AdministateurDao {
     private Boolean AuthState = false;
-    //todo: admintodo authentication section
     private Administrateur administrateur;
     @Override
     public boolean authentifier(Administrateur A) {
@@ -24,7 +23,6 @@ public class AdminstateurDaoImpl implements AdministateurDao {
             preparedStatement.setString(1,A.getEmail());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                //todo --> : bug: the password is not hashed i don't know how the password is stored in the database
                 if(BCrypt.checkpw(A.getPassword(),resultSet.getString("password"))) {
                     AuthState = true;
                 }

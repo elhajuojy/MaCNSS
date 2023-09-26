@@ -10,10 +10,10 @@ CREATE TABLE administrateurs (email CHAR (55), password CHAR(55));
 CREATE TABLE agents (email CHAR (55), password CHAR(55), codeVerification VARCHAR(250));
 
 -- analysis
-CREATE TABLE patients (email CHAR (55), password CHAR(55),nom CHAR(55), matricule VARCHAR(250) PRIMARY KEY NOT NULL ,);
+CREATE TABLE patients (email CHAR (55), password CHAR(55),nom CHAR(55), matricule VARCHAR(250) PRIMARY KEY NOT NULL );
 
 -- dossier
-CREATE  TABLE dossiers (numDossier VARCHAR(123) PRIMARY KEY NOT NULL , status CHAR(55), totalRemboursement FLOAT, matricule VARCHAR(123), FOREIGN KEY(matricule) REFERENCES patients(matricule),ADD FOREIGN KEY (`matricule`) REFERENCES `patients`(`matricule`) ON DELETE CASCADE ON UPDATE CASCADE);
+CREATE  TABLE dossiers (numDossier VARCHAR(123) PRIMARY KEY NOT NULL , status CHAR(55), totalRemboursement FLOAT, matricule VARCHAR(123), FOREIGN KEY(matricule) REFERENCES patients(matricule),  FOREIGN KEY (`matricule`) REFERENCES `patients`(`matricule`) ON DELETE CASCADE ON UPDATE CASCADE);
 
 -- fichier
 CREATE TABLE analyse (analyseId BIGINT PRIMARY KEY,prix FLOAT,description VARCHAR(255),dossierNum VARCHAR(255),FOREIGN KEY (dossierNum)  REFERENCES dossiers(numDossier) ON DELETE CASCADE ON UPDATE CASCADE);
@@ -33,3 +33,6 @@ CREATE TABLE Visite(visiteId BIGINT PRIMARY KEY,prix FLOAT,description VARCHAR(2
 
 -- radio
 CREATE TABLE radio(radioId BIGINT PRIMARY KEY,prix FLOAT,description VARCHAR(255),dossierNum VARCHAR(255),FOREIGN KEY (dossierNum) REFERENCES dossiers(numDossier) ON DELETE CASCADE ON UPDATE CASCADE);
+
+-- scanner
+CREATE TABLE scanner(scannerId BIGINT PRIMARY KEY,prix FLOAT,description VARCHAR(255),dossierNum VARCHAR(255),FOREIGN KEY (dossierNum) REFERENCES dossiers(numDossier) ON DELETE CASCADE ON UPDATE CASCADE);

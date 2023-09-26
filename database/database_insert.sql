@@ -129,3 +129,16 @@ VALUES
     (9, 70.00, 'X-ray 3', 'Dossier9'),
     (10, 85.00, 'CT Scan 3', 'Dossier10');
 
+INSERT INTO  scanner (scannerId, prix, description, dossierNum)
+
+VALUES
+    (1, 60.00, 'X-ray 1', 'Dossier1'),
+    (2, 80.00, 'CT Scan 1', 'Dossier2'),
+    (3, 65.00, 'MRI 1', 'Dossier3'),
+    (4, 70.00, 'Ultrasound 1', 'Dossier4'),
+    (5, 75.00, 'X-ray 2', 'Dossier5'),
+    (6, 90.00, 'CT Scan 2', 'Dossier6'),
+    (7, 55.00, 'MRI 2', 'Dossier7'),
+    (8, 75.00, 'Ultrasound 2', 'Dossier8'),
+    (9, 70.00, 'X-ray 3', 'Dossier9'),
+    (10, 85.00, 'CT Scan 3', 'Dossier10');

@@ -14,7 +14,9 @@ import ma.yc.service.impl.AgentServiceImpl;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class MainAdministeurGUI implements DisplayGUI{
     //need AgentService which is all agent function stored
@@ -81,6 +83,7 @@ public class MainAdministeurGUI implements DisplayGUI{
     }
 
     public void AdminDashboard(Scanner scanner)  {
+
 
         Print.log("=== Gestion des comptes des agents CNSS   ===");
         Print.log("1- Add an agent ");
@@ -155,7 +158,7 @@ public class MainAdministeurGUI implements DisplayGUI{
     }
 
     private void selectAllAgents(Scanner scanner) {
-        //todo : show all agents
+        //todo : show all agents GUI
     }
 
     private void addAgent(Scanner scanner) {
