@@ -103,9 +103,7 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
 
     @Override
     public DossierDto toDto() {
-
         //todo: implement this method to dossierDto from DossierEntity
-
         return null;
     }
 
