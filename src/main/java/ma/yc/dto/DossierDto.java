@@ -8,6 +8,7 @@ import java.util.List;
 public class DossierDto {
 
     public String numDossier;
+
     public statusDossier status;
     public float totalRemboursement;
     public RemboursementDto remboursementDto;

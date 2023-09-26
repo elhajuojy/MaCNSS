@@ -114,10 +114,21 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public boolean verifyCodeVerification(String code) {
-        this.sendCodeVerificationEmail(code);
+    public boolean verifyCodeVerification(AgentDto agentDto) {
+        boolean result = false;
+        Agent agent = this.userMapper.toEntity(agentDto);
+        Agent agent1 = this.agentDao.sendCodeVerificationEmail(agent);
 
-        return false;
+        long storedTimestamp = agent1.getTimeRegester();
+        long currentTime = System.currentTimeMillis();
+        long timeDifference = currentTime - storedTimestamp;
+        long CODE_VALIDITY_DURATION = 5 * 60 * 1000;
+
+        if( timeDifference < CODE_VALIDITY_DURATION){
+            result = true;
+        }
+
+        return result;
     }
     public static String generateRandomString(int length) {
 

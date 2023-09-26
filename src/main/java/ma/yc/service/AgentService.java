@@ -13,7 +13,7 @@ public interface AgentService {
     boolean deleteAgent(AgentDto agentDto);
     AgentDto update(AgentDto agentDto);
     boolean sendCodeVerificationEmail(String code);
-    boolean verifyCodeVerification(String code);
+    boolean verifyCodeVerification(AgentDto agentDto);
     String authentifier(AgentDto agentDto);
 
 }

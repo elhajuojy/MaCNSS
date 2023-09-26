@@ -11,6 +11,6 @@ public interface DossierService {
     float totalRemoursement();
     List<String> consulterDossier();
     List<String> consulterDossiers();
-    boolean suiviEtatDossier(String statusDossier);
+    boolean suiviEtatDossier(DossierDto dossierDto,String statusDossier);
     boolean envoyeEmailChangemenetEtat(String statusDossier);
 }
