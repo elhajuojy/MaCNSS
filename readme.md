@@ -1,5 +1,8 @@
 # **** Application Console MaCNSS ****
 
+## **Class Diagram**
+
+![Class Diagram](./database/ExportedClassDaigagramFromMACNSSProject.drawio.png)
 Dans le cadre de faciliter le suivi des dossiers des patients au Maroc, le groupe CNSS a lancé un appel d'offre pour la création d'une application console qui va être exploitée dans tous le réseau des agences CNSS Maroc. L’application **MaCNSS** va permettre aux agents CNSS de suivre en toute simplicité les dossiers de remboursement de chaque patient qui sont inscrit à la CNSS.
 
 - **Chaque Agent CNSS** a un compte dans l'application, pour qu'il puisse accéder à l'application, il doit saisir l'email + mot de passe avec un code vérification envoyé sur son boite email valable (5min)

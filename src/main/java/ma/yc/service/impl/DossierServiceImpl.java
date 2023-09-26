@@ -2,6 +2,7 @@ package ma.yc.service.impl;
 
 import ma.yc.Mapper.impl.DossierMapper;
 import ma.yc.core.Print;
+import ma.yc.core.Util;
 import ma.yc.dao.DossierDao;
 import ma.yc.dao.impl.DossierDaoImpl;
 import ma.yc.dto.*;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DossierServiceImpl implements DossierService {
-    //todo: dossier
+    //: dossier
     private DossierMapper dossierMapper ;
     private DossierDao dossierDao;
     public DossierServiceImpl() {
@@ -24,24 +25,23 @@ public class DossierServiceImpl implements DossierService {
     @Override
     public boolean enregistrerDossier(DossierDto dossierDto) {
         //: we need to map the dossierDto to the entity
-        //todo : this should be removed in the future
-        DossierDto randomDossierDto = this.randomDossierDto();
+        // : this should be removed in the future
+//        DossierDto randomDossierDto = this.randomDossierDto();
         //verify information and checkout some code ;
-        Print.log(randomDossierDto.toString());
-        Dossier dossier = this.dossierMapper.toEntity(randomDossierDto);
+        Print.log(dossierDto.toString());
+        //: implement this mapper method to entity from DossierDto
+        Dossier dossier = this.dossierMapper.toEntity(dossierDto);
         //: call the dao to save the dossier
         boolean isSaved = this.dossierDao.enregistrerDossier(dossier);
         if (isSaved){
-            this.totalRemoursement("0");
-
+            this.totalRemoursement(dossierDto.maticule);
         }
-        //todo: calacuer le total de remoursement
         return  isSaved;
     }
 
     private DossierDto randomDossierDto( ) {
         DossierDto dossierDtoRandom = new DossierDto();
-        dossierDtoRandom.numDossier = "093874873";
+        dossierDtoRandom.numDossier = String.valueOf(Util.generatedLong());
         dossierDtoRandom.patientDto = new PatientDto();
         //patient information
         dossierDtoRandom.patientDto.matricule = "11111";
@@ -104,17 +104,52 @@ public class DossierServiceImpl implements DossierService {
 
     @Override
     public List<String> consulterDossier() {
+        //todo : consulterDossier without checking information of the dossier
+
+        return null;
+    }
+
+    @Override
+    public List<DossierDto> consulterDossier(DossierDto dossierDto) {
+        // : Validation des données
+        //validation of codedossier if its String or not empty
+        if (dossierDto.numDossier == null || dossierDto.numDossier.isEmpty()){
+            //: throw exception
+            Dossier dossier = this.dossierDao.consulterDossier("codeDossier");
+            DossierDto dossierDto1 = this.dossierMapper.toDto(dossier);
+            List<DossierDto> dossierDtos = new ArrayList<>();
+            dossierDtos.add(dossierDto1);
+            return dossierDtos;
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<DossierDto> consulterDossiers(DossierDto dossierDto) {
+        // : Validation des données matricule de patient not null and not empty
+        if (dossierDto.patientDto.matricule == null || dossierDto.patientDto.matricule.isEmpty()){
+            //: throw exception
+            List<Dossier> dossiers = this.dossierDao.consulterDossiers("matricule");
+            List<DossierDto> dossierDtos = new ArrayList<>();
+            for (Dossier dossier : dossiers) {
+                DossierDto dossierDto1 = this.dossierMapper.toDto(dossier);
+                dossierDtos.add(dossierDto1);
+            }
+            return dossierDtos;
+        }
+
         return null;
     }
 
     @Override
     public List<String> consulterDossiers() {
+        //todo : consulterDossiers without checking information of the dossier
         return null;
     }
 
     @Override
     public boolean suiviEtatDossier(String statusDossier) {
-
         this.envoyeEmailChangemenetEtat("message");
         return false;
     }

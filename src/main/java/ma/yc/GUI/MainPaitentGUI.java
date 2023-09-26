@@ -26,6 +26,7 @@ public class MainPaitentGUI implements DisplayGUI{
     @Override
     public int displayMainOptions(Scanner scanner) {
        this.patientAuth(scanner);
+       this.patientDashboard(scanner);
         return 0;
     }
 

@@ -10,6 +10,8 @@ public interface DossierService {
     boolean modifierDossier();
     float totalRemoursement(String CodeDossier);
     List<String> consulterDossier();
+    List<DossierDto> consulterDossier(DossierDto dossierDto);
+    List<DossierDto> consulterDossiers(DossierDto dossierDto);
     List<String> consulterDossiers();
     boolean suiviEtatDossier(String statusDossier);
     boolean envoyeEmailChangemenetEtat(String statusDossier);
