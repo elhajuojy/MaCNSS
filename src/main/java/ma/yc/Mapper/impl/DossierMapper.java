@@ -91,13 +91,18 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
         }
         dossier.setScanners(scanners);
 
-        Fichier fichier = this.fichierMapper.toEntity(dossierDto.fichier);
-        dossier.setFichier(fichier);
+        if (dossierDto.fichier != null) {
+            Fichier fichier = this.fichierMapper.toEntity(dossierDto.fichier);
+            dossier.setFichier(fichier);
+        }
 
-        Patient patient = this.patientMapper.toEntity(dossierDto.patientDto);
+        if (dossierDto.patientDto != null) {
+            Patient patient = this.patientMapper.toEntity(dossierDto.patientDto);
+            dossier.setPatient(patient);
+        }
 
-        dossier.setPatient(patient);
-      
+
+
         return dossier;
     }
 

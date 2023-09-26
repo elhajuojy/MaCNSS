@@ -25,7 +25,7 @@ public class MainPaitentGUI implements DisplayGUI{
 
     @Override
     public int displayMainOptions(Scanner scanner) {
-       this.patientAuth(scanner);
+//       this.patientAuth(scanner);
        this.patientDashboard(scanner);
         return 0;
     }
@@ -64,9 +64,7 @@ public class MainPaitentGUI implements DisplayGUI{
 
                 //consult dossier by matricule
                 Print.log("Entre le code_bar de votre dossier");
-
                 String code_bar = Util.readString("num_dossier",scanner);
-
                 //DossierDto dossierDto = new DossierDto(code_bar, patientDto.matricule);
                 DossierDto dossierDto = this.patientService.consulterDossierParCode(code_bar);
                 Print.log("Folder status " + dossierDto.status.toString());

@@ -34,7 +34,7 @@ public class DossierServiceImpl implements DossierService {
         //: call the dao to save the dossier
         boolean isSaved = this.dossierDao.enregistrerDossier(dossier);
         if (isSaved){
-            this.totalRemoursement(dossierDto.maticule);
+            this.totalRemoursement(dossierDto.numDossier);
         }
         return  isSaved;
     }
@@ -94,12 +94,10 @@ public class DossierServiceImpl implements DossierService {
         float ToalAnalyse =   this.dossierDao.CalculateTotalAnalyse(CodeDossier);
         float TotalVisite = this.dossierDao.CalculateTotalVisiste(CodeDossier);
         float TotalRadio  =   this.dossierDao.CalculateTotalRadio(CodeDossier);
-        Print.log(TMedicament);
-        Print.log(ToalAnalyse);
-        Print.log(TotalVisite);
-        Print.log(TotalRadio);
 
-        return TMedicament + ToalAnalyse + TotalVisite + TotalRadio ;
+        float total = TMedicament + ToalAnalyse + TotalVisite + TotalRadio;
+        Print.log("totalRemoubresement :  "+ total);
+        return  total;
     }
 
     @Override
@@ -152,11 +150,12 @@ public class DossierServiceImpl implements DossierService {
 
     public boolean suiviEtatDossier(DossierDto dossierDto, String statusDossier) {
         boolean result = false;
-        if(statusDossier.equals("Refuse")) {
+
+        if(statusDossier.equalsIgnoreCase("Refuse")) {
             dossierDto.status = ma.yc.enums.statusDossier.Refusé;
             Dossier dossier = this.dossierMapper.toEntity(dossierDto);
             result = this.dossierDao.suiviEtatDossier(dossier);
-        } else if (statusDossier.equals("Valide")) {
+        } else if (statusDossier.equalsIgnoreCase("Valide")) {
             dossierDto.status = ma.yc.enums.statusDossier.Validé;
             Dossier dossier = this.dossierMapper.toEntity(dossierDto);
             result = this.dossierDao.suiviEtatDossier(dossier);

@@ -19,9 +19,11 @@ public class FichierMapper implements Mapper<FichierDto,Fichier> {
         Fichier fichier = new Fichier();
 
         try{
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            java.util.Date date =  sdf.parse(fichierDto.dateDepot);
-            fichier.setDateDepot(date);
+            if (fichierDto.dateDepot != null){
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                java.util.Date date = simpleDateFormat.parse(fichierDto.dateDepot);
+                fichier.setDateDepot(new Date(date.getTime()));
+            }
 
         }catch (Exception e){
             e.printStackTrace();

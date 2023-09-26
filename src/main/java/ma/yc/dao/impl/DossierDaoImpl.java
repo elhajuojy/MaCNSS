@@ -207,7 +207,7 @@ public class DossierDaoImpl implements DossierDao {
 
     @Override
     public boolean modifierDossier() {
-        //todo : change status
+        //: change status
         return false;
     }
 
@@ -382,7 +382,7 @@ public class DossierDaoImpl implements DossierDao {
         this.totalVisiste = (float) 0;
         try{
             String Specialite = SpecialiteFetch(codeDossier);
-            String Query = "SELECT * FROM visite INNER JOIN remboursement where remboursement.specialite = ? and visite.dossierNum = ?";
+            String Query = "SELECT * FROM Visite INNER JOIN remboursement where remboursement.specialite = ? and Visite.dossierNum = ?";
             PreparedStatement preparedStatement = this.connection.prepareStatement(Query);
             preparedStatement.setString(1,Specialite);
             preparedStatement.setString(2,codeDossier);

@@ -89,7 +89,7 @@ public class MainAgentGUI implements DisplayGUI {
         if (isCodeVerified){
             this.agentDashboard();
         }else {
-            System.out.println("the COde is expered !");
+            Print.log("the Code is expered !");
         }
     }
     @Override
@@ -108,20 +108,26 @@ public class MainAgentGUI implements DisplayGUI {
 
                 this.agentDto.codeVerification=code;
                 if(this.agentService.insertCode(agentDto)){
-                    sendMail(code, "code","hay.anas.336@gmail.com");
-                        verifyCodeVerification(agentDto);
+                      try{
+                          sendMail(code, "code", agentDto.email);
+                          verifyCodeVerification(agentDto);
+                      }catch (Exception e) {
+                          System.out.println("the code is not correct");
+                      }
+
+
                 }
 
                 sendMail(code, "code", agentDto.email);
 
             }else {
-                System.out.println("Ops");
+                Print.log("Ops");
             }
         }else {
-            System.out.println(email + " is not a valid email address.");
+            Print.log(email + " is not a valid email address.");
+            Print.log("something went worng password or email are not correct .");
 
         }
-        Print.log("something went worng password or email are not correct .");
         return 0;
     }
 
@@ -200,14 +206,16 @@ public class MainAgentGUI implements DisplayGUI {
 
        boolean result = this.dossierService.suiviEtatDossier(dossierDto,status);
        if (result){
-           System.out.println("---------------**********--------------------");
-           System.out.println("\nthe status dossier changed successfully");
-           System.out.println("---------------**********--------------------");
+           Print.log("---------------**********--------------------");
+           Print.log("\nthe status dossier changed successfully");
+           Print.log("---------------**********--------------------");
+           sendMail("Your dossier Is changed to : "+ status, "code", agentDto.email);
+           Print.log("Email sent successfully to user");
 
        }else {
-           System.out.println("---------------**********--------------------");
-           System.out.println("\nthe status is not changed");
-           System.out.println("---------------**********--------------------");
+           Print.log("---------------**********--------------------");
+           Print.log("\nthe status is not changed");
+           Print.log("---------------**********--------------------");
        }
 
     }
