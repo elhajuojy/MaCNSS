@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 
 public class AgentServiceImpl implements AgentService {
 
-    //todo:todoagent
     private AgentDao agentDao;
     private Mapper<AgentDto,Agent> userMapper;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -149,11 +148,11 @@ public class AgentServiceImpl implements AgentService {
         String code = "";
         Agent agent = this.userMapper.toEntity(agentDto);
         String passwordHashed = this.agentDao.authentifier(agent);
+        if (!passwordHashed.isEmpty()){
         if(BCrypt.checkpw(agent.getPassword(), passwordHashed)){
 
             code = generateRandomString(21);
-        }else {
-            System.out.println("drop");
+         }
         }
 
         return code;

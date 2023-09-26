@@ -12,16 +12,18 @@ import java.util.List;
 
 public class AgentDaoImpl implements AgentDao {
     private Connection connection;
+
+    //: the Agent Dao uses the AgentEntity class
     private Agent agent;
 
     public AgentDaoImpl() {
+
         try {
             this.connection = DatabaseConnection.getInstance().getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    //TODO : the Agent Dao uses the AgentEntity class
 
     @Override
     public boolean addAgent(Agent a) {
