@@ -34,9 +34,7 @@ public class DossierServiceImpl implements DossierService {
         //: call the dao to save the dossier
         boolean isSaved = this.dossierDao.enregistrerDossier(dossier);
         if (isSaved){
-            //: calacuer le total de remoursement
-            this.totalRemoursement();
-
+            this.totalRemoursement(dossierDto.maticule);
         }
         return  isSaved;
     }
@@ -89,9 +87,19 @@ public class DossierServiceImpl implements DossierService {
     }
 
     @Override
-    public float totalRemoursement() {
-        //todo : totalRemoubresement
-        return 0;
+    public float totalRemoursement(String CodeDossier) {
+        // : totalRemoubresement
+
+        float TMedicament =  this.dossierDao.CalculateTotalMedicament(CodeDossier);
+        float ToalAnalyse =   this.dossierDao.CalculateTotalAnalyse(CodeDossier);
+        float TotalVisite = this.dossierDao.CalculateTotalVisiste(CodeDossier);
+        float TotalRadio  =   this.dossierDao.CalculateTotalRadio(CodeDossier);
+        Print.log(TMedicament);
+        Print.log(ToalAnalyse);
+        Print.log(TotalVisite);
+        Print.log(TotalRadio);
+
+        return TMedicament + ToalAnalyse + TotalVisite + TotalRadio ;
     }
 
     @Override
