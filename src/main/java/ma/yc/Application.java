@@ -9,14 +9,10 @@ import ma.yc.database.DatabaseConnection;
 import java.util.Scanner;
 
 
-
-
 public class Application {
 
 
     public static void main(String[] args)  {
-
-
         DisplayGUI displayGUI = new MainGUI();
         Scanner scanner = new Scanner(System.in);
         try {
@@ -30,7 +26,6 @@ public class Application {
             Print.log(e.toString());
         }
         finally {
-
             Print.log("Finally Done ");
             boolean isClosed = DatabaseConnection.closeConnection();
             Print.log(isClosed);

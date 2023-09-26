@@ -7,6 +7,8 @@ import ma.yc.database.DatabaseConnection;
 import ma.yc.enums.statusDossier;
 import ma.yc.model.*;
 
+import javax.management.Query;
+import java.security.PrivateKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,11 @@ public class DossierDaoImpl implements DossierDao {
     private Dossier dossier ;
     private List<Dossier> listdossier ;
     private Connection connection;
+    private String Specialite;
+    private Float totalMedicament;
+    private Float totalAnaluse;
+    private Float totalRadio;
+    private Float totalVisiste;
     public DossierDaoImpl(){
         try{
             connection = DatabaseConnection.getInstance().getConnection();
@@ -50,7 +57,8 @@ public class DossierDaoImpl implements DossierDao {
             statement.setString(1,dossier.getNumDossier());
             statement.setString(2,dossier.getStatus().toString());
             //count total Reimbursement
-            float totalRemboursement = this.totalRemoursement();
+
+            float totalRemboursement = this.totalRemoursement("0");
             statement.setFloat(3,totalRemboursement);
 //            statement.setString(4,dossier.getPatient().getMatricule());
             int isSaved = statement.executeUpdate();
@@ -155,7 +163,7 @@ public class DossierDaoImpl implements DossierDao {
     }
 
     @Override
-    public float totalRemoursement() {
+    public float totalRemoursement(String CodeDossier) {
 
         return 0;
     }
@@ -191,6 +199,7 @@ public class DossierDaoImpl implements DossierDao {
 
     @Override
     public List<Dossier> consulterDossiers(String MatriculeUser) {
+
         try{
             List<Dossier> listdossier = new ArrayList<Dossier>();
             String Query = "SELECT *from dossiers where dossiers.matricule = ?";
@@ -238,6 +247,114 @@ public class DossierDaoImpl implements DossierDao {
     @Override
     public boolean envoyeEmailChangemenetEtat(String statusDossier) {
         return false;
+    }
+
+    @Override
+    public String SpecialiteFetch(String codeDossier) {
+
+        try{
+            String Query = "SELECT specialite FROM `fichiers` WHERE dossierNum = ?;";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(Query);
+            preparedStatement.setString(1,codeDossier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                   this.Specialite = resultSet.getString("specialite");
+            }else{
+                this.Specialite = null;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+        return this.Specialite;
+    }
+
+
+
+
+    @Override
+    public Float CalculateTotalMedicament(String codeDossier) {
+        this.totalMedicament = (float) 0;
+        try{
+            String Query = "SELECT * FROM `medicament` INNER JOIN remboursementmedicament WHERE medicament.codeBarre = remboursementmedicament.codeBare AND dossierNum = ?;";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(Query);
+            preparedStatement.setString(1,codeDossier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int Quantite = resultSet.getInt("quantite");
+                Float PrixBasic = resultSet.getFloat("PrixBasic");
+                int Tr = resultSet.getInt("TauxRe");
+                this.totalMedicament += (Quantite * PrixBasic) * Tr / 100;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return this.totalMedicament;
+    }
+
+    @Override
+    public Float CalculateTotalAnalyse(String codeDossier) {
+        this.totalAnaluse = (float) 0;
+        try{
+            String Specialite = SpecialiteFetch(codeDossier);
+            String Query = "SELECT * FROM analyse INNER JOIN remboursement where remboursement.specialite = ? and analyse.dossierNum = ?;";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(Query);
+            preparedStatement.setString(1,Specialite);
+            preparedStatement.setString(2,codeDossier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int Tr = resultSet.getInt("trAnalyse");
+                float Prix = resultSet.getFloat("pbAnalyse");
+                this.totalAnaluse += Prix * Tr/100;
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return this.totalAnaluse;
+    }
+
+    @Override
+    public Float CalculateTotalVisiste(String codeDossier) {
+        this.totalVisiste = (float) 0;
+        try{
+            String Specialite = SpecialiteFetch(codeDossier);
+            String Query = "SELECT * FROM visite INNER JOIN remboursement where remboursement.specialite = ? and visite.dossierNum = ?";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(Query);
+            preparedStatement.setString(1,Specialite);
+            preparedStatement.setString(2,codeDossier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int Tr = resultSet.getInt("trVisisteSpecialiste");
+                float Prix = resultSet.getFloat("pbVisiteSpecialiste");
+                this.totalVisiste += Prix * Tr/100;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return this.totalVisiste;
+    }
+
+    @Override
+    public Float CalculateTotalRadio(String codeDossier) {
+        this.totalRadio = (float) 0;
+        try{
+            String Specialite = SpecialiteFetch(codeDossier);
+            String Query = "SELECT * FROM radio INNER JOIN remboursement where remboursement.specialite = ? and  radio.dossierNum = ?;";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(Query);
+            preparedStatement.setString(1,Specialite);
+            preparedStatement.setString(2,codeDossier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int Tr = resultSet.getInt("trRadio");
+                float Prix = resultSet.getFloat("pbRadio");
+                this.totalRadio += Prix * Tr/100;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return this.totalRadio;
     }
 
 }

@@ -8,7 +8,7 @@ public interface DossierService {
 
     boolean enregistrerDossier(DossierDto dossierDto);
     boolean modifierDossier();
-    float totalRemoursement();
+    float totalRemoursement(String CodeDossier);
     List<String> consulterDossier();
     List<String> consulterDossiers();
     boolean suiviEtatDossier(String statusDossier);

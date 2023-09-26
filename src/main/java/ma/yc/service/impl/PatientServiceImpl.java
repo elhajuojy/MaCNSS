@@ -47,7 +47,6 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<DossierDto> consulterDossiers(String Matricule) {
-
         List<Dossier> dossier = this.dossierDao.consulterDossiers(Matricule);
         List<DossierDto> ListdossierDto = new ArrayList<DossierDto>();
         for(Dossier d : dossier){
@@ -58,10 +57,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public DossierDto consulterDossierParCode(String CodeDossier) {
-
         Dossier dossier =  this.dossierDao.consulterDossier(CodeDossier);
-
-
         DossierDto dossierDto =  this.dossierMapper.toDto(dossier);
         return  dossierDto;
     }

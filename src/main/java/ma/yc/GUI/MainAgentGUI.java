@@ -235,7 +235,7 @@ public class MainAgentGUI implements DisplayGUI {
 
 
         //:call service to count amomunt .... totalRemboursement
-        Float totalRemoursement =  this.dossierService.totalRemoursement();
+        Float totalRemoursement =  this.dossierService.totalRemoursement("0");
         Print.log("Total Remboursement : " + totalRemoursement);
 
 
