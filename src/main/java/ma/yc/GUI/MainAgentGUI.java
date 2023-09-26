@@ -17,9 +17,7 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -94,7 +92,7 @@ public class MainAgentGUI implements DisplayGUI {
                 if(this.agentService.insertCode(agentDto)){
                     desplayValidateCode(scanner, agentDto);
                 }
-                sendMail(code, "code","hay.anas.336@gmail.com");
+                sendMail(code, "code", agentDto.email);
             }else {
                 System.out.println("Ops");
             }
