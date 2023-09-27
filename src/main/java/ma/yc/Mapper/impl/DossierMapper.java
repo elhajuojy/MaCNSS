@@ -45,7 +45,7 @@ public class DossierMapper implements Mapper<DossierDto, Dossier> {
         dossier.setStatus(dossierDto.status);
         dossier.setTotalRemboursement(dossierDto.totalRemboursement);
 
-        //todo:implement those mapper methods to entity
+        //:implement those mapper methods to entity
         List<Visite> visites = new ArrayList<>();
         if (dossierDto.visitesDto != null) {
             for (VisiteDto visiteDto : dossierDto.visitesDto) {

@@ -1,5 +1,6 @@
 package ma.yc.GUI;
 
+import ma.yc.core.EmailProvider;
 import ma.yc.core.Print;
 import ma.yc.core.Util;
 import ma.yc.dto.*;
@@ -42,42 +43,9 @@ public class MainAgentGUI implements DisplayGUI {
         this.agentDto = new AgentDto();
         this.patientService = new PatientServiceImpl();
     }
-    public static boolean verifyEmail(String input){
-        String rgx = "^[a-zA-Z0-9]+@[a-z]+\\.[a-z]+$";
-        Pattern pattern = Pattern.compile(rgx);
-        Matcher matcher = pattern.matcher(input);
-        return matcher.matches();
-    }
 
-    public static Boolean sendMail(String body,String subject ,String email) {
-        final String username = "obelkadi336@gmail.com";
-        final String password = "hbdi wose rkeq qpme";
 
-        Properties properties = System.getProperties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        properties.put("mail.smtp.starttls.enable", "true");
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject(subject);
-            message.setText("Here is the code of verification authentic: "+body);
-            Transport.send(message);
-            return true;
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
     void verifyCodeVerification(AgentDto agentDto){
         //if the authentification is successful then show the Agent dashboard
@@ -99,7 +67,7 @@ public class MainAgentGUI implements DisplayGUI {
         Print.log("Authentification");
         String email = Util.readString("Email",scanner);
         agentDto.email = email;
-        if (verifyEmail(email)){
+        if (Util.verifyEmail(email)){
             String password = Util.readString("Password",scanner);
             agentDto.password = password;
             String code = this.agentService.authentifier(agentDto);
@@ -109,7 +77,7 @@ public class MainAgentGUI implements DisplayGUI {
                 this.agentDto.codeVerification=code;
                 if(this.agentService.insertCode(agentDto)){
                       try{
-                          sendMail(code, "code", agentDto.email);
+                          EmailProvider.sendMail(code, "code", agentDto.email);
                           verifyCodeVerification(agentDto);
                       }catch (Exception e) {
                           System.out.println("the code is not correct");
@@ -118,7 +86,6 @@ public class MainAgentGUI implements DisplayGUI {
 
                 }
 
-                sendMail(code, "code", agentDto.email);
 
             }else {
                 Print.log("Ops");
@@ -143,6 +110,16 @@ public class MainAgentGUI implements DisplayGUI {
         //go back to the main menu
         Print.log("5 - Go back to the main menu ");
         Print.log("0 - Exit ");
+
+        // : make those option shoort by using HashMap
+        HashMap<Integer , String> options = new HashMap<>();
+        options.put(1,"Add a new Dossier");
+        options.put(2,"Change a Dossier status");
+        options.put(3,"Consult a Dossier");
+        options.put(4,"Consult all Dossiers");
+        options.put(5,"Go back to the main menu");
+        options.put(0,"Exit");
+
 
         int choice = scanner.nextInt();
         switch (choice){
@@ -172,13 +149,13 @@ public class MainAgentGUI implements DisplayGUI {
     }
 
     private void consultAllDossiers( ) {
-        //Todo:Test Just for test
+        //:Test Just for test
         // : the consulterDossiers function must return List of DossierDto
         DossierDto dossierDto1 = new DossierDto();
         dossierDto1.patientDto = new PatientDto();
         dossierDto1.patientDto.matricule = Util.readString("Matricule",scanner);
         List<DossierDto> dossierDtoList = this.dossierService.consulterDossiers(dossierDto1);
-        //todo:stream data and map it to be more nice to be seen
+        //:stream data and map it to be more nice to be seen
         dossierDtoList.stream().map(dossierDto -> {
             Print.log(dossierDto.toString());
             return dossierDto;
@@ -209,7 +186,7 @@ public class MainAgentGUI implements DisplayGUI {
            Print.log("---------------**********--------------------");
            Print.log("\nthe status dossier changed successfully");
            Print.log("---------------**********--------------------");
-           sendMail("Your dossier Is changed to : "+ status, "code", agentDto.email);
+           EmailProvider.sendMail("Your dossier Is changed to : "+ status, "code", agentDto.email);
            Print.log("Email sent successfully to user");
 
        }else {
@@ -221,10 +198,8 @@ public class MainAgentGUI implements DisplayGUI {
     }
 
     private void addDossier( ) {
-        // : ask about the dossier information and add it
         Print.log("Entre le matricule de votre patient");
         String matricule = Util.readString("Matricule",scanner);
-        // first i need to verify the patient matircule if it exist or not
         PatientDto patientDto = new PatientDto();
         patientDto.matricule = matricule;
         if (!this.patientService.authentification(patientDto))
@@ -232,40 +207,23 @@ public class MainAgentGUI implements DisplayGUI {
             Print.log("Matricule does not exist");
             return;
         }
-        // : if the matricule exist then add the dossier
         dossierDto.patientDto =patientDto  ;
         String num_dossier = Util.readString("Num dossier",scanner);
         dossierDto.numDossier = num_dossier;
         dossierDto.status = statusDossier.En_attend;
 
-        //: ask about ficher one ficher
         dossierDto.fichier = this.saveFicher();
-
-        //: ask about medicaments  list;
         dossierDto.medicamentsDto = this.saveMedicament();
-
-        //: ask about analyses list;
-        //: ask if there's a analyses to include in the dossier
-
         dossierDto.analysesDto = this.saveAnalyses();
-        // : ask about scanners list;
         dossierDto.scannersDto = this.saveScanners();
-        // : ask about radios list;
         dossierDto.radiosDto = this.saveRadios();
-        // : ask about visits list ;
         dossierDto.visitesDto = this.saveVisits();
-        //: Print information
+
         Print.log(dossierDto.toString());
-        //:save dossier
         this.dossierService.enregistrerDossier(dossierDto);
 
-
-        //:call service to count amomunt .... totalRemboursement
         Float totalRemoursement =  this.dossierService.totalRemoursement("0");
         Print.log("Total Remboursement : " + totalRemoursement);
-
-
-
 
     }
 

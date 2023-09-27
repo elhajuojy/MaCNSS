@@ -6,9 +6,7 @@ package ma.yc.core;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import com.mysql.cj.Session;
 
-import java.net.Authenticator;
 import java.util.Properties;
 
 public class EmailProvider  {
@@ -24,42 +22,34 @@ public class EmailProvider  {
         this.smtpPort = smtpPort;
     }
 
-    public void sendEmail(String to, String subject, String body) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.port", String.valueOf(smtpPort));
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2"); // Use the appropriate version
+    public static Boolean sendMail(String body,String subject ,String email) {
+        final String username = "obelkadi336@gmail.com";
+        final String password = "hbdi wose rkeq qpme";
 
-
-
-//
-//        try {
-//        Session session = Session.getInstance(props, new Authenticator() {
-//
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication(username, password);
-//            }
-//        });
-//
-//        session.setDebug(true);
-//
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(username));
-//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-//            message.setSubject(subject);
-//            message.setText(body);
-//
-//            Transport.send(message);
-//            System.out.println("Email sent successfully.");
-//            Transport transport = session.getTransport("smtp");
-//            transport.close();
-//            System.out.println("SMTP session terminated.");
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//            System.err.println("Error sending email: " + e.getMessage());
-//        }
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.starttls.enable", "true");
+        javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject(subject);
+            message.setText("Here is the code of verification authentic: "+body);
+            Transport.send(message);
+            return true;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }
