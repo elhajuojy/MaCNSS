@@ -35,21 +35,15 @@ public class MainAdministeurGUI implements DisplayGUI{
 
     @Override
     public int displayMainOptions(Scanner scanner)  {
-        //show the admin options
-        // there's one option for now which is authentification before he can do anything
-        // if the authentification is successful then he can do anything
         Print.log("Bienvenue dans l'application de gestion des patients");
         Print.log("=== OPERATION  ===");
         Print.log("1 - Authentification ");
-        //go back to the main menu
         Print.log("2 - Go back to the main menu ");
         Print.log("0 - Exit ");
 
         int choice = scanner.nextInt();
         switch (choice){
             case 1:
-
-                //authentication: Admin need to be authenticated before he can do anything
                 String email;
                 String password ;
                 email  = Util.readString("Email",scanner);
