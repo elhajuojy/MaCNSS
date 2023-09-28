@@ -15,7 +15,6 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         try {
             Print.log("MACNSS Application ");
-
             int choice = 0;
             do {
                 choice  = displayGUI.displayMainOptions(scanner);
@@ -28,6 +27,8 @@ public class Application {
             boolean isClosed = DatabaseConnection.closeConnection();
             Print.log(isClosed);
         }
+
+        //test code push to branch test
 
 
     }

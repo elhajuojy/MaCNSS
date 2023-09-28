@@ -2,11 +2,13 @@ package ma.yc.model;
 
 import java.util.List;
 
-public class Patient {
+
+public class Patient  extends Utilisateur{
     private String matricule;
 
     private String nom;
     private List<Dossier> dossiers;
+
 
     public String getMatricule() {
         return matricule;
