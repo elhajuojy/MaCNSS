@@ -1,4 +1,4 @@
-name: Java CI
+name: Java CI with Maven in the develop branch
 
 on:
   push:
