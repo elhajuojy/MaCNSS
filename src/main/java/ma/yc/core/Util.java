@@ -2,6 +2,7 @@ package ma.yc.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -15,6 +16,16 @@ public class Util {
         return leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
     }
 
+
+    public static Date readDate(String key , Scanner scanner){
+        Print.log(key+" : ");
+        return new Date(scanner.nextLong());
+    }
+
+    public static  double readDouble(String key , Scanner scanner){
+        Print.log(key+" : ");
+        return scanner.nextDouble();
+    }
     public static boolean verifyEmail(String input){
         String rgx = "^[a-zA-Z0-9]+@[a-z]+\\.[a-z]+$";
         Pattern pattern = Pattern.compile(rgx);
@@ -57,6 +68,11 @@ public class Util {
             return defaultValue;
         }
         return input;
+    }
+
+    public static  long readLong(String key , Scanner scanner){
+        Print.log(key+" : ");
+        return scanner.nextLong();
     }
 
     //add more helper method
