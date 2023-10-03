@@ -26,7 +26,7 @@ public class EmployeServiceImpl implements EmployeeService {
         employeDto.nom = "nom";
         employeDto.prenom = "prenom";
         employeDto.email = "email";
-        employeDto.dateNaissance = new Date();
+        employeDto.dateNaissance = new Date().toString();
         employeDto.tel = "tel";
         employeDto.retaitre = Statusretaitre.OUI;
         employeDto.jourTravaillesParMois = null;

@@ -1,8 +1,15 @@
 package ma.yc.service.impl;
 
+import ma.yc.Mapper.Mapper;
+import ma.yc.Mapper.impl.SocieteMapper;
+import ma.yc.core.Util;
+import ma.yc.dao.SocieteDao;
+import ma.yc.dao.UserDao;
+import ma.yc.dao.impl.SocieteDaoImpl;
 import ma.yc.dto.EmployeDto;
 import ma.yc.dto.SocieteDto;
 import ma.yc.model.Hourly_emp;
+import ma.yc.model.Utilisateur;
 import ma.yc.service.EmployeeService;
 import ma.yc.service.SocieteService;
 
@@ -10,17 +17,40 @@ import java.util.ArrayList;
 
 public class SocieteServiceImpl implements SocieteService {
     private EmployeeService employeeService ;
+    private SocieteMapper societeMapper ;
+    private SocieteDao societeDao ;
+    private UserDao userDao ;
 
     public SocieteServiceImpl() {
+        SocieteDaoImpl societeDao = new SocieteDaoImpl();
         this.employeeService = new EmployeServiceImpl();
+        this.societeDao = societeDao ;
+        this.societeMapper = new SocieteMapper();
+        this.userDao = societeDao;
     }
 
     @Override
     public boolean login(String[] credentials) {
-        if (true){
-            return true;
+        //: FIRST EXTRACT DATA EMAIL AND ID FROM THE CREDENTIALS EMAIL 0 AND ID 1
+        String email = credentials[0];
+        String id = credentials[1];
+        // : DO SOME VALIDATION ON THE DATA
+        if(!Util.verifyEmail(email)|| email.isBlank() || id.isBlank() || id.isEmpty() ){
+            return false;
         }
-        return false;
+
+        //TODO : CALL THE MAPPER SO WE CAN MAP THE DTO TO ENTITY
+
+        SocieteDto societeDto = new SocieteDto();
+        societeDto.id = Long.valueOf(id);
+        societeDto.email = email ;
+
+        Utilisateur utilisateur = this.societeMapper.toEntity(societeDto);
+        utilisateur.toString();
+
+
+        return this.userDao.login(utilisateur);
+
     }
 
     @Override

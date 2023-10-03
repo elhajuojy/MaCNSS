@@ -5,6 +5,7 @@ import ma.yc.dto.SocieteDto;
 import ma.yc.model.Societe;
 
 import java.sql.PreparedStatement;
+import java.time.chrono.IsoEra;
 
 public class SocieteMapper implements Mapper<SocieteDto, Societe> {
     @Override
@@ -14,7 +15,16 @@ public class SocieteMapper implements Mapper<SocieteDto, Societe> {
 
     @Override
     public Societe toEntity(SocieteDto societeDto) {
-        return null;
+        Societe societe = new Societe();
+        societe.setEmail(societeDto.email);
+        societe.setPassword(societeDto.id.toString());
+        societe.setId(societeDto.id);
+        societe.setTel(societeDto.tel);
+        societe.setNom(societeDto.nom);
+        societe.setAdresse(societeDto.adresse);
+        //TODO : EMPLOYES MAPPER BROUH
+        societe.setEmployes(null);
+        return societe;
     }
 
     @Override

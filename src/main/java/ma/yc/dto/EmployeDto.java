@@ -13,7 +13,7 @@ public class EmployeDto {
     public String nom;
     public String prenom;
     public String email;
-    public Date dateNaissance;
+    public String dateNaissance;
     public String tel;
     public SocieteDto societe;
     public Statusretaitre retaitre;

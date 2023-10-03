@@ -2,6 +2,7 @@ package ma.yc.GUI;
 
 import ma.yc.core.Print;
 import ma.yc.core.Util;
+import ma.yc.dao.impl.SocieteDaoImpl;
 import ma.yc.dto.EmployeDto;
 import ma.yc.dto.SocieteDto;
 import ma.yc.enums.Statusretaitre;
@@ -220,13 +221,12 @@ public class MainSocieteGUI implements DisplayGUI{
     private void enregistreEmployeJamisEnregistre(Scanner scanner) {
         employeDto.retaitre = Statusretaitre.NON ;
         employeDto.salaire = 0;
-        //TODO : this matricule must be generated not provided by the company
-//        employeDto.matricule = Util.readLong("Matricule",scanner);
         employeDto.nom = Util.readString("Nom",scanner);
         employeDto.prenom = Util.readString("Prenom",scanner);
         employeDto.email = Util.readString("Email",scanner);
-        employeDto.dateNaissance = Util.readDate("Date de naissance",scanner);
+        employeDto.dateNaissance = Util.readString("Date de naissance",scanner);
         employeDto.tel = Util.readString("Tel",scanner);
+        employeDto.salaire = Util.readDouble("Salaire de base",scanner);
         Hourly_emp hourly_emp = new Hourly_emp();
         hourly_emp.setJourTravaille(25);
         employeDto.jourTravaillesParMois = new ArrayList<>();
