@@ -77,20 +77,23 @@ public class MainSocieteGUI implements DisplayGUI{
             String nom;
             String adresse;
             String email;
+            String tel ;
             id = Util.readString("ID",scanner);
             email  = Util.readString("Email",scanner);
             nom = Util.readString("Nom",scanner);
             adresse = Util.readString("Adresse",scanner);
+            tel = Util.readString("Tel",scanner);
+
             societeDto.id = Long.parseLong(id);
             societeDto.nom = nom;
             societeDto.adresse = adresse;
             societeDto.email = email;
+            societeDto.tel = tel;
             // : CREATE AN ACCOUNT AND RETURN BOOLEAN VALUE TO CHECK IF THE ACCOUNT IS CREATED OR NOT
             SocieteDto  isSaved =  this.societeService.addSociete(societeDto);
             if(isSaved != null){
                 Print.log("Bienvenue !\n" +
                         "votre compte a bien été créé");
-
                 this.authentification(scanner);
             }else {
                 Print.log("Error while creating an account");

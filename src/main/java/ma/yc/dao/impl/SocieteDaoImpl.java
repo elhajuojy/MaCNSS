@@ -30,8 +30,20 @@ public class SocieteDaoImpl implements SocieteDao , UserDao {
     }
 
     @Override
-    public void createSociete() {
-
+    public boolean createSociete(Societe societe) {
+        String query = "INSERT INTO societe (id, nom, email, tel, adresse) VALUES (?,?,?,?,?)";
+        try{
+            PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+            preparedStatement.setLong(1, societe.getId());
+            preparedStatement.setString(2, societe.getNom());
+            preparedStatement.setString(3, societe.getEmail());
+            preparedStatement.setString(4, societe.getTel());
+            preparedStatement.setString(5, societe.getAdresse());
+            return preparedStatement.executeUpdate() == 1;
+        }catch (SQLException e){
+            Print.log(e.toString());
+        }
+        return false;
     }
 
     @Override

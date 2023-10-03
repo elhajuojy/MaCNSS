@@ -1,11 +1,12 @@
 package ma.yc.dao;
 
 import ma.yc.model.Employe;
+import ma.yc.model.Societe;
 
 public interface SocieteDao {
 
  // vous êtes invité à créer une interface console pour la création d'un compte société dans le système macnss
-    public void createSociete();
+    public boolean createSociete(Societe societe);
 
     //chaque société enregistre un employé avec une cotisation de salaire pour le traitement de la retraite,
     public void createEmploye();

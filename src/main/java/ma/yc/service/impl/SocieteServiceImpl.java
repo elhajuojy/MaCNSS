@@ -10,6 +10,7 @@ import ma.yc.dto.EmployeDto;
 import ma.yc.dto.SocieteDto;
 import ma.yc.model.Employe;
 import ma.yc.model.Hourly_emp;
+import ma.yc.model.Societe;
 import ma.yc.model.Utilisateur;
 import ma.yc.service.EmployeeService;
 import ma.yc.service.SocieteService;
@@ -63,8 +64,10 @@ public class SocieteServiceImpl implements SocieteService {
 
     @Override
     public SocieteDto addSociete(SocieteDto societeDto) {
+        //TODO : IN THIS FACE THE EMPLOYE MUST BE ADD AS A EMPLOYE OF THE SOCIETE BY ADDING THE SOCIETE ID TO THE EMPLOYE
+        Societe societe = this.societeMapper.toEntity(societeDto);
+       return this.societeDao.createSociete(societe)? societeDto : null;
             
-        return this.dumpSociete();
     }
 
     private SocieteDto dumpSociete() {
