@@ -12,5 +12,4 @@ public interface EmployeeService  extends Authenfication{
 
     boolean updateEmployeeSalary(Long id,Long idSociete, double salary);
 
-    boolean declareJourTravileParEmployee(long societeId, long employeeMatricule, int jourTravile);
 }

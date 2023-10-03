@@ -8,6 +8,4 @@ public interface EmployeDao {
     public boolean addEmployee(Employe employe);
     public boolean updateEmployeeSalary(double salary,Long idSociete,long id);
 
-
-    boolean declareJourTravileParEmployee(long societeId, long employeeMatricule, int jourTravile);
 }

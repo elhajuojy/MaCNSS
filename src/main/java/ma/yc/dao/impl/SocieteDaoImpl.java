@@ -9,6 +9,8 @@ import ma.yc.model.Societe;
 import ma.yc.model.Utilisateur;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,16 @@ public class SocieteDaoImpl implements SocieteDao , UserDao {
 
     @Override
     public Employe declareJourTravileParEmploye(Employe employe, int nombreJourTravaille) {
+            String query  = "INSERT INTO hourly_emp (employe_id, jour_travaille) VALUES (?,?);";
+            try {
+                PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+                preparedStatement.setLong(1, employe.getMatricule());
+                preparedStatement.setInt(2, nombreJourTravaille);
+                return preparedStatement.executeUpdate() == 1 ? employe : null;
+            }
+            catch (SQLException e){
+                Print.log(e.toString());
+            }
         return null;
     }
 

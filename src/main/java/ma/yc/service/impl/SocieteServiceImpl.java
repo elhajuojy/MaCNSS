@@ -8,6 +8,7 @@ import ma.yc.dao.UserDao;
 import ma.yc.dao.impl.SocieteDaoImpl;
 import ma.yc.dto.EmployeDto;
 import ma.yc.dto.SocieteDto;
+import ma.yc.model.Employe;
 import ma.yc.model.Hourly_emp;
 import ma.yc.model.Utilisateur;
 import ma.yc.service.EmployeeService;
@@ -102,7 +103,10 @@ public class SocieteServiceImpl implements SocieteService {
 //        hourly_emp.setJourTravaille(jourTravile)  ;
 //        hourly_emp.setId(employeDto.matricule);
 //        employeDto.jourTravaillesParMois.add(hourly_emp);
-        boolean isSaved = this.employeeService.declareJourTravileParEmployee(societeId,employeeMatricule,jourTravile);
-        return isSaved? this.employeeService.consultEmployee(employeeMatricule):null;
+        Employe employe = new Employe();
+        employe.setMatricule(employeeMatricule);
+
+        Employe isSaved = this.societeDao.declareJourTravileParEmploye(employe,jourTravile);
+        return isSaved != null ? this.employeeService.consultEmployee(employeeMatricule) : null;
     }
 }

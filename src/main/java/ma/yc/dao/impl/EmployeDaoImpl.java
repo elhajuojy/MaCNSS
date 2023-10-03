@@ -83,19 +83,5 @@ public class EmployeDaoImpl implements EmployeDao {
         return false;
     }
 
-    @Override
-    public boolean declareJourTravileParEmployee(long societeId, long employeeMatricule, int jourTravile) {
-        String query  = "INSERT INTO hourly_emp (employe_id, jour_travaille) VALUES (?,?);";
-        try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(query);
-            preparedStatement.setLong(1, employeeMatricule);
-            preparedStatement.setInt(2, jourTravile);
-            return preparedStatement.executeUpdate() == 1;
-        }
-        catch (SQLException e){
-            Print.log(e.toString());
-        }
 
-        return false;
-    }
 }

@@ -87,11 +87,7 @@ public class EmployeServiceImpl implements EmployeeService {
         return this.employeDao.updateEmployeeSalary(salary, idSociete, id);
     }
 
-    @Override
-    public boolean declareJourTravileParEmployee(long societeId, long employeeMatricule, int jourTravile) {
-        return this.employeDao.declareJourTravileParEmployee(societeId, employeeMatricule, jourTravile);
 
-    }
 
     @Override
     public boolean login(String[] credentials) {
