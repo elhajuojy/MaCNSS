@@ -48,7 +48,6 @@ public class SocieteServiceImpl implements SocieteService {
         Utilisateur utilisateur = this.societeMapper.toEntity(societeDto);
         utilisateur.toString();
 
-
         return this.userDao.login(utilisateur);
 
     }
@@ -97,12 +96,13 @@ public class SocieteServiceImpl implements SocieteService {
     @Override
     public EmployeDto declareJourTravileParEmployee(long societeId, long employeeMatricule, int jourTravile) {
         //TODO : IN THIS FACE THE EMPLOYE MUST BE ADD AS A EMPLOYE OF THE SOCIETE BY ADDING THE SOCIETE ID TO THE EMPLOYE
-        EmployeDto employeDto = this.employeeService.consultEmployee(employeeMatricule);
-        //
-        Hourly_emp hourly_emp = new Hourly_emp();
-        hourly_emp.setJourTravaille(jourTravile)  ;
-        hourly_emp.setId(employeDto.matricule);
-        employeDto.jourTravaillesParMois.add(hourly_emp);
-        return employeDto;
+//        EmployeDto employeDto = this.employeeService.consultEmployee(employeeMatricule);
+//        //
+//        Hourly_emp hourly_emp = new Hourly_emp();
+//        hourly_emp.setJourTravaille(jourTravile)  ;
+//        hourly_emp.setId(employeDto.matricule);
+//        employeDto.jourTravaillesParMois.add(hourly_emp);
+        boolean isSaved = this.employeeService.declareJourTravileParEmployee(societeId,employeeMatricule,jourTravile);
+        return isSaved? this.employeeService.consultEmployee(employeeMatricule):null;
     }
 }

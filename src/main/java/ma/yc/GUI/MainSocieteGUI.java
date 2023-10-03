@@ -11,6 +11,7 @@ import ma.yc.service.EmployeeService;
 import ma.yc.service.SocieteService;
 import ma.yc.service.impl.EmployeServiceImpl;
 import ma.yc.service.impl.SocieteServiceImpl;
+import pl.mjaron.etudes.Arr;
 import pl.mjaron.etudes.Table;
 
 import java.util.ArrayList;
@@ -22,7 +23,10 @@ public class MainSocieteGUI implements DisplayGUI{
     private  SocieteDto societeDto ;
     private  EmployeDto employeDto;
     private final EmployeeService employeeService ;
+    private  SocieteSession societeSession;
 
+    record SocieteSession(String email, Long id) {
+    }
 
     public MainSocieteGUI() {
         this.societeService = new SocieteServiceImpl();
@@ -114,10 +118,13 @@ public class MainSocieteGUI implements DisplayGUI{
         boolean isAuthentificated = this.societeService.login(credentials);
 
         if (isAuthentificated){
+            Print.log("Authentication success");
+            this.societeSession = new SocieteSession(email,id);
             this.showDashboard(scanner);
         }
         else{
             Print.log("Authentication failed");
+            this.societeSession = null;
             this.displayMainOptions(scanner);
         }
         return 0;
@@ -154,18 +161,27 @@ public class MainSocieteGUI implements DisplayGUI{
     private void JourTravileParMois(Scanner scanner) {
         // : DECELERE JOUR DE TRAVAIL PAR EMPLOYE CHAQUE MOIS
         //WE ASK THE COMPANY FOR THE EMPLOYEE ID WHICH IS ONE WHICH IS UNIQUE OVER THE EMPLOYEE LIFE WORK
-        int id = Util.readInt("ID",scanner);
+        long id = Util.readLong("MATRICULE EMPLOYE ",scanner);
         // : WE ASK THE COMPANY FOR THE NUMBER OF DAYS WORKED BY THE EMPLOYEE
         int jourTravaille = Util.readInt("Jour travaillé",scanner);
         // : MONTH AND YEAR
         int month = Util.readInt("Month",scanner);
         int year = Util.readInt("Year",scanner);
-        //TODO : CALLING THE SERVICE TO DO THE JOB
+        // : CALLING THE SERVICE TO DO THE JOB
         ArrayList<EmployeDto> employeDtos = new ArrayList<>();
-        employeDtos.add( this.societeService.declareJourTravileParEmployee(3847483L,3844787L,22));
-        Table.render(employeDtos,EmployeDto.class).run();
+        employeDtos.add(this.societeService.declareJourTravileParEmployee(this.societeSession.id,id,jourTravaille));
+
+        if (employeDtos.size() > 0){
+            Print.log("Jour de travaille par mois a été enregistré avec succès");
+            this.showDashboard(scanner);
+        }else {
+            Print.log("Jour de travaille par mois n'a pas été enregistré avec succès");
+            this.showDashboard(scanner);
+        }
+
         this.displayMainOptions(scanner);
     }
+
 
     private void enregistreEmploye(Scanner scanner) {
         //TODO : ENREGISTRE EMPLOYE
@@ -205,14 +221,13 @@ public class MainSocieteGUI implements DisplayGUI{
     private void enregistreEmployeDejaEnregistre(Scanner scanner) {
         Print.log("=== Enregistre un employé  ===");
         // : WE ASK THE COMPANY FOR THE EMPLOYEE ID WHICH IS ONE WHICH IS UNIQUE OVER THE EMPLOYEE LIFE WORK
-        int id = Util.readInt("MATIRCULE",scanner);
+        Long id = Util.readLong("MATIRCULE",scanner);
         // : in this case we verify if the employee is already registered in the system BY MATIRCULE
         if (this.employeeService.isEmployeeExist(id)){
             Print.log("L'employé est déjà enregistré dans le système");
-            this.enregistreEmployeDejaEnregistre(scanner);
             double salary = Util.readDouble("Salaire",scanner);
-            // : if the employee is already registerd in the system we ask the comapny to provide his based salary
-            this.employeeService.updateEmployeeSalary(id , salary);
+            // TODO : if the employee is already registerd in the system we ask the comapny to provide his based salary
+           boolean isSaved = this.employeeService.updateEmployeeSalary(id ,this.societeSession.id , salary);
         }else{
             Print.log("L'employé n'est pas enregistré dans le système");
         }
@@ -227,13 +242,13 @@ public class MainSocieteGUI implements DisplayGUI{
         employeDto.dateNaissance = Util.readString("Date de naissance",scanner);
         employeDto.tel = Util.readString("Tel",scanner);
         employeDto.salaire = Util.readDouble("Salaire de base",scanner);
-        Hourly_emp hourly_emp = new Hourly_emp();
-        hourly_emp.setJourTravaille(25);
-        employeDto.jourTravaillesParMois = new ArrayList<>();
-        employeDto.jourTravaillesParMois.add(hourly_emp);
+        employeDto.societe = new SocieteDto();
+        employeDto.societe.id  = this.societeSession.id;
+        employeDto.societe.email = this.societeSession.email;
         EmployeDto employeDto1 = this.employeeService.addEmployee(employeDto);
         if (employeDto1 != null) {
             Print.log("L'employé a été enregistré avec succès");
+            Print.log("MATIRCULE : " + employeDto1.matricule);
         }else {
             Print.log("L'employé n'a pas été enregistré avec succès");
         }

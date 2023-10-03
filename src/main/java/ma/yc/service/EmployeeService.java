@@ -8,7 +8,9 @@ public interface EmployeeService  extends Authenfication{
     public EmployeDto consultEmployee(long employeeMatricule);
 
 
-    boolean isEmployeeExist(int id);
+    boolean isEmployeeExist(Long id);
 
-    boolean updateEmployeeSalary(int id, double salary);
+    boolean updateEmployeeSalary(Long id,Long idSociete, double salary);
+
+    boolean declareJourTravileParEmployee(long societeId, long employeeMatricule, int jourTravile);
 }

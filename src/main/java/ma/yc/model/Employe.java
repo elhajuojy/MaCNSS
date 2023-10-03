@@ -1,11 +1,17 @@
 package ma.yc.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ma.yc.enums.Statusretaitre;
 
 import java.util.Date;
 import java.util.List;
 
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 //todo : employe :: slaiare history :: jour travaillé :: matricule :: nom :: prenom :: email :: date naissance :: tel :: societe :: retraitre
 public class Employe extends Utilisateur {
     //chaque employé doit cumulé au minimum 1320 jours dans sa carrière professionnelle si un employé change de socité,

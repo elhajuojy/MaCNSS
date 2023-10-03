@@ -32,7 +32,6 @@ public class MainGUI  implements  DisplayGUI{
         Print.log("4 - Êtes-vous un employé ? ");
         Print.log("5 - Êtes-vous une société ? ");
         Print.log("0 - Exit ");
-
         int choice = scanner.nextInt();
         if (choice == 0 || choice > 5){
             Print.log("your choice is not correct");
