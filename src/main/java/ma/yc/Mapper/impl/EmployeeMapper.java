@@ -71,7 +71,22 @@ public class EmployeeMapper implements Mapper<EmployeDto, Employe> {
 
     @Override
     public EmployeDto toDto(Employe employe) {
-        return null;
+        EmployeDto employeDto = new EmployeDto();
+        employeDto.matricule = employe.getMatricule();
+        employeDto.nom = employe.getNom();
+        employeDto.prenom = employe.getPrenom();
+        employeDto.email = employe.getEmail();
+        employeDto.dateNaissance = employe.getDateNaissance().toString();
+        employeDto.tel = employe.getTel();
+        if (employe.getJourTravaillesParMois() !=null || !(employe.getJourTravaillesParMois().size() <1)){
+            employeDto.nombreJourTravaille  = employe.getJourTravaillesParMois().stream().map(num ->num.getJourTravaille()).reduce(0, Integer::sum);
+        }
+        employeDto.societe = this.societeMapper.toDto(employe.getSociete());
+        employeDto.retaitre = employe.getRetaitre();
+        employeDto.jourTravaillesParMois = employe.getJourTravaillesParMois();
+        employeDto.salaires = employe.getSalaires();
+        employeDto.salaire = employe.getSalaire();
+        return employeDto;
     }
 
     @Override

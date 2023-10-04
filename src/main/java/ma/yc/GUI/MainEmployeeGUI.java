@@ -77,7 +77,18 @@ public class MainEmployeeGUI implements DisplayGUI{
         EmployeDto employeDto =  this.employeeService.consultEmployee(Long.parseLong(matricule));
         ArrayList<EmployeDto> employeDtos = new ArrayList<>();
         employeDtos.add(employeDto);
-        Table.render(employeDtos,EmployeDto.class).run();
+        Print.log("=== Consultation compte  ===");
+        Print.log("nom : "+employeDto.nom);
+        Print.log("prenom : "+employeDto.prenom);
+        Print.log("email : "+employeDto.email);
+        Print.log("tel : "+employeDto.tel);
+        Print.log("dateNaissance : "+employeDto.dateNaissance);
+        Print.log("salaire : "+employeDto.salaire);
+        Print.log("nombreJourTravaille : "+employeDto.nombreJourTravaille);
+        Print.log("retaitre : "+employeDto.retaitre);
+        Print.log("salaireRetraite : "+employeDto.salaireRetraite);
+
+//        Print.log(employeDto.toString());
         Print.log("click any key to exit");
         scanner.next();
         return  0;

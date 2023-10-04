@@ -75,6 +75,20 @@ public class Util {
         return scanner.nextLong();
     }
 
+    public static int calculateAge(int year, int month, int day) {
+        int age = 0;
+        int currentYear = new Date().getYear() + 1900;
+        int currentMonth = new Date().getMonth() + 1;
+        int currentDay = new Date().getDay() + 1;
+        age = currentYear - year;
+        if (currentMonth < month) {
+            age--;
+        } else if (currentMonth == month && currentDay < day) {
+            age--;
+        }
+        return age;
+    }
+
     //add more helper method
     //todo : work with local storage to store information
     public boolean storeInformation(String key , String value){

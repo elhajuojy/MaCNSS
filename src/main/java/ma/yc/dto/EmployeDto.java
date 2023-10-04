@@ -1,5 +1,6 @@
 package ma.yc.dto;
 
+import lombok.ToString;
 import ma.yc.enums.Statusretaitre;
 import ma.yc.model.Hourly_emp;
 import ma.yc.model.SalaryHistory;
@@ -8,6 +9,7 @@ import ma.yc.model.Societe;
 import java.util.Date;
 import java.util.List;
 
+@ToString
 public class EmployeDto {
     public Long matricule;
     public String nom;
@@ -20,4 +22,6 @@ public class EmployeDto {
     public List<Hourly_emp> jourTravaillesParMois;
     public List<SalaryHistory> salaires;
     public double salaire;
+    public double salaireRetraite = 0.0;
+    public int nombreJourTravaille = 0;
 }

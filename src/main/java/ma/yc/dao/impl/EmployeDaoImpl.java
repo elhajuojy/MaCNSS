@@ -4,8 +4,12 @@ import ma.yc.core.Print;
 import ma.yc.dao.EmployeDao;
 import ma.yc.database.DatabaseConnection;
 import ma.yc.model.Employe;
+import ma.yc.model.Hourly_emp;
+import ma.yc.model.SalaryHistory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeDaoImpl implements EmployeDao {
     private Employe employe = new Employe();
@@ -36,8 +40,43 @@ public class EmployeDaoImpl implements EmployeDao {
                 this.employe.setTel(resultSet.getString("tel"));
                 this.employe.setSalaire(resultSet.getDouble("salaire"));
                 this.employe.setSociete(null);
-                return this.employe;
+
             }
+
+            //TODO : GET THE LAST 96 RECORDS FROM THE SALARY HISTORY
+            String SalaryQuery = "SELECT * FROM salary_history WHERE employe_id = ? ORDER BY id DESC LIMIT 96";
+            PreparedStatement salaryStatement = this.connection.prepareStatement(SalaryQuery);
+            salaryStatement.setLong(1, this.employe.getMatricule());
+            ResultSet salaryResultSet = salaryStatement.executeQuery();
+            ArrayList<SalaryHistory> salaryHistories = new ArrayList<>() ;
+            SalaryHistory salaryHistory = new SalaryHistory();
+            while (salaryResultSet.next()){
+                //TODO : GET THE SALARY HISTORY
+                salaryHistory.setId(salaryResultSet.getLong("id"));
+                salaryHistory.setSalaire(salaryResultSet.getDouble("salaire"));
+                salaryHistories.add(salaryHistory);
+
+            }
+                this.employe.setSalaires(salaryHistories);
+
+            //GETT ALL THE WORKING DAYS
+            String hourlySumQuery = "SELECT * FROM hourly_emp WHERE employe_id = ?";
+             PreparedStatement hourlySumStatement = this.connection.prepareStatement(hourlySumQuery);
+             hourlySumStatement.setLong(1, this.employe.getMatricule());
+             ResultSet hourlySumResultSet = hourlySumStatement.executeQuery();
+             ArrayList<Hourly_emp> hourly_emps = new ArrayList<>();
+                while (hourlySumResultSet.next()){
+                    Hourly_emp hourly_emp = new Hourly_emp();
+//                    Print.log(hourlySumResultSet.getInt(3));
+                    hourly_emp.setJourTravaille(hourlySumResultSet.getInt("jour_travaille"));
+                    hourly_emp.setId(hourlySumResultSet.getLong("id"));
+                    hourly_emps.add(hourly_emp);
+                }
+                this.employe.setJourTravaillesParMois(hourly_emps);
+
+
+
+            return this.employe;
         }catch (SQLException e){
             Print.log(e.toString());
         }
