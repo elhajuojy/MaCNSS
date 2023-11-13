@@ -25,7 +25,7 @@ jobs:
           server-password: ${{ secrets.GITHUB_TOKEN }}
           overwrite-settings: true
           job-status: success
-      - run: echo "token => ${{ NEW_TOKEN_ME }} .  "
+      - run: echo "token => ${{ env.NEW_TOKEN_ME }} .  "
       
       - name: Build with Maven
         run: mvn clean install  # Modify this command based on your project structure
