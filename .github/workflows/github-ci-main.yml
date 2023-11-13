@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -25,9 +25,11 @@ jobs:
           server-password: ${{ secrets.GITHUB_TOKEN }}
           overwrite-settings: true
           job-status: success
-
+      - run: echo "token => ${{ NEW_TOKEN }} .  "
+      
       - name: Build with Maven
         run: mvn clean install  # Modify this command based on your project structure
+        
 
       - name: Run tests
         run: mvn clean test -B
